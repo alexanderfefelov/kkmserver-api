@@ -2,6 +2,7 @@ package ru.kkmserver
 
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
+import com.typesafe.scalalogging.Logger
 import play.api.libs.json._
 import play.api.libs.ws.WSAuthScheme
 import play.api.libs.ws.ahc.StandaloneAhcWSClient
@@ -16,14 +17,17 @@ class Api()(implicit val actorSystem: ActorSystem, implicit val actorMaterialize
 
   def list(request: ListRequest): Future[ListResponse] = {
     val requestJson = Json.toJson(request)
+    logger.debug(s"request: $requestJson")
     val responseFuture = call(requestJson)
     for {
       response <- responseFuture
     } yield {
+      logger.debug(s"response: ${response.json}")
       response.json.validate[ListResponse] match {
         case s: JsSuccess[ListResponse] =>
           s.value
         case e: JsError =>
+          logger.error(s"error: ${e.errors}")
           throw JsResultException(e.errors)
       }
     }
@@ -31,14 +35,17 @@ class Api()(implicit val actorSystem: ActorSystem, implicit val actorMaterialize
 
   def xReport(request: XReportRequest): Future[XReportResponse] = {
     val requestJson = Json.toJson(request)
+    logger.debug(s"request: $requestJson")
     val responseFuture = call(requestJson)
     for {
       response <- responseFuture
     } yield {
+      logger.debug(s"response: ${response.json}")
       response.json.validate[XReportResponse] match {
         case s: JsSuccess[XReportResponse] =>
           s.value
         case e: JsError =>
+          logger.error(s"error: ${e.errors}")
           throw JsResultException(e.errors)
       }
     }
@@ -46,14 +53,17 @@ class Api()(implicit val actorSystem: ActorSystem, implicit val actorMaterialize
 
   def zReport(request: ZReportRequest): Future[ZReportResponse] = {
     val requestJson = Json.toJson(request)
+    logger.debug(s"request: $requestJson")
     val responseFuture = call(requestJson)
     for {
       response <- responseFuture
     } yield {
+      logger.debug(s"response: ${response.json}")
       response.json.validate[ZReportResponse] match {
         case s: JsSuccess[ZReportResponse] =>
           s.value
         case e: JsError =>
+          logger.error(s"error: ${e.errors}")
           throw JsResultException(e.errors)
       }
     }
@@ -61,14 +71,17 @@ class Api()(implicit val actorSystem: ActorSystem, implicit val actorMaterialize
 
   def registerCheck(request: RegisterCheckRequest): Future[RegisterCheckResponse] = {
     val requestJson = Json.toJson(request)
+    logger.debug(s"request: $requestJson")
     val responseFuture = call(requestJson)
     for {
       response <- responseFuture
     } yield {
+      logger.debug(s"response: ${response.json}")
       response.json.validate[RegisterCheckResponse] match {
         case s: JsSuccess[RegisterCheckResponse] =>
           s.value
         case e: JsError =>
+          logger.error(s"error: ${e.errors}")
           throw JsResultException(e.errors)
       }
     }
@@ -76,14 +89,17 @@ class Api()(implicit val actorSystem: ActorSystem, implicit val actorMaterialize
 
   def getRezult(request: GetRezultRequest): Future[GetRezultResponse] = {
     val requestJson = Json.toJson(request)
+    logger.debug(s"request: $requestJson")
     val responseFuture = call(requestJson)
     for {
       response <- responseFuture
     } yield {
+      logger.debug(s"response: ${response.json}")
       response.json.validate[GetRezultResponse] match {
         case s: JsSuccess[GetRezultResponse] =>
           s.value
         case e: JsError =>
+          logger.error(s"error: ${e.errors}")
           throw JsResultException(e.errors)
       }
     }
@@ -95,5 +111,7 @@ class Api()(implicit val actorSystem: ActorSystem, implicit val actorMaterialize
       .withHttpHeaders("Accept" -> "application/json")
       .post(json)
   }
+
+  private val logger = Logger("kkmserver-api")
 
 }
