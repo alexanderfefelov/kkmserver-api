@@ -11,8 +11,6 @@ case class ZReportRequest (
 
 object ZReportRequest {
 
-  val Command = "ZReport"
-
   implicit val zReportRequestWrites: Writes[ZReportRequest] = (
     (JsPath \ "Command").write[String] and
       (JsPath \ "NumDevice").write[Int] and

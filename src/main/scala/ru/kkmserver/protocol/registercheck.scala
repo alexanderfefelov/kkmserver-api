@@ -86,8 +86,6 @@ case class RegisterCheckRequest (
 
 object RegisterCheckRequest {
 
-  val Command = "RegisterCheck"
-
   implicit val checkPropWrites: Writes[CheckProp] = (
     (JsPath \ "Print").write[Boolean] and
       (JsPath \ "PrintInHeader").write[Boolean] and

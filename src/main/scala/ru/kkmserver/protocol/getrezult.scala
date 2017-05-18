@@ -10,8 +10,6 @@ case class GetRezultRequest (
 
 object GetRezultRequest {
 
-  val Command = "GetRezult"
-
   implicit val getRezultRequestWrites: Writes[GetRezultRequest] = (
     (JsPath \ "Command").write[String] and
       (JsPath \ "IdCommand").write[String]

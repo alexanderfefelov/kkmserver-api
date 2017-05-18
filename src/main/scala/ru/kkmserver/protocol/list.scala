@@ -21,8 +21,6 @@ case class ListRequest (
 
 object ListRequest {
 
-  val Command = "List"
-
   implicit val listRequestWrites: Writes[ListRequest] = (
     (JsPath \ "Command").write[String] and
       (JsPath \ "NumDevice").writeNullable[Int] and

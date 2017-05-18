@@ -30,7 +30,7 @@ class Api()(implicit val actorSystem: ActorSystem, implicit val actorMaterialize
   }
 
   def listAll: Future[ListResponse] = {
-    val request = ListRequest(ListRequest.Command, None, None, None, None, None, None, None, None, None, None)
+    val request = ListRequest(CommandList, None, None, None, None, None, None, None, None, None, None)
     list(request)
   }
 

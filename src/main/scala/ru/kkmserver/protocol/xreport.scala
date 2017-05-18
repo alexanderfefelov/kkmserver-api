@@ -11,8 +11,6 @@ case class XReportRequest (
 
 object XReportRequest {
 
-  val Command = "XReport"
-
   implicit val xReportRequestWrites: Writes[XReportRequest] = (
     (JsPath \ "Command").write[String] and
       (JsPath \ "NumDevice").write[Int] and
