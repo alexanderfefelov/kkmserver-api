@@ -4,7 +4,7 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json.{JsPath, Reads, Writes}
 
 case class XReportRequest (
-  Command: String,
+  Command: String = CommandXReport,
   NumDevice: Int,
   IdCommand: String = java.util.UUID.randomUUID().toString
 )

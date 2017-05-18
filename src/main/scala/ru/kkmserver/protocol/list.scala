@@ -5,17 +5,17 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json.{JsPath, Reads, Writes}
 
 case class ListRequest (
-  Command: String,
-  NumDevice: Option[Int],
-  InnKkm: Option[String],
-  IP: Option[String],
-  Active: Option[Boolean],
-  OnOff: Option[Boolean],
-  OFD_Error: Option[Boolean],
-  OFD_DateErrorDoc: Option[DateTime],
-  FN_DateEnd: Option[DateTime],
-  FN_MemOverflowl: Option[Boolean],
-  FN_IsFiscal: Option[Boolean],
+  Command: String = CommandList,
+  NumDevice: Option[Int] = None,
+  InnKkm: Option[String] = None,
+  IP: Option[String] = None,
+  Active: Option[Boolean] = None,
+  OnOff: Option[Boolean] = None,
+  OFD_Error: Option[Boolean] = None,
+  OFD_DateErrorDoc: Option[DateTime] = None,
+  FN_DateEnd: Option[DateTime] = None,
+  FN_MemOverflowl: Option[Boolean] = None,
+  FN_IsFiscal: Option[Boolean] = None,
   IdCommand: String = java.util.UUID.randomUUID().toString
 )
 

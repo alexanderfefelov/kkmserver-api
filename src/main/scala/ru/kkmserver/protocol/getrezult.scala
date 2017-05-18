@@ -4,7 +4,7 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json.{JsPath, Reads, Writes}
 
 case class GetRezultRequest (
-  Command: String,
+  Command: String = CommandGetRezult,
   IdCommand: String
 )
 

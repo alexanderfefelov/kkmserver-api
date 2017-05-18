@@ -62,7 +62,7 @@ case class BarCodeCheckString (
 ) extends CheckString
 
 case class RegisterCheckRequest (
-  Command: String,
+  Command: String = CommandRegisterCheck,
   NumDevice: Int,
   InnKkm: String,
   KktNumber: String,

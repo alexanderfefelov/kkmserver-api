@@ -29,11 +29,6 @@ class Api()(implicit val actorSystem: ActorSystem, implicit val actorMaterialize
     }
   }
 
-  def listAll: Future[ListResponse] = {
-    val request = ListRequest(CommandList, None, None, None, None, None, None, None, None, None, None)
-    list(request)
-  }
-
   def xReport(request: XReportRequest): Future[XReportResponse] = {
     val requestJson = Json.toJson(request)
     val responseFuture = call(requestJson)
