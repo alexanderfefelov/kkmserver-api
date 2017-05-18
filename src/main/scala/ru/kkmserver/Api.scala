@@ -79,6 +79,21 @@ class Api()(implicit val actorSystem: ActorSystem, implicit val actorMaterialize
     }
   }
 
+  def getRezult(request: GetRezultRequest): Future[GetRezultResponse] = {
+    val requestJson = Json.toJson(request)
+    val responseFuture = call(requestJson)
+    for {
+      response <- responseFuture
+    } yield {
+      response.json.validate[GetRezultResponse] match {
+        case s: JsSuccess[GetRezultResponse] =>
+          s.value
+        case e: JsError =>
+          throw JsResultException(e.errors)
+      }
+    }
+  }
+
   private def call(json: JsValue) = {
     wsClient.url(Config.url)
       .withAuth(Config.username, Config.password, WSAuthScheme.BASIC)
