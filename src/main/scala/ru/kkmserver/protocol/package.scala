@@ -13,6 +13,7 @@ package object protocol {
   val CommandRegisterCheck: String = "RegisterCheck"
   val CommandXReport: String = "XReport"
   val CommandZReport: String = "ZReport"
+  val CommandGetDataKKT: String = "GetDataKKT"
 
   val CommandStatusOk: Int = 0
   val CommandStatusRun: Int = 1
@@ -26,5 +27,9 @@ package object protocol {
   val TypeCheckEgaisSaleReturn: Int = 9
   val TypeCheckPurchase: Int = 10
   val TypeCheckPurchaseReturn: Int = 11
+
+  val SessionStateClosed: Int = 1
+  val SessionStateOpen: Int = 2
+  val SessionStateExpired: Int = 3
 
 }
