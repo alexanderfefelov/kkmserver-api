@@ -9,6 +9,8 @@ package object protocol {
   val jodaReadsShort: Reads[DateTime] = Reads.of[String] map (DateTime.parse(_, DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss")))
   val jodaReadsLong: Reads[DateTime] = Reads.of[String] map (DateTime.parse(_, DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZ")))
 
+  def createUuid: String = java.util.UUID.randomUUID().toString
+
   val CommandGetRezult: String = "GetRezult"
   val CommandList: String = "List"
   val CommandRegisterCheck: String = "RegisterCheck"

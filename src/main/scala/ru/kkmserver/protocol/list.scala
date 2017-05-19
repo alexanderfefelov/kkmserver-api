@@ -16,7 +16,7 @@ case class ListRequest (
   FN_DateEnd: Option[DateTime] = None,
   FN_MemOverflowl: Option[Boolean] = None,
   FN_IsFiscal: Option[Boolean] = None,
-  IdCommand: String = java.util.UUID.randomUUID().toString
+  IdCommand: String = createUuid
 )
 
 object ListRequest {

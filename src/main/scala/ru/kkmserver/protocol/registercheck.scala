@@ -81,7 +81,7 @@ case class RegisterCheckRequest (
   CashLessType1: Double,
   CashLessType2: Double,
   CashLessType3: Double,
-  IdCommand: String = java.util.UUID.randomUUID().toString
+  IdCommand: String = createUuid
 )
 
 object RegisterCheckRequest {

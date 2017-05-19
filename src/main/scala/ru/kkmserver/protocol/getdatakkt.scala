@@ -7,7 +7,7 @@ import play.api.libs.json.{JsPath, Reads, Writes}
 case class GetDataKKTRequest (
   Command: String = CommandGetDataKKT,
   NumDevice: Option[Int] = None,
-  IdCommand: String = java.util.UUID.randomUUID().toString
+  IdCommand: String = createUuid
 )
 
 object GetDataKKTRequest {

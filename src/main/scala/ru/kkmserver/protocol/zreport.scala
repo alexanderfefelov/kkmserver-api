@@ -6,7 +6,7 @@ import play.api.libs.json.{JsPath, Reads, Writes}
 case class ZReportRequest (
   Command: String = CommandZReport,
   NumDevice: Int,
-  IdCommand: String = java.util.UUID.randomUUID().toString
+  IdCommand: String = createUuid
 )
 
 object ZReportRequest {
