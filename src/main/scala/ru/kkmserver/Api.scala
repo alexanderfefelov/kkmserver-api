@@ -121,6 +121,24 @@ class Api() {
     }
   }
 
+  def ofdReport(request: OfdReportRequest): Future[OfdReportResponse] = {
+    val requestJson = Json.toJson(request)
+    logger.debug(s"request: $requestJson")
+    val responseFuture = call(requestJson)
+    for {
+      response <- responseFuture
+    } yield {
+      logger.debug(s"response: ${response.json}")
+      response.json.validate[OfdReportResponse] match {
+        case s: JsSuccess[OfdReportResponse] =>
+          s.value
+        case e: JsError =>
+          logger.error(s"error: ${e.errors}")
+          throw JsResultException(e.errors)
+      }
+    }
+  }
+
   private def call(json: JsValue) = {
     wsClient.url(Config.url)
       .withAuth(Config.username, Config.password, WSAuthScheme.BASIC)

@@ -17,6 +17,7 @@ package object protocol {
   val CommandXReport: String = "XReport"
   val CommandZReport: String = "ZReport"
   val CommandGetDataKKT: String = "GetDataKKT"
+  val CommandOfdReport: String = "OfdReport"
 
   val CommandStatusOk: Int = 0
   val CommandStatusRun: Int = 1
