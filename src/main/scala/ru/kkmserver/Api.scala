@@ -1,19 +1,17 @@
 package ru.kkmserver
 
-import akka.actor.ActorSystem
-import akka.stream.ActorMaterializer
-import com.typesafe.scalalogging.Logger
+import play.api.Logger
 import play.api.libs.json._
 import play.api.libs.ws.WSAuthScheme
-import play.api.libs.ws.ahc.StandaloneAhcWSClient
+import play.api.libs.ws.ning.NingWSClient
 import ru.kkmserver.protocol._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class Api()(implicit val actorSystem: ActorSystem, implicit val actorMaterializer: ActorMaterializer) {
+class Api() {
 
-  val wsClient = StandaloneAhcWSClient()
+  val wsClient = NingWSClient()
 
   def list(request: ListRequest): Future[ListResponse] = {
     val requestJson = Json.toJson(request)
@@ -126,7 +124,7 @@ class Api()(implicit val actorSystem: ActorSystem, implicit val actorMaterialize
   private def call(json: JsValue) = {
     wsClient.url(Config.url)
       .withAuth(Config.username, Config.password, WSAuthScheme.BASIC)
-      .withHttpHeaders("Accept" -> "application/json")
+      .withHeaders("Accept" -> "application/json")
       .post(json)
   }
 

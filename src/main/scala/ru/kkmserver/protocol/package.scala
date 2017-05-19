@@ -1,12 +1,13 @@
 package ru.kkmserver
 
 import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
 import play.api.libs.json.Reads
 
 package object protocol {
 
-  val jodaReadsShort: Reads[DateTime] = Reads.jodaDateReads("yyyy-MM-dd'T'HH:mm:ss")
-  val jodaReadsLong: Reads[DateTime] = Reads.jodaDateReads("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZ")
+  val jodaReadsShort: Reads[DateTime] = Reads.of[String] map (DateTime.parse(_, DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss")))
+  val jodaReadsLong: Reads[DateTime] = Reads.of[String] map (DateTime.parse(_, DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZ")))
 
   val CommandGetRezult: String = "GetRezult"
   val CommandList: String = "List"
