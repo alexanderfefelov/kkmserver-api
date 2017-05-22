@@ -30,8 +30,8 @@ case class PrintIamgeCheckString (
 
 case class PrintTextCheckStringData (
   Text: String,
-  Font: Option[Int],
-  Intensity: Option[Int]
+  Font: Option[Int] = None,
+  Intensity: Option[Int] = None
 ) extends CheckStringData
 
 case class PrintTextCheckString (
@@ -63,24 +63,24 @@ case class BarCodeCheckString (
 
 case class RegisterCheckRequest (
   Command: String = CommandRegisterCheck,
-  NumDevice: Int,
-  InnKkm: String,
-  KktNumber: String,
+  NumDevice: Option[Int] = None,
+  InnKkm: Option[String] = None,
+  KktNumber: Option[String] = None,
   IsFiscalCheck: Boolean,
   TypeCheck: Int,
   CancelOpenedCheck: Boolean,
   NotPrint: Boolean,
   CashierName: String,
-  ClientAddress: String,
-  TaxVariant: String,
+  ClientAddress: Option[String] = None,
+  TaxVariant: Option[String] = None,
   CheckProps: List[CheckProp],
   AdditionalProps: List[AdditionalProp],
-  KPP: String,
+  KPP: Option[String] = None,
   CheckStrings: List[CheckString],
-  Cash: Double,
-  CashLessType1: Double,
-  CashLessType2: Double,
-  CashLessType3: Double,
+  Cash: Double = 0.0,
+  CashLessType1: Double = 0.0,
+  CashLessType2: Double = 0.0,
+  CashLessType3: Double = 0.0,
   IdCommand: String = createUuid
 )
 
@@ -143,19 +143,19 @@ object RegisterCheckRequest {
 
   implicit val registerCheckRequestWrites: Writes[RegisterCheckRequest] = (
     (JsPath \ "Command").write[String] and
-      (JsPath \ "NumDevice").write[Int] and
-      (JsPath \ "InnKkm").write[String] and
-      (JsPath \ "KktNumber").write[String] and
+      (JsPath \ "NumDevice").writeNullable[Int] and
+      (JsPath \ "InnKkm").writeNullable[String] and
+      (JsPath \ "KktNumber").writeNullable[String] and
       (JsPath \ "IsFiscalCheck").write[Boolean] and
       (JsPath \ "TypeCheck").write[Int] and
       (JsPath \ "CancelOpenedCheck").write[Boolean] and
       (JsPath \ "NotPrint").write[Boolean] and
       (JsPath \ "CashierName").write[String] and
-      (JsPath \ "ClientAddress").write[String] and
-      (JsPath \ "TaxVariant").write[String] and
+      (JsPath \ "ClientAddress").writeNullable[String] and
+      (JsPath \ "TaxVariant").writeNullable[String] and
       (JsPath \ "CheckProps").write[List[CheckProp]] and
       (JsPath \ "AdditionalProps").write[List[AdditionalProp]] and
-      (JsPath \ "KPP").write[String] and
+      (JsPath \ "KPP").writeNullable[String] and
       (JsPath \ "CheckStrings").write[List[CheckString]] and
       (JsPath \ "Cash").write[Double] and
       (JsPath \ "CashLessType1").write[Double] and

@@ -5,7 +5,7 @@ import play.api.libs.json.{JsPath, Reads, Writes}
 
 case class OfdReportRequest (
   Command: String = CommandOfdReport,
-  NumDevice: Int,
+  NumDevice: Option[Int] = None,
   IdCommand: String = createUuid
 )
 
@@ -13,7 +13,7 @@ object OfdReportRequest {
 
   implicit val ofdReportRequestWrites: Writes[OfdReportRequest] = (
     (JsPath \ "Command").write[String] and
-      (JsPath \ "NumDevice").write[Int] and
+      (JsPath \ "NumDevice").writeNullable[Int] and
       (JsPath \ "IdCommand").write[String]
     )(unlift(OfdReportRequest.unapply))
 

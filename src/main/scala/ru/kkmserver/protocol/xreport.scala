@@ -5,7 +5,7 @@ import play.api.libs.json.{JsPath, Reads, Writes}
 
 case class XReportRequest (
   Command: String = CommandXReport,
-  NumDevice: Int,
+  NumDevice: Option[Int] = None,
   IdCommand: String = createUuid
 )
 
@@ -13,7 +13,7 @@ object XReportRequest {
 
   implicit val xReportRequestWrites: Writes[XReportRequest] = (
     (JsPath \ "Command").write[String] and
-      (JsPath \ "NumDevice").write[Int] and
+      (JsPath \ "NumDevice").writeNullable[Int] and
       (JsPath \ "IdCommand").write[String]
     )(unlift(XReportRequest.unapply))
 
