@@ -63,8 +63,6 @@ object App extends Controller {
       CancelOpenedCheck = true,
       NotPrint = false,
       CashierName = "Швейк Йозеф",
-      CheckProps = List(),
-      AdditionalProps = List(),
       CheckStrings = List(
         PrintTextCheckString(PrintTextCheckStringData("Donec pretium est ac ante tincidunt blandit")),
         RegisterCheckString(RegisterCheckStringData("Планшет PRESTIGIO MultiPad 3147 3g, 1GB, 8GB, 3G, Android 6.0", Quantity = 1, Price = 1, Amount = 1))
@@ -88,8 +86,6 @@ object App extends Controller {
       CancelOpenedCheck = true,
       NotPrint = false,
       CashierName = "Швейк Йозеф",
-      CheckProps = List(),
-      AdditionalProps = List(),
       CheckStrings = List(
         PrintTextCheckString(PrintTextCheckStringData("Lorem ipsum dolor sit amet")),
         RegisterCheckString(RegisterCheckStringData("Планшет PRESTIGIO MultiPad 3147 3g, 1GB, 8GB, 3G, Android 6.0", Quantity = 1, Price = 1, Amount = 1))
