@@ -1,0 +1,11 @@
+GET        /assets/*file                      controllers.Assets.versioned(path="/public", file: Asset)
+GET        /                                  controllers.App.index
+GET        /list                              controllers.App.list
+GET        /get-data-kkt                      controllers.App.getDataKKT
+GET        /get-rezult-form                   controllers.App.getRezultForm
+GET        /get-rezult                        controllers.App.getRezult
+GET        /register-check-sale               controllers.App.registerCheckSale
+GET        /register-check-sale-return        controllers.App.registerCheckSaleReturn
+GET        /x-report                          controllers.App.xReport
+GET        /z-report                          controllers.App.zReport
+GET        /ofd-report                        controllers.App.ofdReport

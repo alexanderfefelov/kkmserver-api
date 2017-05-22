@@ -1,0 +1,49 @@
+@()(content: Html)
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>kkmserver-api demo</title>
+    </head>
+    <body>
+        <link rel="stylesheet" href="@routes.Assets.versioned("bootstrap/css/bootstrap.min.css")">
+        <link rel="stylesheet" href="@routes.Assets.versioned("css/demo.css")">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="@routes.App.index()">kkmserver-api demo</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Действия <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@routes.App.list()">Список устройств</a></li>
+                                <li><a href="@routes.App.getDataKKT()">Получить состояние ККТ</a></li>
+                                <li><a href="@routes.App.getRezultForm()">Проверка статуса команды</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="@routes.App.registerCheckSale()">Печать чека продажи</a></li>
+                                <li><a href="@routes.App.registerCheckSaleReturn()">Печать чека возврата продажи</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="@routes.App.xReport()">Печать X-отчета</a></li>
+                                <li><a href="@routes.App.zReport()">Печать Z-отчета</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="@routes.App.ofdReport()">Печать состояния связи и расчетов с ОФД</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container"><div id="content">@content</div></div>
+        <script src="@routes.Assets.versioned("js/jquery-3.2.1.min.js")"></script>
+        <script src="@routes.Assets.versioned("bootstrap/js/bootstrap.min.js")"></script>
+    </body>
+</html>
