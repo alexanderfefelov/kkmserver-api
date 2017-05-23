@@ -1,5 +1,6 @@
 package ru.kkmserver
 
+import ca.aaronlevin.gitrev.gitHashShort
 import play.api.Logger
 import play.api.libs.json._
 import play.api.libs.ws.WSAuthScheme
@@ -148,4 +149,8 @@ class Api() {
 
   private val logger = Logger("kkmserver-api")
 
+}
+
+object Api {
+  val theGitHash: String = gitHashShort
 }

@@ -4,3 +4,4 @@ project/target
 target
 /tmp
 logs
+buildinfo.properties
