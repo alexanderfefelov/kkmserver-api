@@ -1,9 +1,9 @@
 package controllers
 
-import org.apache.commons.lang3.StringEscapeUtils
 import play.api.mvc._
 import ru.kkmserver._
 import ru.kkmserver.protocol._
+import sext._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -23,7 +23,7 @@ object App extends Controller {
       obj <- future
     } yield {
       val title = "List"
-      val data = StringEscapeUtils.unescapeJava(pprint.apply(obj).plainText)
+      val data = obj.valueTreeString
       Ok(views.html.data(title, data))
     }
   }
@@ -34,7 +34,7 @@ object App extends Controller {
       obj <- future
     } yield {
       val title = "GetDataKKT"
-      val data = StringEscapeUtils.unescapeJava(pprint.apply(obj).plainText)
+      val data = obj.valueTreeString
       Ok(views.html.data(title, data))
     }
   }
@@ -51,7 +51,7 @@ object App extends Controller {
       obj <- future
     } yield {
       val title = s"GetRezult $id"
-      val data = StringEscapeUtils.unescapeJava(pprint.apply(obj).plainText)
+      val data = obj.valueTreeString
       Ok(views.html.data(title, data))
     }
   }
@@ -74,7 +74,7 @@ object App extends Controller {
       obj <- future
     } yield {
       val title = "RegisterCheck (sale)"
-      val data = StringEscapeUtils.unescapeJava(pprint.apply(obj).plainText)
+      val data = obj.valueTreeString
       Ok(views.html.data(title, data))
     }
   }
@@ -97,7 +97,7 @@ object App extends Controller {
       obj <- future
     } yield {
       val title = "RegisterCheck (sale return)"
-      val data = StringEscapeUtils.unescapeJava(pprint.apply(obj).plainText)
+      val data = obj.valueTreeString
       Ok(views.html.data(title, data))
     }
   }
@@ -108,7 +108,7 @@ object App extends Controller {
       obj <- future
     } yield {
       val title = "XReport"
-      val data = StringEscapeUtils.unescapeJava(pprint.apply(obj).plainText)
+      val data = obj.valueTreeString
       Ok(views.html.data(title, data))
     }
   }
@@ -119,7 +119,7 @@ object App extends Controller {
       obj <- future
     } yield {
       val title = "ZReport"
-      val data = StringEscapeUtils.unescapeJava(pprint.apply(obj).plainText)
+      val data = obj.valueTreeString
       Ok(views.html.data(title, data))
     }
   }
@@ -130,7 +130,7 @@ object App extends Controller {
       obj <- future
     } yield {
       val title = "OfdReport"
-      val data = StringEscapeUtils.unescapeJava(pprint.apply(obj).plainText)
+      val data = obj.valueTreeString
       Ok(views.html.data(title, data))
     }
   }

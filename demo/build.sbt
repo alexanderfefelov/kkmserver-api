@@ -5,7 +5,7 @@ scalaVersion := "2.11.11"
 
 libraryDependencies ++= Seq(
   "alexanderfefelov.github.com" %% "kkmserver-api" % "0.0-SNAPSHOT",
-  "com.lihaoyi" %% "pprint" % "0.5.0"
+  "com.github.nikita-volkov" % "sext" % "0.2.4"
 )
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
