@@ -15,123 +15,43 @@ class Api() {
   val wsClient = NingWSClient()
 
   def list(request: ListRequest): Future[ListResponse] = {
-    val requestJson = Json.toJson(request)
-    logger.debug(s"request: $requestJson")
-    val responseFuture = call(requestJson)
-    for {
-      response <- responseFuture
-    } yield {
-      logger.debug(s"response: ${response.json}")
-      response.json.validate[ListResponse] match {
-        case s: JsSuccess[ListResponse] =>
-          s.value
-        case e: JsError =>
-          logger.error(s"error: ${e.errors}")
-          throw JsResultException(e.errors)
-      }
-    }
+    apiCall[ListRequest, ListResponse](request)
   }
 
   def xReport(request: XReportRequest): Future[XReportResponse] = {
-    val requestJson = Json.toJson(request)
-    logger.debug(s"request: $requestJson")
-    val responseFuture = call(requestJson)
-    for {
-      response <- responseFuture
-    } yield {
-      logger.debug(s"response: ${response.json}")
-      response.json.validate[XReportResponse] match {
-        case s: JsSuccess[XReportResponse] =>
-          s.value
-        case e: JsError =>
-          logger.error(s"error: ${e.errors}")
-          throw JsResultException(e.errors)
-      }
-    }
+    apiCall[XReportRequest, XReportResponse](request)
   }
 
   def zReport(request: ZReportRequest): Future[ZReportResponse] = {
-    val requestJson = Json.toJson(request)
-    logger.debug(s"request: $requestJson")
-    val responseFuture = call(requestJson)
-    for {
-      response <- responseFuture
-    } yield {
-      logger.debug(s"response: ${response.json}")
-      response.json.validate[ZReportResponse] match {
-        case s: JsSuccess[ZReportResponse] =>
-          s.value
-        case e: JsError =>
-          logger.error(s"error: ${e.errors}")
-          throw JsResultException(e.errors)
-      }
-    }
+    apiCall[ZReportRequest, ZReportResponse](request)
   }
 
   def registerCheck(request: RegisterCheckRequest): Future[RegisterCheckResponse] = {
-    val requestJson = Json.toJson(request)
-    logger.debug(s"request: $requestJson")
-    val responseFuture = call(requestJson)
-    for {
-      response <- responseFuture
-    } yield {
-      logger.debug(s"response: ${response.json}")
-      response.json.validate[RegisterCheckResponse] match {
-        case s: JsSuccess[RegisterCheckResponse] =>
-          s.value
-        case e: JsError =>
-          logger.error(s"error: ${e.errors}")
-          throw JsResultException(e.errors)
-      }
-    }
+    apiCall[RegisterCheckRequest, RegisterCheckResponse](request)
   }
 
   def getRezult(request: GetRezultRequest): Future[GetRezultResponse] = {
-    val requestJson = Json.toJson(request)
-    logger.debug(s"request: $requestJson")
-    val responseFuture = call(requestJson)
-    for {
-      response <- responseFuture
-    } yield {
-      logger.debug(s"response: ${response.json}")
-      response.json.validate[GetRezultResponse] match {
-        case s: JsSuccess[GetRezultResponse] =>
-          s.value
-        case e: JsError =>
-          logger.error(s"error: ${e.errors}")
-          throw JsResultException(e.errors)
-      }
-    }
+    apiCall[GetRezultRequest, GetRezultResponse](request)
   }
 
   def getDataKKT(request: GetDataKKTRequest): Future[GetDataKKTResponse] = {
-    val requestJson = Json.toJson(request)
-    logger.debug(s"request: $requestJson")
-    val responseFuture = call(requestJson)
-    for {
-      response <- responseFuture
-    } yield {
-      logger.debug(s"response: ${response.json}")
-      response.json.validate[GetDataKKTResponse] match {
-        case s: JsSuccess[GetDataKKTResponse] =>
-          s.value
-        case e: JsError =>
-          logger.error(s"error: ${e.errors}")
-          throw JsResultException(e.errors)
-      }
-    }
+    apiCall[GetDataKKTRequest, GetDataKKTResponse](request)
   }
 
   def ofdReport(request: OfdReportRequest): Future[OfdReportResponse] = {
+    apiCall[OfdReportRequest, OfdReportResponse](request)
+  }
+
+  private def apiCall[A : Writes, B : Reads](request: A): Future[B] = {
     val requestJson = Json.toJson(request)
     logger.debug(s"request: $requestJson")
-    val responseFuture = call(requestJson)
+    val responseFuture = wsCall(requestJson)
     for {
       response <- responseFuture
     } yield {
       logger.debug(s"response: ${response.json}")
-      response.json.validate[OfdReportResponse] match {
-        case s: JsSuccess[OfdReportResponse] =>
+      response.json.validate[B] match {
+        case s: JsSuccess[B] =>
           s.value
         case e: JsError =>
           logger.error(s"error: ${e.errors}")
@@ -140,7 +60,7 @@ class Api() {
     }
   }
 
-  private def call(json: JsValue) = {
+  private def wsCall(json: JsValue) = {
     wsClient.url(Config.url)
       .withAuth(Config.username, Config.password, WSAuthScheme.BASIC)
       .withHeaders("Accept" -> "application/json")
