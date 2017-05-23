@@ -3,7 +3,7 @@ package ru.kkmserver
 import ca.aaronlevin.gitrev.gitHashShort
 import play.api.Logger
 import play.api.libs.json._
-import play.api.libs.ws.WSAuthScheme
+import play.api.libs.ws.{WSAuthScheme, WSResponse}
 import play.api.libs.ws.ning.NingWSClient
 import ru.kkmserver.protocol._
 
@@ -60,7 +60,7 @@ class Api() {
     }
   }
 
-  private def wsCall(json: JsValue) = {
+  private def wsCall(json: JsValue): Future[WSResponse] = {
     wsClient.url(Config.url)
       .withAuth(Config.username, Config.password, WSAuthScheme.BASIC)
       .withHeaders("Accept" -> "application/json")
