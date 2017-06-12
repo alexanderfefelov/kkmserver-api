@@ -2,7 +2,7 @@ package ru.kkmserver.protocol
 
 import org.joda.time.DateTime
 import play.api.libs.functional.syntax._
-import play.api.libs.json.{JsPath, Reads, Writes}
+import play.api.libs.json._
 
 case class GetDataKKTRequest (
   Command: String = CommandGetDataKKT,
@@ -13,9 +13,9 @@ case class GetDataKKTRequest (
 object GetDataKKTRequest {
 
   implicit val getDataKKTRequestWrites: Writes[GetDataKKTRequest] = (
-    (JsPath \ "Command").write[String] and
-      (JsPath \ "NumDevice").writeNullable[Int] and
-      (JsPath \ "IdCommand").write[String]
+    (__ \ "Command").write[String] and
+      (__ \ "NumDevice").writeNullable[Int] and
+      (__ \ "IdCommand").write[String]
     )(unlift(GetDataKKTRequest.unapply))
 
 }
@@ -39,19 +39,19 @@ case class GetDataKKTResponse (
 object GetDataKKTResponse {
 
   implicit val infoDataReads: Reads[InfoData] = (
-    (JsPath \ "SessionState").read[Int] and
-      (JsPath \ "PaperOver").read[Boolean] and
-      (JsPath \ "LicenseExpirationDate").read[DateTime](jodaReadsShort)
+    (__ \ "SessionState").read[Int] and
+      (__ \ "PaperOver").read[Boolean] and
+      (__ \ "LicenseExpirationDate").read[DateTime](jodaReadsShort)
     )(InfoData.apply _)
 
   implicit val getDataKKTResponseReads: Reads[GetDataKKTResponse] = (
-    (JsPath \ "SessionNumber").read[Int] and
-      (JsPath \ "Info").read[InfoData] and
-      (JsPath \ "Command").read[String] and
-      (JsPath \ "Error").read[String] and
-      (JsPath \ "Status").read[Int] and
-      (JsPath \ "IdCommand").read[String] and
-      (JsPath \ "NumDevice").read[Int]
+    (__ \ "SessionNumber").read[Int] and
+      (__ \ "Info").read[InfoData] and
+      (__ \ "Command").read[String] and
+      (__ \ "Error").read[String] and
+      (__ \ "Status").read[Int] and
+      (__ \ "IdCommand").read[String] and
+      (__ \ "NumDevice").read[Int]
     )(GetDataKKTResponse.apply _)
 
 }

@@ -1,7 +1,7 @@
 package ru.kkmserver.protocol
 
 import play.api.libs.functional.syntax._
-import play.api.libs.json.{JsPath, Reads, Writes}
+import play.api.libs.json._
 
 case class GetRezultRequest (
   Command: String = CommandGetRezult,
@@ -11,8 +11,8 @@ case class GetRezultRequest (
 object GetRezultRequest {
 
   implicit val getRezultRequestWrites: Writes[GetRezultRequest] = (
-    (JsPath \ "Command").write[String] and
-      (JsPath \ "IdCommand").write[String]
+    (__ \ "Command").write[String] and
+      (__ \ "IdCommand").write[String]
     )(unlift(GetRezultRequest.unapply))
 
 }
@@ -38,21 +38,21 @@ case class GetRezultResponse (
 object GetRezultResponse {
 
   implicit val rezultDataReads: Reads[RezultData] = (
-    (JsPath \ "SessionNumber").read[Int] and
-      (JsPath \ "URL").read[String] and
-      (JsPath \ "Command").read[String] and
-      (JsPath \ "Error").read[String] and
-      (JsPath \ "Status").read[Int] and
-      (JsPath \ "IdCommand").read[String] and
-      (JsPath \ "NumDevice").read[Int]
+    (__ \ "SessionNumber").read[Int] and
+      (__ \ "URL").read[String] and
+      (__ \ "Command").read[String] and
+      (__ \ "Error").read[String] and
+      (__ \ "Status").read[Int] and
+      (__ \ "IdCommand").read[String] and
+      (__ \ "NumDevice").read[Int]
     )(RezultData.apply _)
 
   implicit val getRezultResponseReads: Reads[GetRezultResponse] = (
-    (JsPath \ "Rezult").read[RezultData] and
-      (JsPath \ "Command").read[String] and
-      (JsPath \ "Error").read[String] and
-      (JsPath \ "Status").read[Int] and
-      (JsPath \ "IdCommand").read[String]
+    (__ \ "Rezult").read[RezultData] and
+      (__ \ "Command").read[String] and
+      (__ \ "Error").read[String] and
+      (__ \ "Status").read[Int] and
+      (__ \ "IdCommand").read[String]
     )(GetRezultResponse.apply _)
 
 }

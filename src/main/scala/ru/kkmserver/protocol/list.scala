@@ -2,7 +2,7 @@ package ru.kkmserver.protocol
 
 import org.joda.time.DateTime
 import play.api.libs.functional.syntax._
-import play.api.libs.json.{JsPath, Reads, Writes}
+import play.api.libs.json._
 
 case class ListRequest (
   Command: String = CommandList,
@@ -22,18 +22,18 @@ case class ListRequest (
 object ListRequest {
 
   implicit val listRequestWrites: Writes[ListRequest] = (
-    (JsPath \ "Command").write[String] and
-      (JsPath \ "NumDevice").writeNullable[Int] and
-      (JsPath \ "InnKkm").writeNullable[String] and
-      (JsPath \ "IP").writeNullable[String] and
-      (JsPath \ "Active").writeNullable[Boolean] and
-      (JsPath \ "OnOff").writeNullable[Boolean] and
-      (JsPath \ "OFD_Error").writeNullable[Boolean] and
-      (JsPath \ "OFD_DateErrorDoc").writeNullable[DateTime] and
-      (JsPath \ "FN_DateEnd").writeNullable[DateTime] and
-      (JsPath \ "FN_MemOverflowl").writeNullable[Boolean] and
-      (JsPath \ "FN_IsFiscal").writeNullable[Boolean] and
-      (JsPath \ "IdCommand").write[String]
+    (__ \ "Command").write[String] and
+      (__ \ "NumDevice").writeNullable[Int] and
+      (__ \ "InnKkm").writeNullable[String] and
+      (__ \ "IP").writeNullable[String] and
+      (__ \ "Active").writeNullable[Boolean] and
+      (__ \ "OnOff").writeNullable[Boolean] and
+      (__ \ "OFD_Error").writeNullable[Boolean] and
+      (__ \ "OFD_DateErrorDoc").writeNullable[DateTime] and
+      (__ \ "FN_DateEnd").writeNullable[DateTime] and
+      (__ \ "FN_MemOverflowl").writeNullable[Boolean] and
+      (__ \ "FN_IsFiscal").writeNullable[Boolean] and
+      (__ \ "IdCommand").write[String]
     )(unlift(ListRequest.unapply))
 
 }
@@ -72,34 +72,34 @@ case class ListResponse (
 object ListResponse {
 
   implicit val listUnitReads: Reads[ListUnit] = (
-    (JsPath \ "NumDevice").read[Int] and
-      (JsPath \ "IdDevice").read[String] and
-      (JsPath \ "OnOff").read[Boolean] and
-      (JsPath \ "Active").read[Boolean] and
-      (JsPath \ "TypeDevice").read[String] and
-      (JsPath \ "IdTypeDevice").read[String] and
-      (JsPath \ "IP").read[String] and
-      (JsPath \ "NameDevice").read[String] and
-      (JsPath \ "KktNumber").read[String] and
-      (JsPath \ "INN").read[String] and
-      (JsPath \ "NameOrganization").read[String] and
-      (JsPath \ "TaxVariant").read[String] and
-      (JsPath \ "AddDate").read[DateTime](jodaReadsLong) and
-      (JsPath \ "OFD_Error").read[String] and
-      (JsPath \ "OFD_NumErrorDoc").read[Int] and
-      (JsPath \ "OFD_DateErrorDoc").read[DateTime](jodaReadsShort) and
-      (JsPath \ "FN_DateEnd").read[DateTime](jodaReadsShort) and
-      (JsPath \ "FN_MemOverflowl").read[Boolean] and
-      (JsPath \ "FN_IsFiscal").read[Boolean] and
-      (JsPath \ "PaperOver").read[Boolean]
+    (__ \ "NumDevice").read[Int] and
+      (__ \ "IdDevice").read[String] and
+      (__ \ "OnOff").read[Boolean] and
+      (__ \ "Active").read[Boolean] and
+      (__ \ "TypeDevice").read[String] and
+      (__ \ "IdTypeDevice").read[String] and
+      (__ \ "IP").read[String] and
+      (__ \ "NameDevice").read[String] and
+      (__ \ "KktNumber").read[String] and
+      (__ \ "INN").read[String] and
+      (__ \ "NameOrganization").read[String] and
+      (__ \ "TaxVariant").read[String] and
+      (__ \ "AddDate").read[DateTime](jodaReadsLong) and
+      (__ \ "OFD_Error").read[String] and
+      (__ \ "OFD_NumErrorDoc").read[Int] and
+      (__ \ "OFD_DateErrorDoc").read[DateTime](jodaReadsShort) and
+      (__ \ "FN_DateEnd").read[DateTime](jodaReadsShort) and
+      (__ \ "FN_MemOverflowl").read[Boolean] and
+      (__ \ "FN_IsFiscal").read[Boolean] and
+      (__ \ "PaperOver").read[Boolean]
     )(ListUnit.apply _)
 
   implicit val listResponseReads: Reads[ListResponse] = (
-    (JsPath \ "ListUnit").read[List[ListUnit]] and
-      (JsPath \ "Command").read[String] and
-      (JsPath \ "Error").read[String] and
-      (JsPath \ "Status").read[Int] and
-      (JsPath \ "IdCommand").read[String]
+    (__ \ "ListUnit").read[List[ListUnit]] and
+      (__ \ "Command").read[String] and
+      (__ \ "Error").read[String] and
+      (__ \ "Status").read[Int] and
+      (__ \ "IdCommand").read[String]
     )(ListResponse.apply _)
 
 }

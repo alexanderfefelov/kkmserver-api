@@ -87,38 +87,38 @@ case class RegisterCheckRequest (
 object RegisterCheckRequest {
 
   implicit val checkPropWrites: Writes[CheckProp] = (
-    (JsPath \ "Print").write[Boolean] and
-      (JsPath \ "PrintInHeader").write[Boolean] and
-      (JsPath \ "Teg").write[Int] and
-      (JsPath \ "Prop").write[String]
+    (__ \ "Print").write[Boolean] and
+      (__ \ "PrintInHeader").write[Boolean] and
+      (__ \ "Teg").write[Int] and
+      (__ \ "Prop").write[String]
     )(unlift(CheckProp.unapply))
 
   implicit val additionalPropWrites: Writes[AdditionalProp] = (
-    (JsPath \ "Print").write[Boolean] and
-      (JsPath \ "PrintInHeader").write[Boolean] and
-      (JsPath \ "NameProp").write[String] and
-      (JsPath \ "Prop").write[String]
+    (__ \ "Print").write[Boolean] and
+      (__ \ "PrintInHeader").write[Boolean] and
+      (__ \ "NameProp").write[String] and
+      (__ \ "Prop").write[String]
     )(unlift(AdditionalProp.unapply))
 
   implicit val printTextCheckStringDataWrites: Writes[PrintTextCheckStringData] = (
-    (JsPath \ "Text").write[String] and
-      (JsPath \ "Font").writeNullable[Int] and
-      (JsPath \ "Intensity").writeNullable[Int]
+    (__ \ "Text").write[String] and
+      (__ \ "Font").writeNullable[Int] and
+      (__ \ "Intensity").writeNullable[Int]
     )(unlift(PrintTextCheckStringData.unapply))
 
   implicit val registerCheckStringDataWrites: Writes[RegisterCheckStringData] = (
-    (JsPath \ "Name").write[String] and
-      (JsPath \ "Quantity").write[Double] and
-      (JsPath \ "Price").write[Double] and
-      (JsPath \ "Amount").write[Double] and
-      (JsPath \ "Department").write[Int] and
-      (JsPath \ "Tax").write[Int] and
-      (JsPath \ "EAN13").writeNullable[String]
+    (__ \ "Name").write[String] and
+      (__ \ "Quantity").write[Double] and
+      (__ \ "Price").write[Double] and
+      (__ \ "Amount").write[Double] and
+      (__ \ "Department").write[Int] and
+      (__ \ "Tax").write[Int] and
+      (__ \ "EAN13").writeNullable[String]
     )(unlift(RegisterCheckStringData.unapply))
 
   implicit val barCodeCheckStringDataWrites: Writes[BarCodeCheckStringData] = (
-    (JsPath \ "BarcodeType").write[String] and
-      (JsPath \ "Barcode").write[String]
+    (__ \ "BarcodeType").write[String] and
+      (__ \ "Barcode").write[String]
     )(unlift(BarCodeCheckStringData.unapply))
 
   implicit object checkStringDataWrites extends Writes[CheckStringData] {
@@ -142,26 +142,26 @@ object RegisterCheckRequest {
   }
 
   implicit val registerCheckRequestWrites: Writes[RegisterCheckRequest] = (
-    (JsPath \ "Command").write[String] and
-      (JsPath \ "NumDevice").writeNullable[Int] and
-      (JsPath \ "InnKkm").writeNullable[String] and
-      (JsPath \ "KktNumber").writeNullable[String] and
-      (JsPath \ "IsFiscalCheck").write[Boolean] and
-      (JsPath \ "TypeCheck").write[Int] and
-      (JsPath \ "CancelOpenedCheck").write[Boolean] and
-      (JsPath \ "NotPrint").write[Boolean] and
-      (JsPath \ "CashierName").write[String] and
-      (JsPath \ "ClientAddress").writeNullable[String] and
-      (JsPath \ "TaxVariant").writeNullable[String] and
-      (JsPath \ "CheckProps").write[List[CheckProp]] and
-      (JsPath \ "AdditionalProps").write[List[AdditionalProp]] and
-      (JsPath \ "KPP").writeNullable[String] and
-      (JsPath \ "CheckStrings").write[List[CheckString]] and
-      (JsPath \ "Cash").write[Double] and
-      (JsPath \ "CashLessType1").write[Double] and
-      (JsPath \ "CashLessType2").write[Double] and
-      (JsPath \ "CashLessType3").write[Double] and
-      (JsPath \ "IdCommand").write[String]
+    (__ \ "Command").write[String] and
+      (__ \ "NumDevice").writeNullable[Int] and
+      (__ \ "InnKkm").writeNullable[String] and
+      (__ \ "KktNumber").writeNullable[String] and
+      (__ \ "IsFiscalCheck").write[Boolean] and
+      (__ \ "TypeCheck").write[Int] and
+      (__ \ "CancelOpenedCheck").write[Boolean] and
+      (__ \ "NotPrint").write[Boolean] and
+      (__ \ "CashierName").write[String] and
+      (__ \ "ClientAddress").writeNullable[String] and
+      (__ \ "TaxVariant").writeNullable[String] and
+      (__ \ "CheckProps").write[List[CheckProp]] and
+      (__ \ "AdditionalProps").write[List[AdditionalProp]] and
+      (__ \ "KPP").writeNullable[String] and
+      (__ \ "CheckStrings").write[List[CheckString]] and
+      (__ \ "Cash").write[Double] and
+      (__ \ "CashLessType1").write[Double] and
+      (__ \ "CashLessType2").write[Double] and
+      (__ \ "CashLessType3").write[Double] and
+      (__ \ "IdCommand").write[String]
     )(unlift(RegisterCheckRequest.unapply))
 
 }
@@ -179,13 +179,13 @@ case class RegisterCheckResponse (
 object RegisterCheckResponse {
 
   implicit val registerCheckResponseReads: Reads[RegisterCheckResponse] = (
-    (JsPath \ "Command").read[String] and
-      (JsPath \ "Error").read[String] and
-      (JsPath \ "Status").read[Int] and
-      (JsPath \ "IdCommand").read[String] and
-      (JsPath \ "SessionNumber").read[Int] and
-      (JsPath \ "CheckNumber").read[Int] and
-      (JsPath \ "URL").read[String]
+    (__ \ "Command").read[String] and
+      (__ \ "Error").read[String] and
+      (__ \ "Status").read[Int] and
+      (__ \ "IdCommand").read[String] and
+      (__ \ "SessionNumber").read[Int] and
+      (__ \ "CheckNumber").read[Int] and
+      (__ \ "URL").read[String]
     )(RegisterCheckResponse.apply _)
 
 }

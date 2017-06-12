@@ -1,7 +1,7 @@
 package ru.kkmserver.protocol
 
 import play.api.libs.functional.syntax._
-import play.api.libs.json.{JsPath, Reads, Writes}
+import play.api.libs.json._
 
 case class ZReportRequest (
   Command: String = CommandZReport,
@@ -12,9 +12,9 @@ case class ZReportRequest (
 object ZReportRequest {
 
   implicit val zReportRequestWrites: Writes[ZReportRequest] = (
-    (JsPath \ "Command").write[String] and
-      (JsPath \ "NumDevice").writeNullable[Int] and
-      (JsPath \ "IdCommand").write[String]
+    (__ \ "Command").write[String] and
+      (__ \ "NumDevice").writeNullable[Int] and
+      (__ \ "IdCommand").write[String]
     )(unlift(ZReportRequest.unapply))
 
 }
@@ -31,12 +31,12 @@ case class ZReportResponse (
 object ZReportResponse {
 
   implicit val zReportResponseReads: Reads[ZReportResponse] = (
-    (JsPath \ "Command").read[String] and
-      (JsPath \ "Error").read[String] and
-      (JsPath \ "Status").read[Int] and
-      (JsPath \ "IdCommand").read[String] and
-      (JsPath \ "NumDevice").read[Int] and
-      (JsPath \ "URL").read[String]
+    (__ \ "Command").read[String] and
+      (__ \ "Error").read[String] and
+      (__ \ "Status").read[Int] and
+      (__ \ "IdCommand").read[String] and
+      (__ \ "NumDevice").read[Int] and
+      (__ \ "URL").read[String]
     )(ZReportResponse.apply _)
 
 }
