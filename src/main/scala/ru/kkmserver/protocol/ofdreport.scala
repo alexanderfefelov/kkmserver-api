@@ -13,8 +13,8 @@ object OfdReportRequest {
 
   implicit val ofdReportRequestWrites: Writes[OfdReportRequest] = (
     (__ \ "Command").write[String] and
-      (__ \ "NumDevice").writeNullable[Int] and
-      (__ \ "IdCommand").write[String]
+    (__ \ "NumDevice").writeNullable[Int] and
+    (__ \ "IdCommand").write[String]
     )(unlift(OfdReportRequest.unapply))
 
 }
@@ -32,11 +32,11 @@ object OfdReportResponse {
 
   implicit val ofdReportReads: Reads[OfdReportResponse] = (
     (__ \ "URL").read[String] and
-      (__ \ "Command").read[String] and
-      (__ \ "Error").read[String] and
-      (__ \ "Status").read[Int] and
-      (__ \ "IdCommand").read[String] and
-      (__ \ "NumDevice").read[Int]
+    (__ \ "Command").read[String] and
+    (__ \ "Error").read[String] and
+    (__ \ "Status").read[Int] and
+    (__ \ "IdCommand").read[String] and
+    (__ \ "NumDevice").read[Int]
     )(OfdReportResponse.apply _)
 
 }

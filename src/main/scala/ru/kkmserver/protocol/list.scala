@@ -23,17 +23,17 @@ object ListRequest {
 
   implicit val listRequestWrites: Writes[ListRequest] = (
     (__ \ "Command").write[String] and
-      (__ \ "NumDevice").writeNullable[Int] and
-      (__ \ "InnKkm").writeNullable[String] and
-      (__ \ "IP").writeNullable[String] and
-      (__ \ "Active").writeNullable[Boolean] and
-      (__ \ "OnOff").writeNullable[Boolean] and
-      (__ \ "OFD_Error").writeNullable[Boolean] and
-      (__ \ "OFD_DateErrorDoc").writeNullable[DateTime] and
-      (__ \ "FN_DateEnd").writeNullable[DateTime] and
-      (__ \ "FN_MemOverflowl").writeNullable[Boolean] and
-      (__ \ "FN_IsFiscal").writeNullable[Boolean] and
-      (__ \ "IdCommand").write[String]
+    (__ \ "NumDevice").writeNullable[Int] and
+    (__ \ "InnKkm").writeNullable[String] and
+    (__ \ "IP").writeNullable[String] and
+    (__ \ "Active").writeNullable[Boolean] and
+    (__ \ "OnOff").writeNullable[Boolean] and
+    (__ \ "OFD_Error").writeNullable[Boolean] and
+    (__ \ "OFD_DateErrorDoc").writeNullable[DateTime] and
+    (__ \ "FN_DateEnd").writeNullable[DateTime] and
+    (__ \ "FN_MemOverflowl").writeNullable[Boolean] and
+    (__ \ "FN_IsFiscal").writeNullable[Boolean] and
+    (__ \ "IdCommand").write[String]
     )(unlift(ListRequest.unapply))
 
 }
@@ -73,33 +73,33 @@ object ListResponse {
 
   implicit val listUnitReads: Reads[ListUnit] = (
     (__ \ "NumDevice").read[Int] and
-      (__ \ "IdDevice").read[String] and
-      (__ \ "OnOff").read[Boolean] and
-      (__ \ "Active").read[Boolean] and
-      (__ \ "TypeDevice").read[String] and
-      (__ \ "IdTypeDevice").read[String] and
-      (__ \ "IP").read[String] and
-      (__ \ "NameDevice").read[String] and
-      (__ \ "KktNumber").read[String] and
-      (__ \ "INN").read[String] and
-      (__ \ "NameOrganization").read[String] and
-      (__ \ "TaxVariant").read[String] and
-      (__ \ "AddDate").read[DateTime](jodaReadsLong) and
-      (__ \ "OFD_Error").read[String] and
-      (__ \ "OFD_NumErrorDoc").read[Int] and
-      (__ \ "OFD_DateErrorDoc").read[DateTime](jodaReadsShort) and
-      (__ \ "FN_DateEnd").read[DateTime](jodaReadsShort) and
-      (__ \ "FN_MemOverflowl").read[Boolean] and
-      (__ \ "FN_IsFiscal").read[Boolean] and
-      (__ \ "PaperOver").read[Boolean]
+    (__ \ "IdDevice").read[String] and
+    (__ \ "OnOff").read[Boolean] and
+    (__ \ "Active").read[Boolean] and
+    (__ \ "TypeDevice").read[String] and
+    (__ \ "IdTypeDevice").read[String] and
+    (__ \ "IP").read[String] and
+    (__ \ "NameDevice").read[String] and
+    (__ \ "KktNumber").read[String] and
+    (__ \ "INN").read[String] and
+    (__ \ "NameOrganization").read[String] and
+    (__ \ "TaxVariant").read[String] and
+    (__ \ "AddDate").read[DateTime](jodaReadsLong) and
+    (__ \ "OFD_Error").read[String] and
+    (__ \ "OFD_NumErrorDoc").read[Int] and
+    (__ \ "OFD_DateErrorDoc").read[DateTime](jodaReadsShort) and
+    (__ \ "FN_DateEnd").read[DateTime](jodaReadsShort) and
+    (__ \ "FN_MemOverflowl").read[Boolean] and
+    (__ \ "FN_IsFiscal").read[Boolean] and
+    (__ \ "PaperOver").read[Boolean]
     )(ListUnit.apply _)
 
   implicit val listResponseReads: Reads[ListResponse] = (
     (__ \ "ListUnit").read[List[ListUnit]] and
-      (__ \ "Command").read[String] and
-      (__ \ "Error").read[String] and
-      (__ \ "Status").read[Int] and
-      (__ \ "IdCommand").read[String]
+    (__ \ "Command").read[String] and
+    (__ \ "Error").read[String] and
+    (__ \ "Status").read[Int] and
+    (__ \ "IdCommand").read[String]
     )(ListResponse.apply _)
 
 }

@@ -14,8 +14,8 @@ object GetDataKKTRequest {
 
   implicit val getDataKKTRequestWrites: Writes[GetDataKKTRequest] = (
     (__ \ "Command").write[String] and
-      (__ \ "NumDevice").writeNullable[Int] and
-      (__ \ "IdCommand").write[String]
+    (__ \ "NumDevice").writeNullable[Int] and
+    (__ \ "IdCommand").write[String]
     )(unlift(GetDataKKTRequest.unapply))
 
 }
@@ -40,18 +40,18 @@ object GetDataKKTResponse {
 
   implicit val infoDataReads: Reads[InfoData] = (
     (__ \ "SessionState").read[Int] and
-      (__ \ "PaperOver").read[Boolean] and
-      (__ \ "LicenseExpirationDate").read[DateTime](jodaReadsShort)
+    (__ \ "PaperOver").read[Boolean] and
+    (__ \ "LicenseExpirationDate").read[DateTime](jodaReadsShort)
     )(InfoData.apply _)
 
   implicit val getDataKKTResponseReads: Reads[GetDataKKTResponse] = (
     (__ \ "SessionNumber").read[Int] and
-      (__ \ "Info").read[InfoData] and
-      (__ \ "Command").read[String] and
-      (__ \ "Error").read[String] and
-      (__ \ "Status").read[Int] and
-      (__ \ "IdCommand").read[String] and
-      (__ \ "NumDevice").read[Int]
+    (__ \ "Info").read[InfoData] and
+    (__ \ "Command").read[String] and
+    (__ \ "Error").read[String] and
+    (__ \ "Status").read[Int] and
+    (__ \ "IdCommand").read[String] and
+    (__ \ "NumDevice").read[Int]
     )(GetDataKKTResponse.apply _)
 
 }

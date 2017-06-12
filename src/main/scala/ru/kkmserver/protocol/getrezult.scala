@@ -12,7 +12,7 @@ object GetRezultRequest {
 
   implicit val getRezultRequestWrites: Writes[GetRezultRequest] = (
     (__ \ "Command").write[String] and
-      (__ \ "IdCommand").write[String]
+    (__ \ "IdCommand").write[String]
     )(unlift(GetRezultRequest.unapply))
 
 }
@@ -39,20 +39,20 @@ object GetRezultResponse {
 
   implicit val rezultDataReads: Reads[RezultData] = (
     (__ \ "SessionNumber").read[Int] and
-      (__ \ "URL").read[String] and
-      (__ \ "Command").read[String] and
-      (__ \ "Error").read[String] and
-      (__ \ "Status").read[Int] and
-      (__ \ "IdCommand").read[String] and
-      (__ \ "NumDevice").read[Int]
+    (__ \ "URL").read[String] and
+    (__ \ "Command").read[String] and
+    (__ \ "Error").read[String] and
+    (__ \ "Status").read[Int] and
+    (__ \ "IdCommand").read[String] and
+    (__ \ "NumDevice").read[Int]
     )(RezultData.apply _)
 
   implicit val getRezultResponseReads: Reads[GetRezultResponse] = (
     (__ \ "Rezult").read[RezultData] and
-      (__ \ "Command").read[String] and
-      (__ \ "Error").read[String] and
-      (__ \ "Status").read[Int] and
-      (__ \ "IdCommand").read[String]
+    (__ \ "Command").read[String] and
+    (__ \ "Error").read[String] and
+    (__ \ "Status").read[Int] and
+    (__ \ "IdCommand").read[String]
     )(GetRezultResponse.apply _)
 
 }

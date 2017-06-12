@@ -13,8 +13,8 @@ object XReportRequest {
 
   implicit val xReportRequestWrites: Writes[XReportRequest] = (
     (__ \ "Command").write[String] and
-      (__ \ "NumDevice").writeNullable[Int] and
-      (__ \ "IdCommand").write[String]
+    (__ \ "NumDevice").writeNullable[Int] and
+    (__ \ "IdCommand").write[String]
     )(unlift(XReportRequest.unapply))
 
 }
@@ -32,11 +32,11 @@ object XReportResponse {
 
   implicit val xReportResponseReads: Reads[XReportResponse] = (
     (__ \ "Command").read[String] and
-      (__ \ "Error").read[String] and
-      (__ \ "Status").read[Int] and
-      (__ \ "IdCommand").read[String] and
-      (__ \ "NumDevice").read[Int] and
-      (__ \ "URL").read[String]
+    (__ \ "Error").read[String] and
+    (__ \ "Status").read[Int] and
+    (__ \ "IdCommand").read[String] and
+    (__ \ "NumDevice").read[Int] and
+    (__ \ "URL").read[String]
     )(XReportResponse.apply _)
 
 }

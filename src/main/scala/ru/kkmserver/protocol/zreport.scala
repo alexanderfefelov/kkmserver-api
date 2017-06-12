@@ -13,8 +13,8 @@ object ZReportRequest {
 
   implicit val zReportRequestWrites: Writes[ZReportRequest] = (
     (__ \ "Command").write[String] and
-      (__ \ "NumDevice").writeNullable[Int] and
-      (__ \ "IdCommand").write[String]
+    (__ \ "NumDevice").writeNullable[Int] and
+    (__ \ "IdCommand").write[String]
     )(unlift(ZReportRequest.unapply))
 
 }
@@ -32,11 +32,11 @@ object ZReportResponse {
 
   implicit val zReportResponseReads: Reads[ZReportResponse] = (
     (__ \ "Command").read[String] and
-      (__ \ "Error").read[String] and
-      (__ \ "Status").read[Int] and
-      (__ \ "IdCommand").read[String] and
-      (__ \ "NumDevice").read[Int] and
-      (__ \ "URL").read[String]
+    (__ \ "Error").read[String] and
+    (__ \ "Status").read[Int] and
+    (__ \ "IdCommand").read[String] and
+    (__ \ "NumDevice").read[Int] and
+    (__ \ "URL").read[String]
     )(ZReportResponse.apply _)
 
 }
