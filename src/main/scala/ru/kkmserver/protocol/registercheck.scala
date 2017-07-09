@@ -17,8 +17,8 @@ case class AdditionalProp (
   Prop: String
 )
 
-abstract class CheckStringData {}
-abstract class CheckString {}
+abstract class CheckStringData
+abstract class CheckString
 
 case class PrintImageCheckStringData (
   Image: String

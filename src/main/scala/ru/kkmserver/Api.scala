@@ -10,9 +10,9 @@ import ru.kkmserver.protocol._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class Api() {
+class Api {
 
-  val wsClient = NingWSClient()
+  val wsClient: NingWSClient = NingWSClient()
 
   def list(request: ListRequest): Future[ListResponse] = {
     apiCall[ListRequest, ListResponse](request)

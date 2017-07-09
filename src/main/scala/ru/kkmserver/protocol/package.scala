@@ -6,8 +6,11 @@ import play.api.libs.json.Reads
 
 package object protocol {
 
-  val jodaReadsShort: Reads[DateTime] = Reads.of[String] map (DateTime.parse(_, DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss")))
-  val jodaReadsLong: Reads[DateTime] = Reads.of[String] map (DateTime.parse(_, DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZ")))
+  private val jodaFormatShort = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss")
+  private val jodaFormatLong = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZ")
+
+  val jodaReadsShort: Reads[DateTime] = Reads.of[String] map (DateTime.parse(_, jodaFormatShort))
+  val jodaReadsLong: Reads[DateTime] = Reads.of[String] map (DateTime.parse(_, jodaFormatLong))
 
   def createUuid: String = java.util.UUID.randomUUID().toString
 
