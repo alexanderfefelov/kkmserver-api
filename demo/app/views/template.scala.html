@@ -10,7 +10,7 @@
         <title>kkmserver-api demo</title>
     </head>
     <body>
-        <link rel="stylesheet" href="@routes.Assets.versioned("bootstrap/css/bootstrap.min.css")">
+        <link rel="stylesheet" href="@routes.Assets.versioned("lib/bootstrap/css/bootstrap.min.css")">
         <link rel="stylesheet" href="@routes.Assets.versioned("css/demo.css")">
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
@@ -46,7 +46,7 @@
         </nav>
         <div class="container"><div id="content">@content</div></div>
         <footer class="footer"><div class="container"><p class="text-muted">@BuildInfo.name version @BuildInfo.version (git @Api.theGitHash). Built at @BuildInfo.builtAt by @BuildInfo.builtBy on @BuildInfo.builtOn</p></div></footer>
-        <script src="@routes.Assets.versioned("js/jquery-3.2.1.min.js")"></script>
-        <script src="@routes.Assets.versioned("bootstrap/js/bootstrap.min.js")"></script>
+        <script src="@routes.Assets.versioned("lib/jquery/jquery.min.js")"></script>
+        <script src="@routes.Assets.versioned("lib/bootstrap/js/bootstrap.min.js")"></script>
     </body>
 </html>
