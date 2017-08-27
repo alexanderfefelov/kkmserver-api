@@ -64,6 +64,7 @@ case class BarCodeCheckString (
 case class RegisterCheckRequest (
   Command: String = CommandRegisterCheck,
   NumDevice: Option[Int] = None,
+  IdCommand: String = createUuid,
   InnKkm: Option[String] = None,
   KktNumber: Option[String] = None,
   IsFiscalCheck: Boolean,
@@ -80,8 +81,7 @@ case class RegisterCheckRequest (
   Cash: Double = 0.0,
   CashLessType1: Double = 0.0,
   CashLessType2: Double = 0.0,
-  CashLessType3: Double = 0.0,
-  IdCommand: String = createUuid
+  CashLessType3: Double = 0.0
 )
 
 object RegisterCheckRequest {
@@ -144,6 +144,7 @@ object RegisterCheckRequest {
   implicit val registerCheckRequestWrites: Writes[RegisterCheckRequest] = (
     (__ \ "Command").write[String] and
     (__ \ "NumDevice").writeNullable[Int] and
+    (__ \ "IdCommand").write[String] and
     (__ \ "InnKkm").writeNullable[String] and
     (__ \ "KktNumber").writeNullable[String] and
     (__ \ "IsFiscalCheck").write[Boolean] and
@@ -160,8 +161,7 @@ object RegisterCheckRequest {
     (__ \ "Cash").write[Double] and
     (__ \ "CashLessType1").write[Double] and
     (__ \ "CashLessType2").write[Double] and
-    (__ \ "CashLessType3").write[Double] and
-    (__ \ "IdCommand").write[String]
+    (__ \ "CashLessType3").write[Double]
     )(unlift(RegisterCheckRequest.unapply))
 
 }

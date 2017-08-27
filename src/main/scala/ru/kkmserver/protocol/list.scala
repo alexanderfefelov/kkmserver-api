@@ -7,6 +7,7 @@ import play.api.libs.json._
 case class ListRequest (
   Command: String = CommandList,
   NumDevice: Option[Int] = None,
+  IdCommand: String = createUuid,
   InnKkm: Option[String] = None,
   IP: Option[String] = None,
   Active: Option[Boolean] = None,
@@ -15,8 +16,7 @@ case class ListRequest (
   OFD_DateErrorDoc: Option[DateTime] = None,
   FN_DateEnd: Option[DateTime] = None,
   FN_MemOverflowl: Option[Boolean] = None,
-  FN_IsFiscal: Option[Boolean] = None,
-  IdCommand: String = createUuid
+  FN_IsFiscal: Option[Boolean] = None
 )
 
 object ListRequest {
@@ -24,6 +24,7 @@ object ListRequest {
   implicit val listRequestWrites: Writes[ListRequest] = (
     (__ \ "Command").write[String] and
     (__ \ "NumDevice").writeNullable[Int] and
+    (__ \ "IdCommand").write[String] and
     (__ \ "InnKkm").writeNullable[String] and
     (__ \ "IP").writeNullable[String] and
     (__ \ "Active").writeNullable[Boolean] and
@@ -32,8 +33,7 @@ object ListRequest {
     (__ \ "OFD_DateErrorDoc").writeNullable[DateTime] and
     (__ \ "FN_DateEnd").writeNullable[DateTime] and
     (__ \ "FN_MemOverflowl").writeNullable[Boolean] and
-    (__ \ "FN_IsFiscal").writeNullable[Boolean] and
-    (__ \ "IdCommand").write[String]
+    (__ \ "FN_IsFiscal").writeNullable[Boolean]
     )(unlift(ListRequest.unapply))
 
 }
