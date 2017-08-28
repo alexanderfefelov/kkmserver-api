@@ -66,7 +66,11 @@ case class ListUnit (
 )
 
 case class ListResponse (
+  // Payload
+  //
   ListUnit: List[ListUnit],
+  // Meta
+  //
   Command: String,
   Error: String,
   Status: Int,

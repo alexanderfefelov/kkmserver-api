@@ -22,6 +22,9 @@ object ZReportRequest {
 }
 
 case class ZReportResponse (
+  // Payload
+  //
+  SessionNumber: Int,
   // Meta
   //
   Command: String,
@@ -34,6 +37,7 @@ case class ZReportResponse (
 object ZReportResponse {
 
   implicit val zReportResponseReads: Reads[ZReportResponse] = (
+    (__ \ "SessionNumber").read[Int] and
     (__ \ "Command").read[String] and
     (__ \ "Error").read[String] and
     (__ \ "Status").read[Int] and
