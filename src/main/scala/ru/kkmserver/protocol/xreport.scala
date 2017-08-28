@@ -4,6 +4,8 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 case class XReportRequest (
+  // Meta
+  //
   Command: String = CommandXReport,
   NumDevice: Option[Int] = None,
   IdCommand: String = createUuid

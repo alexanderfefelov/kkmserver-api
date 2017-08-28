@@ -62,9 +62,13 @@ case class BarCodeCheckString (
 ) extends CheckString
 
 case class RegisterCheckRequest (
+  // Meta
+  //
   Command: String = CommandRegisterCheck,
   NumDevice: Option[Int] = None,
   IdCommand: String = createUuid,
+  // Payload
+  //
   InnKkm: Option[String] = None,
   KktNumber: Option[String] = None,
   IsFiscalCheck: Boolean,

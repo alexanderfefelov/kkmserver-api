@@ -5,9 +5,13 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 case class ListRequest (
+  // Meta
+  //
   Command: String = CommandList,
   NumDevice: Option[Int] = None,
   IdCommand: String = createUuid,
+  // Payload
+  //
   InnKkm: Option[String] = None,
   IP: Option[String] = None,
   Active: Option[Boolean] = None,

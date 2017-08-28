@@ -4,6 +4,8 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 case class ZReportRequest (
+  // Meta
+  //
   Command: String = CommandZReport,
   NumDevice: Option[Int] = None,
   IdCommand: String = createUuid
