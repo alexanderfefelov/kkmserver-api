@@ -32,7 +32,11 @@ case class RezultData (
 )
 
 case class GetRezultResponse (
+  // Payload
+  //
   Rezult: RezultData,
+  // Meta
+  //
   Command: String,
   Error: String,
   Status: Int,

@@ -171,25 +171,29 @@ object RegisterCheckRequest {
 }
 
 case class RegisterCheckResponse (
+  // Payload
+  //
+  SessionNumber: Int,
+  CheckNumber: Int,
+  URL: String,
+  // Meta
+  //
   Command: String,
   Error: String,
   Status: Int,
-  IdCommand: String,
-  SessionNumber: Int,
-  CheckNumber: Int,
-  URL: String
+  IdCommand: String
 )
 
 object RegisterCheckResponse {
 
   implicit val registerCheckResponseReads: Reads[RegisterCheckResponse] = (
+    (__ \ "SessionNumber").read[Int] and
+    (__ \ "CheckNumber").read[Int] and
+    (__ \ "URL").read[String] and
     (__ \ "Command").read[String] and
     (__ \ "Error").read[String] and
     (__ \ "Status").read[Int] and
-    (__ \ "IdCommand").read[String] and
-    (__ \ "SessionNumber").read[Int] and
-    (__ \ "CheckNumber").read[Int] and
-    (__ \ "URL").read[String]
+    (__ \ "IdCommand").read[String]
     )(RegisterCheckResponse.apply _)
 
 }

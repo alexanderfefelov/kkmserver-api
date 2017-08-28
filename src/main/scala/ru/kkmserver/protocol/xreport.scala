@@ -22,12 +22,13 @@ object XReportRequest {
 }
 
 case class XReportResponse (
+  // Meta
+  //
   Command: String,
   Error: String,
   Status: Int,
   IdCommand: String,
-  NumDevice: Int,
-  URL: String
+  NumDevice: Int
 )
 
 object XReportResponse {
@@ -37,8 +38,7 @@ object XReportResponse {
     (__ \ "Error").read[String] and
     (__ \ "Status").read[Int] and
     (__ \ "IdCommand").read[String] and
-    (__ \ "NumDevice").read[Int] and
-    (__ \ "URL").read[String]
+    (__ \ "NumDevice").read[Int]
     )(XReportResponse.apply _)
 
 }

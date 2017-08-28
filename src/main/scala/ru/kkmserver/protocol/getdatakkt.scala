@@ -29,8 +29,12 @@ case class InfoData (
 )
 
 case class GetDataKKTResponse (
+  // Payload
+  //
   SessionNumber: Int,
   Info: InfoData,
+  // Meta
+  //
   Command: String,
   Error: String,
   Status: Int,

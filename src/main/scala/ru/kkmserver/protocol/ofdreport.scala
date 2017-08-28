@@ -22,7 +22,8 @@ object OfdReportRequest {
 }
 
 case class OfdReportResponse (
-  URL: String,
+  // Meta
+  //
   Command: String,
   Error: String,
   Status: Int,
@@ -33,7 +34,6 @@ case class OfdReportResponse (
 object OfdReportResponse {
 
   implicit val ofdReportReads: Reads[OfdReportResponse] = (
-    (__ \ "URL").read[String] and
     (__ \ "Command").read[String] and
     (__ \ "Error").read[String] and
     (__ \ "Status").read[Int] and
