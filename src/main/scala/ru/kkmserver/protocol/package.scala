@@ -24,6 +24,7 @@ package object protocol {
   val CommandPaymentCash: String = "PaymentCash"       // Изъять наличные
   val CommandDepositingCash: String = "DepositingCash" // Внести наличные
   val CommandOpenShift: String = "OpenShift"           // Открыть смену
+  val CommandOpenCashDrawer: String = "OpenCashDrawer" // Открыть денежный ящик
 
   val CommandStatusOk: Int = 0
   val CommandStatusRun: Int = 1
