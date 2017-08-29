@@ -1,4 +1,4 @@
-name := "demo"
+name := "kkmserver-api-demo"
 organization := "alexanderfefelov.github.com"
 
 scalaVersion := "2.11.11"
