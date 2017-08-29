@@ -20,18 +20,22 @@ KkmServer установлен и запущен в режиме "служба W
 
 * Установка и первый запуск
 
+
     cp ..\dist\Setup_KkmServer_2.0.22.06_10.05.2017.msi resources\Setup_KkmServer.msi
     vagrant up
 
 * Удаление
 
+
     vagrant destroy
 
 * Останов
 
+
     vagrant halt
 
 * Запуск после останова
+
 
     vagrant up
 
