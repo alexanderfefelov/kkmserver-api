@@ -14,13 +14,22 @@ package object protocol {
 
   def createUuid: String = java.util.UUID.randomUUID().toString
 
+  // Проверить статус команды
   val CommandGetRezult: String = "GetRezult"
+  // Получить список устройств
   val CommandList: String = "List"
+  // Напечатать чек
   val CommandRegisterCheck: String = "RegisterCheck"
+  // Напечатать X-отчет
   val CommandXReport: String = "XReport"
+  // Напечатать Z-отчет
   val CommandZReport: String = "ZReport"
+  // Получить состояние ККТ
   val CommandGetDataKKT: String = "GetDataKKT"
+  // Проверить состояние связи и расчетов с ОФД
   val CommandOfdReport: String = "OfdReport"
+  // Изъять наличные
+  val CommandPaymentCash: String = "PaymentCash"
 
   val CommandStatusOk: Int = 0
   val CommandStatusRun: Int = 1
