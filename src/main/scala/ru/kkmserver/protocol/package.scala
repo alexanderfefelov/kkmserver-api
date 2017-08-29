@@ -23,6 +23,7 @@ package object protocol {
   val CommandOfdReport: String = "OfdReport"           // Проверить состояние связи и расчетов с ОФД
   val CommandPaymentCash: String = "PaymentCash"       // Изъять наличные
   val CommandDepositingCash: String = "DepositingCash" // Внести наличные
+  val CommandOpenShift: String = "OpenShift"           // Открыть смену
 
   val CommandStatusOk: Int = 0
   val CommandStatusRun: Int = 1
