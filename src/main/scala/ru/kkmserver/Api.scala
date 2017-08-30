@@ -42,6 +42,22 @@ class Api {
     apiCall[OfdReportRequest, OfdReportResponse](request)
   }
 
+  def paymentCash(request: PaymentCashRequest): Future[PaymentCashResponse] = {
+    apiCall[PaymentCashRequest, PaymentCashResponse](request)
+  }
+
+  def depositingCash(request: DepositingCashRequest): Future[DepositingCashResponse] = {
+    apiCall[DepositingCashRequest, DepositingCashResponse](request)
+  }
+
+  def openShift(request: OpenShiftRequest): Future[OpenShiftResponse] = {
+    apiCall[OpenShiftRequest, OpenShiftResponse](request)
+  }
+
+  def openCashDrawer(request: OpenCashDrawerRequest): Future[OpenCashDrawerResponse] = {
+    apiCall[OpenCashDrawerRequest, OpenCashDrawerResponse](request)
+  }
+
   private def apiCall[A : Writes, B : Reads](request: A): Future[B] = {
     val requestJson = Json.toJson(request)
     logger.debug(s"request: $requestJson")
