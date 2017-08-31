@@ -21,7 +21,7 @@ KkmServer будет установлен и запущен в режиме "с�
 * Установка и первый запуск
 
 ```
-copy ..\dist\Setup_KkmServer_2.0.22.06_10.05.2017.msi resources\Setup_KkmServer.msi
+copy ..\dist\Setup_KkmServer_2.1.10.16_30.08.2017.exe resources\Setup_KkmServer.exe
 vagrant up
 ```
 

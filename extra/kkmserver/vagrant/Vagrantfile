@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-if ! File.exists?("resources/Setup_KkmServer.msi")
+if ! File.exists?("resources/Setup_KkmServer.exe")
   puts "KkmServer installer not found"
   exit 1
 end
