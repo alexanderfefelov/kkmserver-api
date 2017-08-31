@@ -7,8 +7,10 @@ case class ZReportRequest (
   // Meta
   //
   Command: String = COMMAND_Z_REPORT,
-  NumDevice: Int,
   IdCommand: String = createUuid,
+  // Device selector
+  //
+  NumDevice: Int,
   // Payload
   //
   CashierName: Option[String] = None
@@ -18,8 +20,8 @@ object ZReportRequest {
 
   implicit val zReportRequestWrites: Writes[ZReportRequest] = (
     (__ \ "Command").write[String] and
-    (__ \ "NumDevice").write[Int] and
     (__ \ "IdCommand").write[String] and
+    (__ \ "NumDevice").write[Int] and
     (__ \ "CashierName").writeNullable[String]
     )(unlift(ZReportRequest.unapply))
 

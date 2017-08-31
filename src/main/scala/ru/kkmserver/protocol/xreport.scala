@@ -7,16 +7,18 @@ case class XReportRequest (
   // Meta
   //
   Command: String = COMMAND_X_REPORT,
-  NumDevice: Int,
-  IdCommand: String = createUuid
+  IdCommand: String = createUuid,
+  // Device selector
+  //
+  NumDevice: Int
 )
 
 object XReportRequest {
 
   implicit val xReportRequestWrites: Writes[XReportRequest] = (
     (__ \ "Command").write[String] and
-    (__ \ "NumDevice").write[Int] and
-    (__ \ "IdCommand").write[String]
+    (__ \ "IdCommand").write[String] and
+    (__ \ "NumDevice").write[Int]
     )(unlift(XReportRequest.unapply))
 
 }

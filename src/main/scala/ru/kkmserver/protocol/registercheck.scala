@@ -65,12 +65,14 @@ case class RegisterCheckRequest (
   // Meta
   //
   Command: String = COMMAND_REGISTER_CHECK,
-  NumDevice: Int,
   IdCommand: String = createUuid,
-  // Payload
+  // Device selector
   //
+  NumDevice: Option[Int] = None,
   InnKkm: Option[String] = None,
   KktNumber: Option[String] = None,
+  // Payload
+  //
   IsFiscalCheck: Boolean,
   TypeCheck: Int,
   CancelOpenedCheck: Boolean,
@@ -147,8 +149,8 @@ object RegisterCheckRequest {
 
   implicit val registerCheckRequestWrites: Writes[RegisterCheckRequest] = (
     (__ \ "Command").write[String] and
-    (__ \ "NumDevice").write[Int] and
     (__ \ "IdCommand").write[String] and
+    (__ \ "NumDevice").writeNullable[Int] and
     (__ \ "InnKkm").writeNullable[String] and
     (__ \ "KktNumber").writeNullable[String] and
     (__ \ "IsFiscalCheck").write[Boolean] and

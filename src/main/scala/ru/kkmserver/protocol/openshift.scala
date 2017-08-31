@@ -7,8 +7,10 @@ case class OpenShiftRequest (
   // Meta
   //
   Command: String = COMMAND_OPEN_SHIFT,
-  NumDevice: Int,
   IdCommand: String = createUuid,
+  // Device selector
+  //
+  NumDevice: Int,
   // Payload
   //
   CashierName: Option[String] = None
@@ -18,8 +20,8 @@ object OpenShiftRequest {
 
   implicit val openShiftRequestWrites: Writes[OpenShiftRequest] = (
     (__ \ "Command").write[String] and
-    (__ \ "NumDevice").write[Int] and
     (__ \ "IdCommand").write[String] and
+    (__ \ "NumDevice").write[Int] and
     (__ \ "CashierName").writeNullable[String]
     )(unlift(OpenShiftRequest.unapply))
 

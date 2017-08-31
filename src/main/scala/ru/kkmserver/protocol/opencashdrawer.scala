@@ -7,16 +7,18 @@ case class OpenCashDrawerRequest (
   // Meta
   //
   Command: String = COMMAND_OPEN_CASH_DRAWER,
-  NumDevice: Int,
-  IdCommand: String = createUuid
+  IdCommand: String = createUuid,
+  // Device selector
+  //
+  NumDevice: Int
 )
 
 object OpenCashDrawerRequest {
 
   implicit val openCashDrawerRequestWrites: Writes[OpenCashDrawerRequest] = (
     (__ \ "Command").write[String] and
-    (__ \ "NumDevice").write[Int] and
-    (__ \ "IdCommand").write[String]
+    (__ \ "IdCommand").write[String] and
+    (__ \ "NumDevice").write[Int]
     )(unlift(OpenCashDrawerRequest.unapply))
 
 }

@@ -8,16 +8,18 @@ case class GetDataKKTRequest (
   // Meta
   //
   Command: String = COMMAND_GET_DATA_KKT,
-  NumDevice: Int,
-  IdCommand: String = createUuid
+  IdCommand: String = createUuid,
+  // Device selector
+  //
+  NumDevice: Int
 )
 
 object GetDataKKTRequest {
 
   implicit val getDataKKTRequestWrites: Writes[GetDataKKTRequest] = (
     (__ \ "Command").write[String] and
-    (__ \ "NumDevice").write[Int] and
-    (__ \ "IdCommand").write[String]
+    (__ \ "IdCommand").write[String] and
+    (__ \ "NumDevice").write[Int]
     )(unlift(GetDataKKTRequest.unapply))
 
 }

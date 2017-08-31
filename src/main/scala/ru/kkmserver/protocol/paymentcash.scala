@@ -7,8 +7,10 @@ case class PaymentCashRequest (
   // Meta
   //
   Command: String = COMMAND_PAYMENT_CASH,
-  NumDevice: Int,
   IdCommand: String = createUuid,
+  // Device selector
+  //
+  NumDevice: Int,
   // Payload
   //
   Amount: Double
@@ -18,8 +20,8 @@ object PaymentCashRequest {
 
   implicit val paymentCashRequestWrites: Writes[PaymentCashRequest] = (
     (__ \ "Command").write[String] and
-    (__ \ "NumDevice").write[Int] and
     (__ \ "IdCommand").write[String] and
+    (__ \ "NumDevice").write[Int] and
     (__ \ "Amount").write[Double]
     )(unlift(PaymentCashRequest.unapply))
 

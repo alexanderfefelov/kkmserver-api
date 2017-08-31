@@ -60,7 +60,7 @@ object App extends Controller {
 
   def registerCheckSale = Action.async { implicit request =>
     val request = RegisterCheckRequest(
-      NumDevice = DEVICE,
+      NumDevice = Option(DEVICE),
       IsFiscalCheck = true,
       TypeCheck = CHECK_TYPE_SALE,
       CancelOpenedCheck = true,
@@ -84,7 +84,7 @@ object App extends Controller {
 
   def registerCheckSaleReturn = Action.async { implicit request =>
     val request = RegisterCheckRequest(
-      NumDevice = DEVICE,
+      NumDevice = Option(DEVICE),
       IsFiscalCheck = true,
       TypeCheck = CHECK_TYPE_SALE_RETURN,
       CancelOpenedCheck = true,

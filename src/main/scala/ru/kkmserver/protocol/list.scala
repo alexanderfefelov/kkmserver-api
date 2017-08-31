@@ -9,7 +9,7 @@ case class ListRequest (
   //
   Command: String = COMMAND_LIST,
   IdCommand: String = createUuid,
-  // Payload
+  // Device selector
   //
   NumDevice: Option[Int] = None,
   InnKkm: Option[String] = None,
