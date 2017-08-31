@@ -7,7 +7,7 @@ case class DepositingCashRequest (
   // Meta
   //
   Command: String = CommandDepositingCash,
-  NumDevice: Option[Int] = None,
+  NumDevice: Int,
   IdCommand: String = createUuid,
   // Payload
   //
@@ -18,7 +18,7 @@ object DepositingCashRequest {
 
   implicit val depositingCashRequestWrites: Writes[DepositingCashRequest] = (
     (__ \ "Command").write[String] and
-    (__ \ "NumDevice").writeNullable[Int] and
+    (__ \ "NumDevice").write[Int] and
     (__ \ "IdCommand").write[String] and
     (__ \ "Amount").write[Double]
     )(unlift(DepositingCashRequest.unapply))

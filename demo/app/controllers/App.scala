@@ -9,6 +9,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 object App extends Controller {
 
+  val DEVICE = 1
+
   val api = new Api()
 
   def index = Action { implicit request =>
@@ -29,7 +31,7 @@ object App extends Controller {
   }
 
   def getDataKKT = Action.async { implicit request =>
-    val future = api.getDataKKT(GetDataKKTRequest())
+    val future = api.getDataKKT(GetDataKKTRequest(NumDevice = DEVICE))
     for {
       obj <- future
     } yield {
@@ -58,6 +60,7 @@ object App extends Controller {
 
   def registerCheckSale = Action.async { implicit request =>
     val request = RegisterCheckRequest(
+      NumDevice = DEVICE,
       IsFiscalCheck = true,
       TypeCheck = TypeCheckSale,
       CancelOpenedCheck = true,
@@ -81,6 +84,7 @@ object App extends Controller {
 
   def registerCheckSaleReturn = Action.async { implicit request =>
     val request = RegisterCheckRequest(
+      NumDevice = DEVICE,
       IsFiscalCheck = true,
       TypeCheck = TypeCheckSaleReturn,
       CancelOpenedCheck = true,
@@ -103,7 +107,7 @@ object App extends Controller {
   }
 
   def xReport = Action.async { implicit request =>
-    val future = api.xReport(XReportRequest())
+    val future = api.xReport(XReportRequest(NumDevice = DEVICE))
     for {
       obj <- future
     } yield {
@@ -114,7 +118,7 @@ object App extends Controller {
   }
 
   def zReport = Action.async { implicit request =>
-    val future = api.zReport(ZReportRequest())
+    val future = api.zReport(ZReportRequest(NumDevice = DEVICE))
     for {
       obj <- future
     } yield {
@@ -125,7 +129,7 @@ object App extends Controller {
   }
 
   def ofdReport = Action.async { implicit request =>
-    val future = api.ofdReport(OfdReportRequest())
+    val future = api.ofdReport(OfdReportRequest(NumDevice = DEVICE))
     for {
       obj <- future
     } yield {

@@ -7,7 +7,7 @@ case class OfdReportRequest (
   // Meta
   //
   Command: String = CommandOfdReport,
-  NumDevice: Option[Int] = None,
+  NumDevice: Int,
   IdCommand: String = createUuid
 )
 
@@ -15,7 +15,7 @@ object OfdReportRequest {
 
   implicit val ofdReportRequestWrites: Writes[OfdReportRequest] = (
     (__ \ "Command").write[String] and
-    (__ \ "NumDevice").writeNullable[Int] and
+    (__ \ "NumDevice").write[Int] and
     (__ \ "IdCommand").write[String]
     )(unlift(OfdReportRequest.unapply))
 

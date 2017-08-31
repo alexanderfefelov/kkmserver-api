@@ -7,7 +7,7 @@ case class XReportRequest (
   // Meta
   //
   Command: String = CommandXReport,
-  NumDevice: Option[Int] = None,
+  NumDevice: Int,
   IdCommand: String = createUuid
 )
 
@@ -15,7 +15,7 @@ object XReportRequest {
 
   implicit val xReportRequestWrites: Writes[XReportRequest] = (
     (__ \ "Command").write[String] and
-    (__ \ "NumDevice").writeNullable[Int] and
+    (__ \ "NumDevice").write[Int] and
     (__ \ "IdCommand").write[String]
     )(unlift(XReportRequest.unapply))
 

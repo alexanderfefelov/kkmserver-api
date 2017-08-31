@@ -7,7 +7,7 @@ case class OpenShiftRequest (
   // Meta
   //
   Command: String = CommandOpenShift,
-  NumDevice: Option[Int] = None,
+  NumDevice: Int,
   IdCommand: String = createUuid,
   // Payload
   //
@@ -18,7 +18,7 @@ object OpenShiftRequest {
 
   implicit val openShiftRequestWrites: Writes[OpenShiftRequest] = (
     (__ \ "Command").write[String] and
-    (__ \ "NumDevice").writeNullable[Int] and
+    (__ \ "NumDevice").write[Int] and
     (__ \ "IdCommand").write[String] and
     (__ \ "CashierName").writeNullable[String]
     )(unlift(OpenShiftRequest.unapply))

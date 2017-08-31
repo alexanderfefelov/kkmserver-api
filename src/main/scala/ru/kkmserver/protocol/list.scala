@@ -8,10 +8,10 @@ case class ListRequest (
   // Meta
   //
   Command: String = CommandList,
-  NumDevice: Option[Int] = None,
   IdCommand: String = createUuid,
   // Payload
   //
+  NumDevice: Option[Int] = None,
   InnKkm: Option[String] = None,
   IP: Option[String] = None,
   Active: Option[Boolean] = None,
@@ -27,8 +27,8 @@ object ListRequest {
 
   implicit val listRequestWrites: Writes[ListRequest] = (
     (__ \ "Command").write[String] and
-    (__ \ "NumDevice").writeNullable[Int] and
     (__ \ "IdCommand").write[String] and
+    (__ \ "NumDevice").writeNullable[Int] and
     (__ \ "InnKkm").writeNullable[String] and
     (__ \ "IP").writeNullable[String] and
     (__ \ "Active").writeNullable[Boolean] and
