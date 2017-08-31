@@ -14,33 +14,43 @@ package object protocol {
 
   def createUuid: String = java.util.UUID.randomUUID().toString
 
-  val CommandGetRezult: String = "GetRezult"           // Проверить статус команды
-  val CommandList: String = "List"                     // Получить список устройств
-  val CommandRegisterCheck: String = "RegisterCheck"   // Напечатать чек
-  val CommandXReport: String = "XReport"               // Напечатать X-отчет
-  val CommandZReport: String = "ZReport"               // Напечатать Z-отчет
-  val CommandGetDataKKT: String = "GetDataKKT"         // Получить состояние ККТ
-  val CommandOfdReport: String = "OfdReport"           // Проверить состояние связи и расчетов с ОФД
-  val CommandPaymentCash: String = "PaymentCash"       // Изъять наличные
-  val CommandDepositingCash: String = "DepositingCash" // Внести наличные
-  val CommandOpenShift: String = "OpenShift"           // Открыть смену
-  val CommandOpenCashDrawer: String = "OpenCashDrawer" // Открыть денежный ящик
+  // Команды
+  //
+  val COMMAND_GET_REZULT: String = "GetRezult"            // Проверить статус команды
+  val COMMAND_LIST: String = "List"                       // Получить список устройств
+  val COMMAND_REGISTER_CHECK: String = "RegisterCheck"    // Напечатать чек
+  val COMMAND_X_REPORT: String = "XReport"                // Напечатать X-отчет
+  val COMMAND_Z_REPORT: String = "ZReport"                // Напечатать Z-отчет
+  val COMMAND_GET_DATA_KKT: String = "GetDataKKT"         // Получить состояние ККТ
+  val COMMAND_OFD_REPORT: String = "OfdReport"            // Проверить состояние связи и расчетов с ОФД
+  val COMMAND_PAYMENT_CASH: String = "PaymentCash"        // Изъять наличные
+  val COMMAND_DEPOSITING_CASH: String = "DepositingCash"  // Внести наличные
+  val COMMAND_OPEN_SHIFT: String = "OpenShift"            // Открыть смену
+  val COMMAND_OPEN_CASH_DRAWER: String = "OpenCashDrawer" // Открыть денежный ящик
 
-  val CommandStatusOk: Int = 0
-  val CommandStatusRun: Int = 1
-  val CommandStatusError: Int = 2
-  val CommandStatusNotFound: Int = 3
-  val CommandStatusNotRun: Int = 4
+  // Статусы команд
+  //
+  val COMMAND_STATUS_OK: Int = 0          // Ok
+  val COMMAND_STATUS_RUN: Int = 1         // Выполняется
+  val COMMAND_STATUS_ERROR: Int = 2       // Ошибка
+  val COMMAND_STATUS_NOT_FOUND: Int = 3   // Не найдена
+  val COMMAND_STATUS_NOT_RUN: Int = 4     // Ожидает выполнения
+  val COMMAND_STATUS_DONE: Int = 5        // Выполнена ранее
+  val COMMAND_STATUS_EGAIS_ERROR: Int = 6 // Ошибка ЕГАИС
 
-  val TypeCheckSale: Int = 0
-  val TypeCheckSaleReturn: Int = 1
-  val TypeCheckEgaisSale: Int = 8
-  val TypeCheckEgaisSaleReturn: Int = 9
-  val TypeCheckPurchase: Int = 10
-  val TypeCheckPurchaseReturn: Int = 11
+  // Типы чеков
+  //
+  val CHECK_TYPE_SALE: Int = 0              // Продажа
+  val CHECK_TYPE_SALE_RETURN: Int = 1       // Возврат продажи
+  val CHECK_TYPE_EGAIS_SALE: Int = 8        // Продажа ЕГАИС
+  val CHECK_TYPE_EGAIS_SALE_RETURN: Int = 9 // Возврат продажи ЕГАИС
+  val CHECK_TYPE_PURCHASE: Int = 10         // Покупка
+  val CHECK_TYPE_PURCHASE_RETURN: Int = 11  // Возврат покупки
 
-  val SessionStateClosed: Int = 1
-  val SessionStateOpen: Int = 2
-  val SessionStateExpired: Int = 3
+  // Состояния сессий
+  //
+  val SESSION_STATE_CLOSED: Int = 1  // Открыта
+  val SESSION_STATE_OPEN: Int = 2    // Закрыта
+  val SESSION_STATE_EXPIRED: Int = 3 // Закончилась
 
 }

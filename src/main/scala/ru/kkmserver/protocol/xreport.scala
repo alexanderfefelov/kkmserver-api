@@ -6,7 +6,7 @@ import play.api.libs.json._
 case class XReportRequest (
   // Meta
   //
-  Command: String = CommandXReport,
+  Command: String = COMMAND_X_REPORT,
   NumDevice: Int,
   IdCommand: String = createUuid
 )

@@ -6,7 +6,7 @@ import play.api.libs.json._
 case class PaymentCashRequest (
   // Meta
   //
-  Command: String = CommandPaymentCash,
+  Command: String = COMMAND_PAYMENT_CASH,
   NumDevice: Int,
   IdCommand: String = createUuid,
   // Payload

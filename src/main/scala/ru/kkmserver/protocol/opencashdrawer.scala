@@ -6,7 +6,7 @@ import play.api.libs.json._
 case class OpenCashDrawerRequest (
   // Meta
   //
-  Command: String = CommandOpenCashDrawer,
+  Command: String = COMMAND_OPEN_CASH_DRAWER,
   NumDevice: Int,
   IdCommand: String = createUuid
 )

@@ -7,7 +7,7 @@ import play.api.libs.json._
 case class GetDataKKTRequest (
   // Meta
   //
-  Command: String = CommandGetDataKKT,
+  Command: String = COMMAND_GET_DATA_KKT,
   NumDevice: Int,
   IdCommand: String = createUuid
 )

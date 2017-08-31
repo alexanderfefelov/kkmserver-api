@@ -64,7 +64,7 @@ case class BarCodeCheckString (
 case class RegisterCheckRequest (
   // Meta
   //
-  Command: String = CommandRegisterCheck,
+  Command: String = COMMAND_REGISTER_CHECK,
   NumDevice: Int,
   IdCommand: String = createUuid,
   // Payload

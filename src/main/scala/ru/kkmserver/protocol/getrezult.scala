@@ -6,7 +6,7 @@ import play.api.libs.json._
 case class GetRezultRequest (
   // Meta
   //
-  Command: String = CommandGetRezult,
+  Command: String = COMMAND_GET_REZULT,
   // Payload
   //
   IdCommand: String

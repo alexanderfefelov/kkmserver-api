@@ -62,7 +62,7 @@ object App extends Controller {
     val request = RegisterCheckRequest(
       NumDevice = DEVICE,
       IsFiscalCheck = true,
-      TypeCheck = TypeCheckSale,
+      TypeCheck = CHECK_TYPE_SALE,
       CancelOpenedCheck = true,
       NotPrint = false,
       CashierName = "Швейк Йозеф",
@@ -86,7 +86,7 @@ object App extends Controller {
     val request = RegisterCheckRequest(
       NumDevice = DEVICE,
       IsFiscalCheck = true,
-      TypeCheck = TypeCheckSaleReturn,
+      TypeCheck = CHECK_TYPE_SALE_RETURN,
       CancelOpenedCheck = true,
       NotPrint = false,
       CashierName = "Швейк Йозеф",

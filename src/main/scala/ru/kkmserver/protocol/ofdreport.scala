@@ -6,7 +6,7 @@ import play.api.libs.json._
 case class OfdReportRequest (
   // Meta
   //
-  Command: String = CommandOfdReport,
+  Command: String = COMMAND_OFD_REPORT,
   NumDevice: Int,
   IdCommand: String = createUuid
 )

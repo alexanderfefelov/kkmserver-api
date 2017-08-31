@@ -6,7 +6,7 @@ import play.api.libs.json._
 case class ZReportRequest (
   // Meta
   //
-  Command: String = CommandZReport,
+  Command: String = COMMAND_Z_REPORT,
   NumDevice: Int,
   IdCommand: String = createUuid,
   // Payload

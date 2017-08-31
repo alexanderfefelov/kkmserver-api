@@ -7,7 +7,7 @@ import play.api.libs.json._
 case class ListRequest (
   // Meta
   //
-  Command: String = CommandList,
+  Command: String = COMMAND_LIST,
   IdCommand: String = createUuid,
   // Payload
   //

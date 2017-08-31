@@ -6,7 +6,7 @@ import play.api.libs.json._
 case class OpenShiftRequest (
   // Meta
   //
-  Command: String = CommandOpenShift,
+  Command: String = COMMAND_OPEN_SHIFT,
   NumDevice: Int,
   IdCommand: String = createUuid,
   // Payload
