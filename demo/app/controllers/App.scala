@@ -118,7 +118,7 @@ object App extends Controller {
   }
 
   def zReport = Action.async { implicit request =>
-    val future = api.zReport(ZReportRequest(NumDevice = DEVICE))
+    val future = api.zReport(ZReportRequest(NumDevice = DEVICE, CashierName = "Швейк Йозеф"))
     for {
       obj <- future
     } yield {

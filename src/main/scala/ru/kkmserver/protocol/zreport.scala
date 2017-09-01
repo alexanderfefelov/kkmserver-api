@@ -13,7 +13,7 @@ case class ZReportRequest (
   NumDevice: Int,
   // Payload
   //
-  CashierName: Option[String] = None
+  CashierName: String
 )
 
 object ZReportRequest {
@@ -22,7 +22,7 @@ object ZReportRequest {
     (__ \ "Command").write[String] and
     (__ \ "IdCommand").write[String] and
     (__ \ "NumDevice").write[Int] and
-    (__ \ "CashierName").writeNullable[String]
+    (__ \ "CashierName").write[String]
     )(unlift(ZReportRequest.unapply))
 
 }
