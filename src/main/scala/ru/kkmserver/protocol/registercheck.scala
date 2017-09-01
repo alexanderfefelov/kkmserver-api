@@ -181,9 +181,9 @@ case class RegisterCheckResponse (
   // Meta
   //
   Command: String,
-  Error: String,
+  IdCommand: String,
   Status: Int,
-  IdCommand: String
+  Error: String
 )
 
 object RegisterCheckResponse {
@@ -193,9 +193,9 @@ object RegisterCheckResponse {
     (__ \ "CheckNumber").read[Int] and
     (__ \ "URL").read[String] and
     (__ \ "Command").read[String] and
-    (__ \ "Error").read[String] and
+    (__ \ "IdCommand").read[String] and
     (__ \ "Status").read[Int] and
-    (__ \ "IdCommand").read[String]
+    (__ \ "Error").read[String]
     )(RegisterCheckResponse.apply _)
 
 }

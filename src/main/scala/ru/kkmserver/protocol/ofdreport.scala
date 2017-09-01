@@ -27,9 +27,9 @@ case class OfdReportResponse (
   // Meta
   //
   Command: String,
-  Error: String,
-  Status: Int,
   IdCommand: String,
+  Status: Int,
+  Error: String,
   NumDevice: Int
 )
 
@@ -37,9 +37,9 @@ object OfdReportResponse {
 
   implicit val ofdReportReads: Reads[OfdReportResponse] = (
     (__ \ "Command").read[String] and
-    (__ \ "Error").read[String] and
-    (__ \ "Status").read[Int] and
     (__ \ "IdCommand").read[String] and
+    (__ \ "Status").read[Int] and
+    (__ \ "Error").read[String] and
     (__ \ "NumDevice").read[Int]
     )(OfdReportResponse.apply _)
 

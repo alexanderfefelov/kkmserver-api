@@ -34,9 +34,9 @@ case class ZReportResponse (
   // Meta
   //
   Command: String,
-  Error: String,
-  Status: Int,
   IdCommand: String,
+  Status: Int,
+  Error: String,
   NumDevice: Int
 )
 
@@ -45,9 +45,9 @@ object ZReportResponse {
   implicit val zReportResponseReads: Reads[ZReportResponse] = (
     (__ \ "SessionNumber").read[Int] and
     (__ \ "Command").read[String] and
-    (__ \ "Error").read[String] and
-    (__ \ "Status").read[Int] and
     (__ \ "IdCommand").read[String] and
+    (__ \ "Status").read[Int] and
+    (__ \ "Error").read[String] and
     (__ \ "NumDevice").read[Int]
     )(ZReportResponse.apply _)
 

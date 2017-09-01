@@ -72,9 +72,9 @@ case class ListResponse (
   // Meta
   //
   Command: String,
-  Error: String,
+  IdCommand: String,
   Status: Int,
-  IdCommand: String
+  Error: String
 )
 
 object ListResponse {
@@ -105,9 +105,9 @@ object ListResponse {
   implicit val listResponseReads: Reads[ListResponse] = (
     (__ \ "ListUnit").read[List[ListUnit]] and
     (__ \ "Command").read[String] and
-    (__ \ "Error").read[String] and
+    (__ \ "IdCommand").read[String] and
     (__ \ "Status").read[Int] and
-    (__ \ "IdCommand").read[String]
+    (__ \ "Error").read[String]
     )(ListResponse.apply _)
 
 }

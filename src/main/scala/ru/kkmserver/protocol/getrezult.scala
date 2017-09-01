@@ -25,9 +25,9 @@ case class RezultData (
   SessionNumber: Int,
   URL: String,
   Command: String,
-  Error: String,
-  Status: Int,
   IdCommand: String,
+  Status: Int,
+  Error: String,
   NumDevice: Int
 )
 
@@ -38,9 +38,9 @@ case class GetRezultResponse (
   // Meta
   //
   Command: String,
-  Error: String,
+  IdCommand: String,
   Status: Int,
-  IdCommand: String
+  Error: String
 )
 
 object GetRezultResponse {
@@ -49,18 +49,18 @@ object GetRezultResponse {
     (__ \ "SessionNumber").read[Int] and
     (__ \ "URL").read[String] and
     (__ \ "Command").read[String] and
-    (__ \ "Error").read[String] and
-    (__ \ "Status").read[Int] and
     (__ \ "IdCommand").read[String] and
+    (__ \ "Status").read[Int] and
+    (__ \ "Error").read[String] and
     (__ \ "NumDevice").read[Int]
     )(RezultData.apply _)
 
   implicit val getRezultResponseReads: Reads[GetRezultResponse] = (
     (__ \ "Rezult").read[RezultData] and
     (__ \ "Command").read[String] and
-    (__ \ "Error").read[String] and
+    (__ \ "IdCommand").read[String] and
     (__ \ "Status").read[Int] and
-    (__ \ "IdCommand").read[String]
+    (__ \ "Error").read[String]
     )(GetRezultResponse.apply _)
 
 }

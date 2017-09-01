@@ -49,9 +49,9 @@ case class GetDataKKTResponse (
   // Meta
   //
   Command: String,
-  Error: String,
-  Status: Int,
   IdCommand: String,
+  Status: Int,
+  Error: String,
   NumDevice: Int
 )
 
@@ -78,9 +78,9 @@ object GetDataKKTResponse {
     (__ \ "CheckNumber").read[Int] and
     (__ \ "Info").read[InfoData] and
     (__ \ "Command").read[String] and
-    (__ \ "Error").read[String] and
-    (__ \ "Status").read[Int] and
     (__ \ "IdCommand").read[String] and
+    (__ \ "Status").read[Int] and
+    (__ \ "Error").read[String] and
     (__ \ "NumDevice").read[Int]
     )(GetDataKKTResponse.apply _)
 
