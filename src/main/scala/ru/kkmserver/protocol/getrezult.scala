@@ -23,6 +23,7 @@ object GetRezultRequest {
 
 case class RezultData (
   SessionNumber: Int,
+  CheckNumber: Int,
   URL: String,
   Command: String,
   IdCommand: String,
@@ -47,6 +48,7 @@ object GetRezultResponse {
 
   implicit val rezultDataReads: Reads[RezultData] = (
     ((__ \ "SessionNumber").read[Int] or Reads.pure(DEFAULT_SESSION_NUMBER)) and
+    ((__ \ "CheckNumber").read[Int] or Reads.pure(DEFAULT_CHECK_NUMBER)) and
     ((__ \ "URL").read[String] or Reads.pure(DEFAULT_URL))and
     (__ \ "Command").read[String] and
     (__ \ "IdCommand").read[String] and
