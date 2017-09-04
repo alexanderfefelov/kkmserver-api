@@ -23,3 +23,5 @@ lazy val root = (project in file("."))
   )
 
 doc in Compile := target.map(_ / "none").value
+
+logBuffered in Test := false
