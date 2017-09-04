@@ -92,11 +92,11 @@ object ListResponse {
     (__ \ "INN").read[String] and
     (__ \ "NameOrganization").read[String] and
     (__ \ "TaxVariant").read[String] and
-    (__ \ "AddDate").read[DateTime](jodaReadsLong) and
+    (__ \ "AddDate").read[DateTime](jodaReads) and
     (__ \ "OFD_Error").read[String] and
     (__ \ "OFD_NumErrorDoc").read[Int] and
-    (__ \ "OFD_DateErrorDoc").read[DateTime](jodaReadsShort) and
-    (__ \ "FN_DateEnd").read[DateTime](jodaReadsShort) and
+    (__ \ "OFD_DateErrorDoc").read[DateTime](jodaReads) and
+    (__ \ "FN_DateEnd").read[DateTime](jodaReads) and
     (__ \ "FN_MemOverflowl").read[Boolean] and
     (__ \ "FN_IsFiscal").read[Boolean] and
     (__ \ "PaperOver").read[Boolean]

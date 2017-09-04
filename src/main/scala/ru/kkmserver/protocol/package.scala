@@ -1,16 +1,17 @@
 package ru.kkmserver
 
 import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
+import org.joda.time.format.{DateTimeFormat, DateTimeFormatterBuilder}
 import play.api.libs.json.Reads
 
 package object protocol {
 
   private val jodaFormatShort = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss")
   private val jodaFormatLong = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZ")
+  private val jodaParsers = Array(jodaFormatShort.getParser, jodaFormatLong.getParser)
+  private val jodaFormatter = new DateTimeFormatterBuilder().append(null, jodaParsers).toFormatter
 
-  val jodaReadsShort: Reads[DateTime] = Reads.of[String] map (DateTime.parse(_, jodaFormatShort))
-  val jodaReadsLong: Reads[DateTime] = Reads.of[String] map (DateTime.parse(_, jodaFormatLong))
+  val jodaReads: Reads[DateTime] = Reads.of[String] map (x => jodaFormatter.parseDateTime(x))
 
   def createUuid: String = java.util.UUID.randomUUID().toString
 

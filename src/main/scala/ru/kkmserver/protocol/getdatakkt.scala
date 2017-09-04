@@ -70,7 +70,7 @@ object GetDataKKTResponse {
     (__ \ "FFDVersion").read[String] and
     (__ \ "FFDVersionFN").read[String] and
     (__ \ "FFDVersionKKT").read[String] and
-    (__ \ "LicenseExpirationDate").read[DateTime](jodaReadsShort)
+    (__ \ "LicenseExpirationDate").read[DateTime](jodaReads)
     )(InfoData.apply _)
 
   implicit val getDataKKTResponseReads: Reads[GetDataKKTResponse] = (
