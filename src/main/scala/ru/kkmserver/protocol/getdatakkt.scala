@@ -74,8 +74,8 @@ object GetDataKKTResponse {
     )(InfoData.apply _)
 
   implicit val getDataKKTResponseReads: Reads[GetDataKKTResponse] = (
-    (__ \ "SessionNumber").read[Int] and
-    (__ \ "CheckNumber").read[Int] and
+    ((__ \ "SessionNumber").read[Int] or Reads.pure(DEFAULT_SESSION_NUMBER)) and
+    ((__ \ "CheckNumber").read[Int] or Reads.pure(DEFAULT_CHECK_NUMBER)) and
     (__ \ "Info").read[InfoData] and
     (__ \ "Command").read[String] and
     (__ \ "IdCommand").read[String] and

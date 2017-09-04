@@ -54,4 +54,10 @@ package object protocol {
   val SESSION_STATE_OPEN: Int = 2    // Закрыта
   val SESSION_STATE_EXPIRED: Int = 3 // Закончилась
 
+  // Значения по умолчанию для ответов
+  //
+  val DEFAULT_URL: String = ""
+  val DEFAULT_SESSION_NUMBER: Int = -1
+  val DEFAULT_CHECK_NUMBER: Int = -1
+
 }

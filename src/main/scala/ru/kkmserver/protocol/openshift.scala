@@ -43,7 +43,7 @@ case class OpenShiftResponse (
 object OpenShiftResponse {
 
   implicit val openShiftResponseReads: Reads[OpenShiftResponse] = (
-    (__ \ "SessionNumber").read[Int] and
+    ((__ \ "SessionNumber").read[Int] or Reads.pure(DEFAULT_SESSION_NUMBER)) and
     (__ \ "Command").read[String] and
     (__ \ "IdCommand").read[String] and
     (__ \ "Status").read[Int] and
