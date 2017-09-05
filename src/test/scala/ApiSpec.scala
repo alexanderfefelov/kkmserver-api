@@ -11,6 +11,8 @@ class ApiSpec extends AsyncFlatSpec {
   private val DEVICE = 2
   private val CASHIER_NAME = "Швейк Йозеф"
 
+  private var commandId = ""
+
   "List" should "run without error and return exactly 3 devices" in {
     val request = ListRequest()
     api.list(request) map { response =>
@@ -90,6 +92,14 @@ class ApiSpec extends AsyncFlatSpec {
   "ZReport" should "run without error" in {
     val request = ZReportRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME)
     api.zReport(request) map { response =>
+      commandId = response.IdCommand
+      assert(response.Status == 0)
+    }
+  }
+
+  "GetRezult" should "run without error" in {
+    val request = GetRezultRequest(IdCommand = commandId)
+    api.getRezult(request) map { response =>
       assert(response.Status == 0)
     }
   }
