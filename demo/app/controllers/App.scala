@@ -60,19 +60,7 @@ object App extends Controller {
   }
 
   def registerCheckSale = Action.async { implicit request =>
-    val request = RegisterCheckRequest(
-      NumDevice = Option(DEVICE),
-      IsFiscalCheck = true,
-      TypeCheck = CHECK_TYPE_SALE,
-      CancelOpenedCheck = true,
-      NotPrint = false,
-      CashierName = "Швейк Йозеф",
-      CheckStrings = List(
-        PrintTextCheckString(PrintTextCheckStringData("Donec pretium est ac ante tincidunt blandit")),
-        RegisterCheckString(RegisterCheckStringData("Планшет PRESTIGIO MultiPad 3147 3g, 1GB, 8GB, 3G, Android 6.0", Quantity = 1, Price = 1, Amount = 1))
-      ),
-      Cash = 1.0
-    )
+    val request = createRegisterCheckRequest(CHECK_TYPE_SALE)
     val future = api.registerCheck(request)
     for {
       obj <- future
@@ -84,19 +72,7 @@ object App extends Controller {
   }
 
   def registerCheckSaleReturn = Action.async { implicit request =>
-    val request = RegisterCheckRequest(
-      NumDevice = Option(DEVICE),
-      IsFiscalCheck = true,
-      TypeCheck = CHECK_TYPE_SALE_RETURN,
-      CancelOpenedCheck = true,
-      NotPrint = false,
-      CashierName = CASHIER_NAME,
-      CheckStrings = List(
-        PrintTextCheckString(PrintTextCheckStringData("Lorem ipsum dolor sit amet")),
-        RegisterCheckString(RegisterCheckStringData("Планшет PRESTIGIO MultiPad 3147 3g, 1GB, 8GB, 3G, Android 6.0", Quantity = 1, Price = 1.00, Amount = 1.00))
-      ),
-      Cash = 1.0
-    )
+    val request = createRegisterCheckRequest(CHECK_TYPE_SALE_RETURN)
     val future = api.registerCheck(request)
     for {
       obj <- future
@@ -138,6 +114,22 @@ object App extends Controller {
       val data = obj.valueTreeString
       Ok(views.html.data(title, data))
     }
+  }
+
+  private def createRegisterCheckRequest(typeCheck: Int) = {
+    RegisterCheckRequest(
+      NumDevice = Option(DEVICE),
+      IsFiscalCheck = true,
+      TypeCheck = typeCheck,
+      CancelOpenedCheck = true,
+      NotPrint = false,
+      CashierName = CASHIER_NAME,
+      CheckStrings = List(
+        PrintTextCheckString(PrintTextCheckStringData("Donec pretium est ac ante tincidunt blandit")),
+        RegisterCheckString(RegisterCheckStringData("Планшет PRESTIGIO MultiPad 3147 3g, 1GB, 8GB, 3G, Android 6.0", Quantity = 1.00, Price = 1.00, Amount = 1.00))
+      ),
+      Cash = 1.00
+    )
   }
 
 }

@@ -64,19 +64,7 @@ class ApiSpec extends AsyncFlatSpec {
   }
 
   "RegisterCheck" should "run without error" in {
-    val request = RegisterCheckRequest(
-      NumDevice = Option(DEVICE),
-      IsFiscalCheck = true,
-      TypeCheck = CHECK_TYPE_SALE,
-      CancelOpenedCheck = true,
-      NotPrint = false,
-      CashierName = CASHIER_NAME,
-      CheckStrings = List(
-        PrintTextCheckString(PrintTextCheckStringData("Donec pretium est ac ante tincidunt blandit")),
-        RegisterCheckString(RegisterCheckStringData("Планшет PRESTIGIO MultiPad 3147 3g, 1GB, 8GB, 3G, Android 6.0", Quantity = 1, Price = 1.00, Amount = 1.00))
-      ),
-      Cash = 1.00
-    )
+    val request = createRegisterCheckRequest(CHECK_TYPE_SALE)
     api.registerCheck(request) map { response =>
       assert(response.Status == 0)
     }
@@ -102,6 +90,22 @@ class ApiSpec extends AsyncFlatSpec {
     api.getRezult(request) map { response =>
       assert(response.Status == 0)
     }
+  }
+
+  private def createRegisterCheckRequest(typeCheck: Int) = {
+    RegisterCheckRequest(
+      NumDevice = Option(DEVICE),
+      IsFiscalCheck = true,
+      TypeCheck = typeCheck,
+      CancelOpenedCheck = true,
+      NotPrint = false,
+      CashierName = CASHIER_NAME,
+      CheckStrings = List(
+        PrintTextCheckString(PrintTextCheckStringData("Donec pretium est ac ante tincidunt blandit")),
+        RegisterCheckString(RegisterCheckStringData("Планшет PRESTIGIO MultiPad 3147 3g, 1GB, 8GB, 3G, Android 6.0", Quantity = 1.00, Price = 1.00, Amount = 1.00))
+      ),
+      Cash = 1.00
+    )
   }
 
 }
