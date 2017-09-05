@@ -37,7 +37,8 @@ case class OpenShiftResponse (
   IdCommand: String,
   Status: Int,
   Error: String,
-  NumDevice: Int
+  NumDevice: Int,
+  UnitName: String
 )
 
 object OpenShiftResponse {
@@ -48,7 +49,8 @@ object OpenShiftResponse {
     (__ \ "IdCommand").read[String] and
     (__ \ "Status").read[Int] and
     (__ \ "Error").read[String] and
-    (__ \ "NumDevice").read[Int]
+    (__ \ "NumDevice").read[Int] and
+    (__ \ "UnitName").read[String]
     )(OpenShiftResponse.apply _)
 
 }

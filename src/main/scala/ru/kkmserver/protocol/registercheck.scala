@@ -185,7 +185,8 @@ case class RegisterCheckResponse (
   IdCommand: String,
   Status: Int,
   Error: String,
-  NumDevice: Int
+  NumDevice: Int,
+  UnitName: String
 )
 
 object RegisterCheckResponse {
@@ -199,7 +200,8 @@ object RegisterCheckResponse {
     (__ \ "IdCommand").read[String] and
     (__ \ "Status").read[Int] and
     (__ \ "Error").read[String] and
-    (__ \ "NumDevice").read[Int]
+    (__ \ "NumDevice").read[Int] and
+    (__ \ "UnitName").read[String]
     )(RegisterCheckResponse.apply _)
 
 }

@@ -51,6 +51,7 @@ case class ListUnit (
   IdTypeDevice: String,
   IP: String,
   NameDevice: String,
+  UnitName: String,
   KktNumber: String,
   INN: String,
   NameOrganization: String,
@@ -88,6 +89,7 @@ object ListResponse {
     (__ \ "IdTypeDevice").read[String] and
     (__ \ "IP").read[String] and
     (__ \ "NameDevice").read[String] and
+    (__ \ "UnitName").read[String] and
     (__ \ "KktNumber").read[String] and
     (__ \ "INN").read[String] and
     (__ \ "NameOrganization").read[String] and
