@@ -57,6 +57,7 @@ package object protocol {
   // Значения по умолчанию для ответов
   //
   val DEFAULT_URL: String = ""
+  val DEFAULT_QRCODE: String = ""
   val DEFAULT_SESSION_NUMBER: Int = -1
   val DEFAULT_CHECK_NUMBER: Int = -1
 

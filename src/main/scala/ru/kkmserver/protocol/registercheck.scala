@@ -178,6 +178,7 @@ case class RegisterCheckResponse (
   SessionNumber: Int,
   CheckNumber: Int,
   URL: String,
+  QRCode: String,
   // Meta
   //
   Command: String,
@@ -193,6 +194,7 @@ object RegisterCheckResponse {
     ((__ \ "SessionNumber").read[Int] or Reads.pure(DEFAULT_SESSION_NUMBER)) and
     ((__ \ "CheckNumber").read[Int] or Reads.pure(DEFAULT_CHECK_NUMBER)) and
     ((__ \ "URL").read[String] or Reads.pure(DEFAULT_URL)) and
+    ((__ \ "QRCode").read[String] or Reads.pure(DEFAULT_QRCODE)) and
     (__ \ "Command").read[String] and
     (__ \ "IdCommand").read[String] and
     (__ \ "Status").read[Int] and
