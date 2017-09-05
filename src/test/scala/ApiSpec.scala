@@ -27,35 +27,35 @@ class ApiSpec extends AsyncFlatSpec {
   }
 
   "OfdReport" should "run without error" in {
-    val request = OfdReportRequest(NumDevice = DEVICE)
+    val request = OfdReportRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME)
     api.ofdReport(request) map { response =>
       assert(response.Status == 0)
     }
   }
 
   "OpenShift" should "run without error" in {
-    val request = OpenShiftRequest(NumDevice = DEVICE)
+    val request = OpenShiftRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME)
     api.openShift(request) map { response =>
       assert(response.Status == 0)
     }
   }
 
   "OpenCashDrawer" should "run without error" in {
-    val request = OpenCashDrawerRequest(NumDevice = DEVICE)
+    val request = OpenCashDrawerRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME)
     api.openCashDrawer(request) map { response =>
       assert(response.Status == 0)
     }
   }
 
   "DepositingCash" should "run without error" in {
-    val request = DepositingCashRequest(NumDevice = DEVICE, Amount = 1.00)
+    val request = DepositingCashRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME, Amount = 1.00)
     api.depositingCash(request) map { response =>
       assert(response.Status == 0)
     }
   }
 
   "PaymentCash" should "run without error" in {
-    val request = PaymentCashRequest(NumDevice = DEVICE, Amount = 1.00)
+    val request = PaymentCashRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME, Amount = 1.00)
     api.paymentCash(request) map { response =>
       assert(response.Status == 0)
     }

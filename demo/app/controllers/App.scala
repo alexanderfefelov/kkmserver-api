@@ -10,6 +10,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 object App extends Controller {
 
   val DEVICE = 1
+  val CASHIER_NAME = "Швейк Йозеф"
 
   val api = new Api()
 
@@ -89,10 +90,10 @@ object App extends Controller {
       TypeCheck = CHECK_TYPE_SALE_RETURN,
       CancelOpenedCheck = true,
       NotPrint = false,
-      CashierName = "Швейк Йозеф",
+      CashierName = CASHIER_NAME,
       CheckStrings = List(
         PrintTextCheckString(PrintTextCheckStringData("Lorem ipsum dolor sit amet")),
-        RegisterCheckString(RegisterCheckStringData("Планшет PRESTIGIO MultiPad 3147 3g, 1GB, 8GB, 3G, Android 6.0", Quantity = 1, Price = 1, Amount = 1))
+        RegisterCheckString(RegisterCheckStringData("Планшет PRESTIGIO MultiPad 3147 3g, 1GB, 8GB, 3G, Android 6.0", Quantity = 1, Price = 1.00, Amount = 1.00))
       ),
       Cash = 1.0
     )
@@ -118,7 +119,7 @@ object App extends Controller {
   }
 
   def zReport = Action.async { implicit request =>
-    val future = api.zReport(ZReportRequest(NumDevice = DEVICE, CashierName = "Швейк Йозеф"))
+    val future = api.zReport(ZReportRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME))
     for {
       obj <- future
     } yield {
@@ -129,7 +130,7 @@ object App extends Controller {
   }
 
   def ofdReport = Action.async { implicit request =>
-    val future = api.ofdReport(OfdReportRequest(NumDevice = DEVICE))
+    val future = api.ofdReport(OfdReportRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME))
     for {
       obj <- future
     } yield {

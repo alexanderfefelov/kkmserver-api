@@ -13,7 +13,7 @@ case class OpenShiftRequest (
   NumDevice: Int,
   // Payload
   //
-  CashierName: Option[String] = None
+  CashierName: String
 )
 
 object OpenShiftRequest {
@@ -22,7 +22,7 @@ object OpenShiftRequest {
     (__ \ "Command").write[String] and
     (__ \ "IdCommand").write[String] and
     (__ \ "NumDevice").write[Int] and
-    (__ \ "CashierName").writeNullable[String]
+    (__ \ "CashierName").write[String]
     )(unlift(OpenShiftRequest.unapply))
 
 }

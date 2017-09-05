@@ -10,7 +10,10 @@ case class OfdReportRequest (
   IdCommand: String = createUuid,
   // Device selector
   //
-  NumDevice: Int
+  NumDevice: Int,
+  // Payload
+  //
+  CashierName: String
 )
 
 object OfdReportRequest {
@@ -18,7 +21,8 @@ object OfdReportRequest {
   implicit val ofdReportRequestWrites: Writes[OfdReportRequest] = (
     (__ \ "Command").write[String] and
     (__ \ "IdCommand").write[String] and
-    (__ \ "NumDevice").write[Int]
+    (__ \ "NumDevice").write[Int] and
+    (__ \ "CashierName").write[String]
     )(unlift(OfdReportRequest.unapply))
 
 }

@@ -13,6 +13,7 @@ case class PaymentCashRequest (
   NumDevice: Int,
   // Payload
   //
+  CashierName: String,
   Amount: Double
 )
 
@@ -22,6 +23,7 @@ object PaymentCashRequest {
     (__ \ "Command").write[String] and
     (__ \ "IdCommand").write[String] and
     (__ \ "NumDevice").write[Int] and
+    (__ \ "CashierName").write[String] and
     (__ \ "Amount").write[Double]
     )(unlift(PaymentCashRequest.unapply))
 
