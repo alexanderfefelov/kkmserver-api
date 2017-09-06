@@ -46,7 +46,7 @@
             </div>
         </nav>
         <div class="container"><div id="content">@content</div></div>
-        <footer class="footer"><div class="container"><p class="text-muted">@BuildInfo.name version @BuildInfo.version (git @Api.theGitHash). Built at @BuildInfo.builtAt by @BuildInfo.builtBy on @BuildInfo.builtOn</p></div></footer>
+        <footer class="footer"><div class="container"><p class="text-muted">@BuildInfo.name version @BuildInfo.version (git @KkmServerApi.theGitHash). Built at @BuildInfo.builtAt by @BuildInfo.builtBy on @BuildInfo.builtOn</p></div></footer>
         <script src="@routes.Assets.versioned("lib/jquery/jquery.min.js")"></script>
         <script src="@routes.Assets.versioned("lib/bootstrap/js/bootstrap.min.js")"></script>
     </body>

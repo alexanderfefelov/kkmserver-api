@@ -10,7 +10,7 @@ import com.github.alexanderfefelov.kkmserver.api.protocol._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class Api {
+class KkmServerApi {
 
   val wsClient: NingWSClient = NingWSClient()
 
@@ -77,8 +77,8 @@ class Api {
   }
 
   private def wsCall(json: JsValue): Future[WSResponse] = {
-    wsClient.url(Config.url)
-      .withAuth(Config.username, Config.password, WSAuthScheme.BASIC)
+    wsClient.url(KkmServerApiConfig.url)
+      .withAuth(KkmServerApiConfig.username, KkmServerApiConfig.password, WSAuthScheme.BASIC)
       .withHeaders("Accept" -> "application/json")
       .post(json)
   }
@@ -87,6 +87,6 @@ class Api {
 
 }
 
-object Api {
+object KkmServerApi {
   val theGitHash: String = gitHashShort
 }

@@ -2,7 +2,7 @@ package com.github.alexanderfefelov.kkmserver.api
 
 import com.typesafe.config.ConfigFactory
 
-object Config {
+object KkmServerApiConfig {
 
   private val config = ConfigFactory.load()
 

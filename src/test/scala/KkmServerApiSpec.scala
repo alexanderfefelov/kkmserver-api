@@ -1,12 +1,12 @@
 import org.scalatest._
-import com.github.alexanderfefelov.kkmserver.api.Api
+import com.github.alexanderfefelov.kkmserver.api.KkmServerApi
 import com.github.alexanderfefelov.kkmserver.api.protocol._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class ApiSpec extends AsyncFlatSpec {
+class KkmServerApiSpec extends AsyncFlatSpec {
 
-  private val api = new Api()
+  private val api = new KkmServerApi()
 
   private val DEVICE = 2
   private val CASHIER_NAME = "Швейк Йозеф"

@@ -12,11 +12,11 @@ object App extends Controller {
   val DEVICE = 1
   val CASHIER_NAME = "Швейк Йозеф"
 
-  val api = new Api()
+  val api = new KkmServerApi()
 
   def index = Action { implicit request =>
     val title = "Настройки"
-    val data = s"URL: ${Config.url}\nUsername: ${Config.username}\nPassword: ${Config.password}"
+    val data = s"URL: ${KkmServerApiConfig.url}\nUsername: ${KkmServerApiConfig.username}\nPassword: ${KkmServerApiConfig.password}"
     Ok(views.html.data(title, data))
   }
 
