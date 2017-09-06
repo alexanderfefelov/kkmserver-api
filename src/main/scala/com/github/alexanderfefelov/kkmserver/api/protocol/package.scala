@@ -50,8 +50,8 @@ package object protocol {
 
   // Состояния сессий
   //
-  val SESSION_STATE_CLOSED: Int = 1  // Открыта
-  val SESSION_STATE_OPEN: Int = 2    // Закрыта
+  val SESSION_STATE_CLOSED: Int = 1  // Закрыта
+  val SESSION_STATE_OPEN: Int = 2    // Открыта
   val SESSION_STATE_EXPIRED: Int = 3 // Закончилась
 
   // Значения по умолчанию для ответов
