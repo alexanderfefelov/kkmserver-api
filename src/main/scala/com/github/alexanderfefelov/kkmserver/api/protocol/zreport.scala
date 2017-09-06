@@ -1,12 +1,12 @@
-package ru.kkmserver.protocol
+package com.github.alexanderfefelov.kkmserver.api.protocol
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
-case class OpenShiftRequest (
+case class ZReportRequest (
   // Meta
   //
-  Command: String = COMMAND_OPEN_SHIFT,
+  Command: String = COMMAND_Z_REPORT,
   IdCommand: String = createUuid,
   // Device selector
   //
@@ -16,18 +16,18 @@ case class OpenShiftRequest (
   CashierName: String
 )
 
-object OpenShiftRequest {
+object ZReportRequest {
 
-  implicit val openShiftRequestWrites: Writes[OpenShiftRequest] = (
+  implicit val zReportRequestWrites: Writes[ZReportRequest] = (
     (__ \ "Command").write[String] and
     (__ \ "IdCommand").write[String] and
     (__ \ "NumDevice").write[Int] and
     (__ \ "CashierName").write[String]
-    )(unlift(OpenShiftRequest.unapply))
+    )(unlift(ZReportRequest.unapply))
 
 }
 
-case class OpenShiftResponse (
+case class ZReportResponse (
   // Payload
   //
   SessionNumber: Int,
@@ -41,9 +41,9 @@ case class OpenShiftResponse (
   UnitName: String
 )
 
-object OpenShiftResponse {
+object ZReportResponse {
 
-  implicit val openShiftResponseReads: Reads[OpenShiftResponse] = (
+  implicit val zReportResponseReads: Reads[ZReportResponse] = (
     ((__ \ "SessionNumber").read[Int] or Reads.pure(DEFAULT_SESSION_NUMBER)) and
     (__ \ "Command").read[String] and
     (__ \ "IdCommand").read[String] and
@@ -51,6 +51,6 @@ object OpenShiftResponse {
     (__ \ "Error").read[String] and
     (__ \ "NumDevice").read[Int] and
     (__ \ "UnitName").read[String]
-    )(OpenShiftResponse.apply _)
+    )(ZReportResponse.apply _)
 
 }

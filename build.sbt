@@ -19,7 +19,7 @@ lazy val root = (project in file("."))
       "builtAt" -> {new java.util.Date()},
       "builtAtMillis" -> {System.currentTimeMillis()}
     ),
-    buildInfoPackage := "ru.kkmserver"
+    buildInfoPackage := "com.github.alexanderfefelov.kkmserver.api"
   )
 
 doc in Compile := target.map(_ / "none").value

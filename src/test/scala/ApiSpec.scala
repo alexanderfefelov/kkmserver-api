@@ -1,6 +1,6 @@
 import org.scalatest._
-import ru.kkmserver.Api
-import ru.kkmserver.protocol._
+import com.github.alexanderfefelov.kkmserver.api.Api
+import com.github.alexanderfefelov.kkmserver.api.protocol._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 

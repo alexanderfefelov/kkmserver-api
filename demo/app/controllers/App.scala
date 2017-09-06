@@ -1,8 +1,8 @@
 package controllers
 
 import play.api.mvc._
-import ru.kkmserver._
-import ru.kkmserver.protocol._
+import com.github.alexanderfefelov.kkmserver.api._
+import com.github.alexanderfefelov.kkmserver.api.protocol._
 import sext._
 
 import scala.concurrent.ExecutionContext.Implicits.global

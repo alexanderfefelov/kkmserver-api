@@ -1,4 +1,4 @@
-package ru.kkmserver
+package com.github.alexanderfefelov.kkmserver.api
 
 import org.joda.time.DateTime
 import org.joda.time.format.{DateTimeFormat, DateTimeFormatterBuilder}

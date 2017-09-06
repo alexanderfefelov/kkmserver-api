@@ -1,12 +1,12 @@
-package ru.kkmserver.protocol
+package com.github.alexanderfefelov.kkmserver.api.protocol
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
-case class OpenCashDrawerRequest (
+case class OpenShiftRequest (
   // Meta
   //
-  Command: String = COMMAND_OPEN_CASH_DRAWER,
+  Command: String = COMMAND_OPEN_SHIFT,
   IdCommand: String = createUuid,
   // Device selector
   //
@@ -16,18 +16,21 @@ case class OpenCashDrawerRequest (
   CashierName: String
 )
 
-object OpenCashDrawerRequest {
+object OpenShiftRequest {
 
-  implicit val openCashDrawerRequestWrites: Writes[OpenCashDrawerRequest] = (
+  implicit val openShiftRequestWrites: Writes[OpenShiftRequest] = (
     (__ \ "Command").write[String] and
     (__ \ "IdCommand").write[String] and
     (__ \ "NumDevice").write[Int] and
     (__ \ "CashierName").write[String]
-    )(unlift(OpenCashDrawerRequest.unapply))
+    )(unlift(OpenShiftRequest.unapply))
 
 }
 
-case class OpenCashDrawerResponse (
+case class OpenShiftResponse (
+  // Payload
+  //
+  SessionNumber: Int,
   // Meta
   //
   Command: String,
@@ -38,15 +41,16 @@ case class OpenCashDrawerResponse (
   UnitName: String
 )
 
-object OpenCashDrawerResponse {
+object OpenShiftResponse {
 
-  implicit val openCashDrawerResponseReads: Reads[OpenCashDrawerResponse] = (
+  implicit val openShiftResponseReads: Reads[OpenShiftResponse] = (
+    ((__ \ "SessionNumber").read[Int] or Reads.pure(DEFAULT_SESSION_NUMBER)) and
     (__ \ "Command").read[String] and
     (__ \ "IdCommand").read[String] and
     (__ \ "Status").read[Int] and
     (__ \ "Error").read[String] and
     (__ \ "NumDevice").read[Int] and
     (__ \ "UnitName").read[String]
-    )(OpenCashDrawerResponse.apply _)
+    )(OpenShiftResponse.apply _)
 
 }

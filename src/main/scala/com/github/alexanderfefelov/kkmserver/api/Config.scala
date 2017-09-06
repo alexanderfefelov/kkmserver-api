@@ -1,4 +1,4 @@
-package ru.kkmserver
+package com.github.alexanderfefelov.kkmserver.api
 
 import com.typesafe.config.ConfigFactory
 

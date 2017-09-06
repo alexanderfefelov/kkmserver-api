@@ -1,4 +1,4 @@
-package ru.kkmserver.protocol
+package com.github.alexanderfefelov.kkmserver.api.protocol
 
 import org.joda.time.DateTime
 import play.api.libs.functional.syntax._

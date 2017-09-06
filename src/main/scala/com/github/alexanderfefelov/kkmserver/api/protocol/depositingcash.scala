@@ -1,4 +1,4 @@
-package ru.kkmserver.protocol
+package com.github.alexanderfefelov.kkmserver.api.protocol
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._

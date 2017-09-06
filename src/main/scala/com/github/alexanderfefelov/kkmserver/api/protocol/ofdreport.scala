@@ -1,35 +1,33 @@
-package ru.kkmserver.protocol
+package com.github.alexanderfefelov.kkmserver.api.protocol
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
-case class PaymentCashRequest (
+case class OfdReportRequest (
   // Meta
   //
-  Command: String = COMMAND_PAYMENT_CASH,
+  Command: String = COMMAND_OFD_REPORT,
   IdCommand: String = createUuid,
   // Device selector
   //
   NumDevice: Int,
   // Payload
   //
-  CashierName: String,
-  Amount: Double
+  CashierName: String
 )
 
-object PaymentCashRequest {
+object OfdReportRequest {
 
-  implicit val paymentCashRequestWrites: Writes[PaymentCashRequest] = (
+  implicit val ofdReportRequestWrites: Writes[OfdReportRequest] = (
     (__ \ "Command").write[String] and
     (__ \ "IdCommand").write[String] and
     (__ \ "NumDevice").write[Int] and
-    (__ \ "CashierName").write[String] and
-    (__ \ "Amount").write[Double]
-    )(unlift(PaymentCashRequest.unapply))
+    (__ \ "CashierName").write[String]
+    )(unlift(OfdReportRequest.unapply))
 
 }
 
-case class PaymentCashResponse (
+case class OfdReportResponse (
   // Meta
   //
   Command: String,
@@ -40,15 +38,15 @@ case class PaymentCashResponse (
   UnitName: String
 )
 
-object PaymentCashResponse {
+object OfdReportResponse {
 
-  implicit val paymentCashResponseReads: Reads[PaymentCashResponse] = (
+  implicit val ofdReportReads: Reads[OfdReportResponse] = (
     (__ \ "Command").read[String] and
     (__ \ "IdCommand").read[String] and
     (__ \ "Status").read[Int] and
     (__ \ "Error").read[String] and
     (__ \ "NumDevice").read[Int] and
     (__ \ "UnitName").read[String]
-    )(PaymentCashResponse.apply _)
+    )(OfdReportResponse.apply _)
 
 }

@@ -1,11 +1,11 @@
-package ru.kkmserver
+package com.github.alexanderfefelov.kkmserver.api
 
 import ca.aaronlevin.gitrev.gitHashShort
 import play.api.Logger
 import play.api.libs.json._
 import play.api.libs.ws.{WSAuthScheme, WSResponse}
 import play.api.libs.ws.ning.NingWSClient
-import ru.kkmserver.protocol._
+import com.github.alexanderfefelov.kkmserver.api.protocol._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
