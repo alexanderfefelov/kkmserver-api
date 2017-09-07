@@ -14,90 +14,127 @@ class KkmServerApiSpec extends AsyncFlatSpec {
 
   private var commandId = ""
 
-  "List" should "run without error and return exactly 3 devices" in {
+  "List" should "run without error, provide valid metadata, and return exactly 3 devices" in {
     val request = ListRequest()
     api.list(request) map { response =>
       assert(response.Status == 0)
+      assert(response.Error.isEmpty)
+      assert(response.Command == request.Command)
+      assert(response.IdCommand == request.IdCommand)
       assert(response.ListUnit.size == 3)
     }
   }
 
-  "GetDataKKT" should "run without error" in {
+  "GetDataKKT" should "run without error and provide valid metadata" in {
     val request = GetDataKKTRequest(NumDevice = DEVICE)
     api.getDataKKT(request) map { response =>
       assert(response.Status == 0)
+      assert(response.Error.isEmpty)
+      assert(response.Command == request.Command)
+      assert(response.IdCommand == request.IdCommand)
     }
   }
 
-  "OfdReport" should "run without error" in {
+  "OfdReport" should "run without error and provide valid metadata" in {
     val request = OfdReportRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME)
     api.ofdReport(request) map { response =>
       assert(response.Status == 0)
+      assert(response.Error.isEmpty)
+      assert(response.Command == request.Command)
+      assert(response.IdCommand == request.IdCommand)
     }
   }
 
-  "OpenShift" should "run without error" in {
-    openShift() map { response =>
+  "OpenShift" should "run without error and provide valid metadata" in {
+    val request = OpenShiftRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME)
+    api.openShift(request) map { response =>
       assert(response.Status == 0)
+      assert(response.Error.isEmpty)
+      assert(response.Command == request.Command)
+      assert(response.IdCommand == request.IdCommand)
     }
   }
 
-  "OpenCashDrawer" should "run without error" in {
+  "OpenCashDrawer" should "run without error and provide valid metadata" in {
     val request = OpenCashDrawerRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME)
     api.openCashDrawer(request) map { response =>
       assert(response.Status == 0)
+      assert(response.Error.isEmpty)
+      assert(response.Command == request.Command)
+      assert(response.IdCommand == request.IdCommand)
     }
   }
 
-  "DepositingCash" should "run without error" in {
+  "DepositingCash" should "run without error and provide valid metadata" in {
     val request = DepositingCashRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME, Amount = 1.00)
     api.depositingCash(request) map { response =>
       assert(response.Status == 0)
+      assert(response.Error.isEmpty)
+      assert(response.Command == request.Command)
+      assert(response.IdCommand == request.IdCommand)
     }
   }
 
-  "PaymentCash" should "run without error" in {
+  "PaymentCash" should "run without error and provide valid metadata" in {
     val request = PaymentCashRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME, Amount = 1.00)
     api.paymentCash(request) map { response =>
       assert(response.Status == 0)
+      assert(response.Error.isEmpty)
+      assert(response.Command == request.Command)
+      assert(response.IdCommand == request.IdCommand)
     }
   }
 
-  "RegisterCheck" should "run without error" in {
+  "RegisterCheck" should "run without error and provide valid metadata" in {
     val request = createRegisterCheckRequest(CHECK_TYPE_SALE)
     api.registerCheck(request) map { response =>
       assert(response.Status == 0)
+      assert(response.Error.isEmpty)
+      assert(response.Command == request.Command)
+      assert(response.IdCommand == request.IdCommand)
     }
   }
 
-  "XReport" should "run without error" in {
+  "XReport" should "run without error and provide valid metadata" in {
     val request = XReportRequest(NumDevice = DEVICE)
     api.xReport(request) map { response =>
       assert(response.Status == 0)
+      assert(response.Error.isEmpty)
+      assert(response.Command == request.Command)
+      assert(response.IdCommand == request.IdCommand)
     }
   }
 
-  "CloseShift" should "run without error" in {
+  "CloseShift" should "run without error and provide valid metadata" in {
     openShift()
     val request = CloseShiftRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME)
     api.closeShift(request) map { response =>
       assert(response.Status == 0)
+      assert(response.Error.isEmpty)
+      assert(response.Command == request.Command)
+      assert(response.IdCommand == request.IdCommand)
     }
   }
 
-  "ZReport" should "run without error" in {
+  "ZReport" should "run without error and provide valid metadata" in {
     openShift()
     val request = ZReportRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME)
     api.zReport(request) map { response =>
       commandId = response.IdCommand
       assert(response.Status == 0)
+      assert(response.Error.isEmpty)
+      assert(response.Command == request.Command)
+      assert(response.IdCommand == request.IdCommand)
     }
   }
 
-  "GetRezult" should "run without error" in {
+  "GetRezult" should "run without error and provide valid metadata" in {
     val request = GetRezultRequest(IdCommand = commandId)
     api.getRezult(request) map { response =>
       assert(response.Status == 0)
+      assert(response.Error.isEmpty)
+      assert(response.Command == request.Command)
+      assert(response.IdCommand.isEmpty)
     }
   }
 
