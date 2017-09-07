@@ -27,10 +27,13 @@ object GetDataKKTRequest {
 case class InfoData (
   SessionState: Int,
   BalanceCash: Double,
+  OnOff: Boolean,
+  Active: Boolean,
   PaperOver: Boolean,
   NameOrganization: String,
   InnOrganization: String,
   AddressSettle: String,
+  PlaceSettle: String,
   KktNumber: String,
   FnNumber: String,
   RegNumber: String,
@@ -61,10 +64,13 @@ object GetDataKKTResponse {
   implicit val infoDataReads: Reads[InfoData] = (
     (__ \ "SessionState").read[Int] and
     (__ \ "BalanceCash").read[Double] and
+    (__ \ "OnOff").read[Boolean] and
+    (__ \ "Active").read[Boolean] and
     (__ \ "PaperOver").read[Boolean] and
     (__ \ "NameOrganization").read[String] and
     (__ \ "InnOrganization").read[String] and
     (__ \ "AddressSettle").read[String] and
+    (__ \ "PlaceSettle").read[String] and
     (__ \ "KktNumber").read[String] and
     (__ \ "FnNumber").read[String] and
     (__ \ "RegNumber").read[String] and
