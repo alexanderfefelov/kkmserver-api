@@ -54,6 +54,10 @@ class KkmServerApi {
     apiCall[OpenShiftRequest, OpenShiftResponse](request)
   }
 
+  def closeShift(request: CloseShiftRequest): Future[CloseShiftResponse] = {
+    apiCall[CloseShiftRequest, CloseShiftResponse](request)
+  }
+
   def openCashDrawer(request: OpenCashDrawerRequest): Future[OpenCashDrawerResponse] = {
     apiCall[OpenCashDrawerRequest, OpenCashDrawerResponse](request)
   }

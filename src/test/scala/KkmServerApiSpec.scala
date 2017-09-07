@@ -3,6 +3,7 @@ import com.github.alexanderfefelov.kkmserver.api.KkmServerApi
 import com.github.alexanderfefelov.kkmserver.api.protocol._
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class KkmServerApiSpec extends AsyncFlatSpec {
 
@@ -36,8 +37,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
   }
 
   "OpenShift" should "run without error" in {
-    val request = OpenShiftRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME)
-    api.openShift(request) map { response =>
+    openShift() map { response =>
       assert(response.Status == 0)
     }
   }
@@ -77,7 +77,16 @@ class KkmServerApiSpec extends AsyncFlatSpec {
     }
   }
 
+  "CloseShift" should "run without error" in {
+    openShift()
+    val request = CloseShiftRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME)
+    api.closeShift(request) map { response =>
+      assert(response.Status == 0)
+    }
+  }
+
   "ZReport" should "run without error" in {
+    openShift()
     val request = ZReportRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME)
     api.zReport(request) map { response =>
       commandId = response.IdCommand
@@ -92,7 +101,12 @@ class KkmServerApiSpec extends AsyncFlatSpec {
     }
   }
 
-  private def createRegisterCheckRequest(typeCheck: Int) = {
+  private def openShift(): Future[OpenShiftResponse] = {
+    val request = OpenShiftRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME)
+    api.openShift(request)
+  }
+
+  private def createRegisterCheckRequest(typeCheck: Int): RegisterCheckRequest = {
     RegisterCheckRequest(
       NumDevice = Option(DEVICE),
       IsFiscalCheck = true,
