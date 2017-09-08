@@ -108,7 +108,6 @@ class KkmServerApiSpec extends AsyncFlatSpec {
     }
 
     s"CloseShift ($device)" should "run without error and provide valid metadata" in {
-      openShift(device)
       val request = CloseShiftRequest(NumDevice = device, CashierName = CASHIER_NAME, CashierVATIN = CASHIER_VATIN)
       api.closeShift(request) map { response =>
         assert(response.Status == 0)
