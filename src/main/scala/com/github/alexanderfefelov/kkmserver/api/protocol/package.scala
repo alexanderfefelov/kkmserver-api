@@ -55,6 +55,15 @@ package object protocol {
   val SESSION_STATE_OPEN: Int = 2    // Открыта
   val SESSION_STATE_EXPIRED: Int = 3 // Закончилась
 
+  // Способ расчета
+  //
+  val PAYMENT_METHOD_FULL = 4 // Полная оплата
+
+  // Предмет расчета
+  //
+  val PAYMENT_SUBJECT_GOOD = 1    // Товар
+  val PAYMENT_SUBJECT_SERVICE = 4 // Услуга
+
   // Значения по умолчанию для ответов
   //
   val DEFAULT_URL: String = ""

@@ -45,6 +45,8 @@ case class RegisterCheckStringData (
   Amount: Double,
   Department: Int = 0,
   Tax: Int = -1,
+  SignMethodCalculation: Int = PAYMENT_METHOD_FULL,
+  SignCalculationObject: Int = PAYMENT_SUBJECT_GOOD,
   EAN13: Option[String] = None
 ) extends CheckStringData
 
@@ -120,6 +122,8 @@ object RegisterCheckRequest {
     (__ \ "Amount").write[Double] and
     (__ \ "Department").write[Int] and
     (__ \ "Tax").write[Int] and
+    (__ \ "SignMethodCalculation").write[Int] and
+    (__ \ "SignCalculationObject").write[Int] and
     (__ \ "EAN13").writeNullable[String]
     )(unlift(RegisterCheckStringData.unapply))
 
