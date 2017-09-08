@@ -16,7 +16,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
 
   for (device <- List(2, 3)) { // В виртуальной машине extra/kkmserver/vagrant устройство 2 поддерживает ФФД 1.0, а устройство 3 - ФФД 1.05
 
-    s"List ($device)" should "run without error, provide valid metadata, and return exactly 3 devices" in {
+    s"List device: $device" should "run without error, provide valid metadata, and return exactly 3 devices" in {
       val request = ListRequest()
       api.list(request) map { response =>
         assert(response.Status == 0)
@@ -27,7 +27,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
       }
     }
 
-    s"GetDataKKT ($device)" should "run without error and provide valid metadata" in {
+    s"GetDataKKT device: $device" should "run without error and provide valid metadata" in {
       val request = GetDataKKTRequest(NumDevice = device)
       api.getDataKKT(request) map { response =>
         assert(response.Status == 0)
@@ -37,7 +37,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
       }
     }
 
-    s"OfdReport ($device)" should "run without error and provide valid metadata" in {
+    s"OfdReport device: $device" should "run without error and provide valid metadata" in {
       val request = OfdReportRequest(NumDevice = device, CashierName = CASHIER_NAME)
       api.ofdReport(request) map { response =>
         assert(response.Status == 0)
@@ -47,7 +47,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
       }
     }
 
-    s"OpenShift ($device)" should "run without error and provide valid metadata" in {
+    s"OpenShift device: $device" should "run without error and provide valid metadata" in {
       val request = OpenShiftRequest(NumDevice = device, CashierName = CASHIER_NAME, CashierVATIN = CASHIER_VATIN)
       api.openShift(request) map { response =>
         assert(response.Status == 0)
@@ -57,7 +57,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
       }
     }
 
-    s"OpenCashDrawer ($device)" should "run without error and provide valid metadata" in {
+    s"OpenCashDrawer device: $device" should "run without error and provide valid metadata" in {
       val request = OpenCashDrawerRequest(NumDevice = device, CashierName = CASHIER_NAME)
       api.openCashDrawer(request) map { response =>
         assert(response.Status == 0)
@@ -67,7 +67,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
       }
     }
 
-    s"DepositingCash ($device)" should "run without error and provide valid metadata" in {
+    s"DepositingCash device: $device" should "run without error and provide valid metadata" in {
       val request = DepositingCashRequest(NumDevice = device, CashierName = CASHIER_NAME, CashierVATIN = CASHIER_VATIN, Amount = 1.00)
       api.depositingCash(request) map { response =>
         assert(response.Status == 0)
@@ -77,7 +77,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
       }
     }
 
-    s"PaymentCash ($device)" should "run without error and provide valid metadata" in {
+    s"PaymentCash device: $device" should "run without error and provide valid metadata" in {
       val request = PaymentCashRequest(NumDevice = device, CashierName = CASHIER_NAME, CashierVATIN = CASHIER_VATIN, Amount = 1.00)
       api.paymentCash(request) map { response =>
         assert(response.Status == 0)
@@ -87,17 +87,21 @@ class KkmServerApiSpec extends AsyncFlatSpec {
       }
     }
 
-    s"RegisterCheck ($device)" should "run without error and provide valid metadata" in {
-      val request = createRegisterCheckRequest(device, CHECK_TYPE_SALE)
-      api.registerCheck(request) map { response =>
-        assert(response.Status == 0)
-        assert(response.Error.isEmpty)
-        assert(response.Command == request.Command)
-        assert(response.IdCommand == request.IdCommand)
+    for (checkType <- List(CHECK_TYPE_SALE, CHECK_TYPE_SALE_RETURN, CHECK_TYPE_PURCHASE, CHECK_TYPE_PURCHASE_RETURN)) {
+
+      s"RegisterCheck device: $device checkType: $checkType" should "run without error and provide valid metadata" in {
+        val request = createRegisterCheckRequest(device, checkType)
+        api.registerCheck(request) map { response =>
+          assert(response.Status == 0)
+          assert(response.Error.isEmpty)
+          assert(response.Command == request.Command)
+          assert(response.IdCommand == request.IdCommand)
+        }
       }
+
     }
 
-    s"XReport ($device)" should "run without error and provide valid metadata" in {
+    s"XReport device: $device" should "run without error and provide valid metadata" in {
       val request = XReportRequest(NumDevice = device)
       api.xReport(request) map { response =>
         assert(response.Status == 0)
@@ -107,7 +111,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
       }
     }
 
-    s"CloseShift ($device)" should "run without error and provide valid metadata" in {
+    s"CloseShift device: $device" should "run without error and provide valid metadata" in {
       val request = CloseShiftRequest(NumDevice = device, CashierName = CASHIER_NAME, CashierVATIN = CASHIER_VATIN)
       api.closeShift(request) map { response =>
         assert(response.Status == 0)
@@ -117,7 +121,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
       }
     }
 
-    s"ZReport ($device)" should "run without error and provide valid metadata" in {
+    s"ZReport device: $device" should "run without error and provide valid metadata" in {
       openShift(device)
       val request = ZReportRequest(NumDevice = device, CashierName = CASHIER_NAME, CashierVATIN = CASHIER_VATIN)
       api.zReport(request) map { response =>
@@ -129,7 +133,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
       }
     }
 
-    s"GetRezult ($device)" should "run without error and provide valid metadata" in {
+    s"GetRezult device: $device" should "run without error and provide valid metadata" in {
       val request = GetRezultRequest(IdCommand = commandId)
       api.getRezult(request) map { response =>
         assert(response.Status == 0)
@@ -146,18 +150,22 @@ class KkmServerApiSpec extends AsyncFlatSpec {
     api.openShift(request)
   }
 
-  private def createRegisterCheckRequest(device: Int, typeCheck: Int): RegisterCheckRequest = {
+  private def createRegisterCheckRequest(device: Int, checkType: Int): RegisterCheckRequest = {
     RegisterCheckRequest(
       NumDevice = Option(device),
       IsFiscalCheck = true,
-      TypeCheck = typeCheck,
+      TypeCheck = checkType,
       CancelOpenedCheck = true,
       NotPrint = false,
       CashierName = CASHIER_NAME,
       CashierVATIN = CASHIER_VATIN,
+      AdditionalProps = List(
+        AdditionalProp(Print = true, PrintInHeader = true, NameProp = "Название1", Prop = "Значение1"),
+        AdditionalProp(Print = true, PrintInHeader = false, NameProp = "Название2", Prop = "Значение2")
+      ),
       CheckStrings = List(
-        PrintTextCheckString(PrintTextCheckStringData("Donec pretium est ac ante tincidunt blandit")),
-        RegisterCheckString(RegisterCheckStringData("Планшет PRESTIGIO MultiPad 3147 3g, 1GB, 8GB, 3G, Android 6.0", Quantity = 1.00, Price = 1.00, Amount = 1.00))
+      PrintTextCheckString(PrintTextCheckStringData("Donec pretium est ac ante tincidunt blandit")),
+      RegisterCheckString(RegisterCheckStringData("Планшет PRESTIGIO MultiPad 3147 3g, 1GB, 8GB, 3G, Android 6.0", Quantity = 1.00, Price = 1.00, Amount = 1.00))
       ),
       Cash = 1.00
     )
