@@ -13,7 +13,8 @@ case class CloseShiftRequest (
   NumDevice: Int,
   // Payload
   //
-  CashierName: String
+  CashierName: String,
+  CashierVATIN: String
 )
 
 object CloseShiftRequest {
@@ -22,7 +23,8 @@ object CloseShiftRequest {
     (__ \ "Command").write[String] and
     (__ \ "IdCommand").write[String] and
     (__ \ "NumDevice").write[Int] and
-    (__ \ "CashierName").write[String]
+    (__ \ "CashierName").write[String] and
+    (__ \ "CashierVATIN").write[String]
     )(unlift(CloseShiftRequest.unapply))
 
 }

@@ -78,6 +78,7 @@ case class RegisterCheckRequest (
   CancelOpenedCheck: Boolean,
   NotPrint: Boolean,
   CashierName: String,
+  CashierVATIN: String,
   ClientAddress: Option[String] = None,
   TaxVariant: Option[String] = None,
   CheckProps: List[CheckProp] = List(),
@@ -158,6 +159,7 @@ object RegisterCheckRequest {
     (__ \ "CancelOpenedCheck").write[Boolean] and
     (__ \ "NotPrint").write[Boolean] and
     (__ \ "CashierName").write[String] and
+    (__ \ "CashierVATIN").write[String] and
     (__ \ "ClientAddress").writeNullable[String] and
     (__ \ "TaxVariant").writeNullable[String] and
     (__ \ "CheckProps").write[List[CheckProp]] and

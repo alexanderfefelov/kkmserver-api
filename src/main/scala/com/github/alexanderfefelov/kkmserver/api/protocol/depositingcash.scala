@@ -14,6 +14,7 @@ case class DepositingCashRequest (
   // Payload
   //
   CashierName: String,
+  CashierVATIN: String,
   Amount: Double
 )
 
@@ -24,6 +25,7 @@ object DepositingCashRequest {
     (__ \ "IdCommand").write[String] and
     (__ \ "NumDevice").write[Int] and
     (__ \ "CashierName").write[String] and
+    (__ \ "CashierVATIN").write[String] and
     (__ \ "Amount").write[Double]
     )(unlift(DepositingCashRequest.unapply))
 
