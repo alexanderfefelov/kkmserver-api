@@ -44,7 +44,7 @@ case class RegisterCheckStringData (
   Price: Double,
   Amount: Double,
   Department: Int = 0,
-  Tax: Int = -1,
+  Tax: Int = VAT_NO,
   SignMethodCalculation: Int = PAYMENT_METHOD_FULL,
   SignCalculationObject: Int = PAYMENT_SUBJECT_GOOD,
   EAN13: Option[String] = None

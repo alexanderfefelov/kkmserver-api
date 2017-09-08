@@ -64,6 +64,15 @@ package object protocol {
   val PAYMENT_SUBJECT_GOOD = 1    // Товар
   val PAYMENT_SUBJECT_SERVICE = 4 // Услуга
 
+  // НДС
+  //
+  val VAT_NO = -1 // Не облагается
+  val VAT_0 = 0
+  val VAT_10 = 10
+  val VAT_18 = 18
+  val VAT_110 = 110
+  val VAT_118 = 118
+
   // Значения по умолчанию для ответов
   //
   val DEFAULT_URL: String = ""
