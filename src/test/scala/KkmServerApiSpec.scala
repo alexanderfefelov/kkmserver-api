@@ -87,7 +87,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
       }
     }
 
-    for (checkType <- List(CHECK_TYPE_SALE, CHECK_TYPE_SALE_RETURN, CHECK_TYPE_PURCHASE, CHECK_TYPE_PURCHASE_RETURN)) {
+    for (checkType <- List(CHECK_TYPE_SALE, CHECK_TYPE_SALE_RETURN, CHECK_TYPE_PURCHASE_RETURN, CHECK_TYPE_PURCHASE)) {
 
       s"RegisterCheck device: $device checkType: $checkType" should "run without error and provide valid metadata" in {
         val request = createRegisterCheckRequest(device, checkType)
