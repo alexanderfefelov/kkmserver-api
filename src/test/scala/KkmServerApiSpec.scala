@@ -24,18 +24,18 @@ class KkmServerApiSpec extends AsyncFlatSpec {
     }
   }
 
-  for (device <- List(2, 3)) { // В виртуальной машине extra/kkmserver/vagrant устройство 2 поддерживает ФФД 1.0, а устройство 3 - ФФД 1.05
-
-    s"List device: $device" should "run without error, provide valid metadata, and return exactly 3 devices" in {
-      val request = ListRequest()
-      api.list(request) map { response =>
-        assert(response.Status == 0)
-        assert(response.Error.isEmpty)
-        assert(response.Command == request.Command)
-        assert(response.IdCommand == request.IdCommand)
-        assert(response.ListUnit.size == 3)
-      }
+  s"List" should "run without error, provide valid metadata, and return exactly 3 devices" in {
+    val request = ListRequest()
+    api.list(request) map { response =>
+      assert(response.Status == 0)
+      assert(response.Error.isEmpty)
+      assert(response.Command == request.Command)
+      assert(response.IdCommand == request.IdCommand)
+      assert(response.ListUnit.size == 3)
     }
+  }
+
+  for (device <- List(2, 3)) { // В виртуальной машине extra/kkmserver/vagrant устройство 2 поддерживает ФФД 1.0, а устройство 3 - ФФД 1.05
 
     s"GetDataKKT device: $device" should "run without error and provide valid metadata" in {
       val request = GetDataKKTRequest(NumDevice = device)
