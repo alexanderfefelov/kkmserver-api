@@ -3,13 +3,6 @@ package com.github.alexanderfefelov.kkmserver.api.protocol
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
-case class CheckProp (
-  Print: Boolean,
-  PrintInHeader: Boolean,
-  Teg: Int,
-  Prop: String
-)
-
 case class AdditionalProp (
   Print: Boolean,
   PrintInHeader: Boolean,
@@ -83,7 +76,6 @@ case class RegisterCheckRequest (
   CashierVATIN: String,
   ClientAddress: Option[String] = None,
   TaxVariant: Option[String] = None,
-  CheckProps: List[CheckProp] = List(),
   AdditionalProps: List[AdditionalProp] = List(),
   KPP: Option[String] = None,
   CheckStrings: List[CheckString],
@@ -94,13 +86,6 @@ case class RegisterCheckRequest (
 )
 
 object RegisterCheckRequest {
-
-  implicit val checkPropWrites: Writes[CheckProp] = (
-    (__ \ "Print").write[Boolean] and
-    (__ \ "PrintInHeader").write[Boolean] and
-    (__ \ "Teg").write[Int] and
-    (__ \ "Prop").write[String]
-    )(unlift(CheckProp.unapply))
 
   implicit val additionalPropWrites: Writes[AdditionalProp] = (
     (__ \ "Print").write[Boolean] and
@@ -166,7 +151,6 @@ object RegisterCheckRequest {
     (__ \ "CashierVATIN").write[String] and
     (__ \ "ClientAddress").writeNullable[String] and
     (__ \ "TaxVariant").writeNullable[String] and
-    (__ \ "CheckProps").write[List[CheckProp]] and
     (__ \ "AdditionalProps").write[List[AdditionalProp]] and
     (__ \ "KPP").writeNullable[String] and
     (__ \ "CheckStrings").write[List[CheckString]] and
