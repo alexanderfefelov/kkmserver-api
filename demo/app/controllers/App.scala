@@ -11,6 +11,7 @@ object App extends Controller {
 
   val DEVICE = 1
   val CASHIER_NAME = "Швейк Йозеф"
+  val CASHIER_VATIN = "987654321098"
 
   val api = new KkmServerApi()
 
@@ -18,6 +19,17 @@ object App extends Controller {
     val title = "Настройки"
     val data = s"URL: ${KkmServerApiConfig.url}\nUsername: ${KkmServerApiConfig.username}\nPassword: ${KkmServerApiConfig.password}"
     Ok(views.html.data(title, data))
+  }
+
+  def getServerData = Action.async { implicit request =>
+    val future = api.getServerData(GetServerDataRequest())
+    for {
+      obj <- future
+    } yield {
+      val title = "GetServerData"
+      val data = obj.valueTreeString
+      Ok(views.html.data(title, data))
+    }
   }
 
   def list = Action.async { implicit request =>
@@ -95,7 +107,7 @@ object App extends Controller {
   }
 
   def zReport = Action.async { implicit request =>
-    val future = api.zReport(ZReportRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME))
+    val future = api.zReport(ZReportRequest(NumDevice = DEVICE, CashierName = CASHIER_NAME, CashierVATIN = CASHIER_VATIN))
     for {
       obj <- future
     } yield {
@@ -124,6 +136,7 @@ object App extends Controller {
       CancelOpenedCheck = true,
       NotPrint = false,
       CashierName = CASHIER_NAME,
+      CashierVATIN = CASHIER_VATIN,
       CheckStrings = List(
         PrintTextCheckString(PrintTextCheckStringData("Donec pretium est ac ante tincidunt blandit")),
         RegisterCheckString(RegisterCheckStringData("Планшет PRESTIGIO MultiPad 3147 3g, 1GB, 8GB, 3G, Android 6.0", Quantity = 1.00, Price = 1.00, Amount = 1.00))
