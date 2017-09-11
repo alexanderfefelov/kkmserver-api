@@ -29,6 +29,7 @@ package object protocol {
   val COMMAND_OPEN_SHIFT: String = "OpenShift"            // Открыть смену
   val COMMAND_CLOSE_SHIFT: String = "CloseShift"          // Открыть смену
   val COMMAND_OPEN_CASH_DRAWER: String = "OpenCashDrawer" // Открыть денежный ящик
+  val COMMAND_GET_SERVER_DATA: String = "GetServerData"   // Получить информацию о сервере
 
   // Статусы команд
   //

@@ -64,8 +64,7 @@ case class InfoData (
   BalanceCash: Double,
   OnOff: Boolean,
   Active: Boolean,
-  PaperOver: Boolean,
-  LicenseExpirationDate: DateTime
+  PaperOver: Boolean
 )
 
 case class GetDataKKTResponse (
@@ -126,8 +125,7 @@ object GetDataKKTResponse {
     (__ \ "BalanceCash").read[Double] and
     (__ \ "OnOff").read[Boolean] and
     (__ \ "Active").read[Boolean] and
-    (__ \ "PaperOver").read[Boolean] and
-    (__ \ "LicenseExpirationDate").read[DateTime](jodaReads)
+    (__ \ "PaperOver").read[Boolean]
     )(InfoData.apply _)
 
   implicit val getDataKKTResponseReads: Reads[GetDataKKTResponse] = (

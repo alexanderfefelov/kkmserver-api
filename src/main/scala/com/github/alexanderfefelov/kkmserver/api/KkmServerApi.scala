@@ -14,6 +14,10 @@ class KkmServerApi {
 
   val wsClient: NingWSClient = NingWSClient()
 
+  def getServerData(request: GetServerDataRequest): Future[GetServerDataResponse] = {
+    apiCall[GetServerDataRequest, GetServerDataResponse](request)
+  }
+
   def list(request: ListRequest): Future[ListResponse] = {
     apiCall[ListRequest, ListResponse](request)
   }

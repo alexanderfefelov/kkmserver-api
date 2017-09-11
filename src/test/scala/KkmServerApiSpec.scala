@@ -14,6 +14,16 @@ class KkmServerApiSpec extends AsyncFlatSpec {
 
   private var commandId = ""
 
+  "GetServerData" should "run without error and provide valid metadata" in {
+    val request = GetServerDataRequest()
+    api.getServerData(request) map { response =>
+      assert(response.Status == 0)
+      assert(response.Error.isEmpty)
+      assert(response.Command == request.Command)
+      assert(response.IdCommand == request.IdCommand)
+    }
+  }
+
   for (device <- List(2, 3)) { // В виртуальной машине extra/kkmserver/vagrant устройство 2 поддерживает ФФД 1.0, а устройство 3 - ФФД 1.05
 
     s"List device: $device" should "run without error, provide valid metadata, and return exactly 3 devices" in {
