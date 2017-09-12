@@ -99,14 +99,30 @@ class KkmServerApiSpec extends AsyncFlatSpec {
 
     for (checkType <- List(CHECK_TYPE_SALE, CHECK_TYPE_SALE_RETURN, CHECK_TYPE_PURCHASE_RETURN, CHECK_TYPE_PURCHASE)) {
 
-      s"RegisterCheck device: $device checkType: $checkType" should "run without error and provide valid metadata" in {
-        val request = createRegisterCheckRequest(device, checkType)
-        api.registerCheck(request) map { response =>
-          assert(response.Status == 0)
-          assert(response.Error.isEmpty)
-          assert(response.Command == request.Command)
-          assert(response.IdCommand == request.IdCommand)
-        }
+      device match {
+
+        case 2 => // ФФД 1.0
+          s"RegisterCheck10 device: $device checkType: $checkType" should "run without error and provide valid metadata" in {
+            val request = createRegisterCheckRequest10(device, checkType)
+            api.registerCheck10(request) map { response =>
+              assert(response.Status == 0)
+              assert(response.Error.isEmpty)
+              assert(response.Command == request.Command)
+              assert(response.IdCommand == request.IdCommand)
+            }
+          }
+
+        case 3 => // ФФД 1.05
+          s"RegisterCheck device: $device checkType: $checkType" should "run without error and provide valid metadata" in {
+            val request = createRegisterCheckRequest(device, checkType)
+            api.registerCheck(request) map { response =>
+              assert(response.Status == 0)
+              assert(response.Error.isEmpty)
+              assert(response.Command == request.Command)
+              assert(response.IdCommand == request.IdCommand)
+            }
+          }
+
       }
 
     }
@@ -174,10 +190,32 @@ class KkmServerApiSpec extends AsyncFlatSpec {
         AdditionalProp(Print = true, PrintInHeader = false, NameProp = "Название2", Prop = "Значение2")
       ),
       CheckStrings = List(
-      PrintTextCheckString(PrintTextCheckStringData("Donec pretium est ac ante tincidunt blandit")),
-      RegisterCheckString(RegisterCheckStringData("Планшет PRESTIGIO MultiPad 3147 3g, 1GB, 8GB, 3G, Android 6.0", Quantity = 1.00, Price = 1.00, Amount = 1.00))
+        PrintTextCheckString(PrintTextCheckStringData("Donec pretium est ac ante tincidunt blandit")),
+        RegisterCheckString(RegisterCheckStringData("Планшет PRESTIGIO MultiPad 3147 3g, 1GB, 8GB, 3G, Android 6.0", Quantity = 1.00, Price = 1.00, Amount = 1.00))
       ),
-      Cash = 1.00
+      Cash = 0.60,
+      ElectronicPayment = 0.40
+    )
+  }
+
+  private def createRegisterCheckRequest10(device: Int, checkType: Int): RegisterCheckRequest10 = {
+    RegisterCheckRequest10(
+      NumDevice = Option(device),
+      IsFiscalCheck = true,
+      TypeCheck = checkType,
+      CancelOpenedCheck = true,
+      NotPrint = false,
+      CashierName = CASHIER_NAME,
+      AdditionalProps = List(
+        AdditionalProp10(Print = true, PrintInHeader = true, NameProp = "Название1", Prop = "Значение1"),
+        AdditionalProp10(Print = true, PrintInHeader = false, NameProp = "Название2", Prop = "Значение2")
+      ),
+      CheckStrings = List(
+        PrintTextCheckString10(PrintTextCheckStringData10("Donec pretium est ac ante tincidunt blandit")),
+        RegisterCheckString10(RegisterCheckStringData10("Планшет PRESTIGIO MultiPad 3147 3g, 1GB, 8GB, 3G, Android 6.0", Quantity = 1.00, Price = 1.00, Amount = 1.00))
+      ),
+      Cash = 0.60,
+      CashLessType1 = 0.40
     )
   }
 

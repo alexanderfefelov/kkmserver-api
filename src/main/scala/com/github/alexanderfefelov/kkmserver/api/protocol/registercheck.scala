@@ -80,9 +80,10 @@ case class RegisterCheckRequest (
   KPP: Option[String] = None,
   CheckStrings: List[CheckString],
   Cash: Double = 0.0,
-  CashLessType1: Double = 0.0,
-  CashLessType2: Double = 0.0,
-  CashLessType3: Double = 0.0
+  ElectronicPayment: Double = 0.0,
+  AdvancePayment: Double = 0.0,
+  Credit: Double = 0.0,
+  CashProvision: Double = 0.0
 )
 
 object RegisterCheckRequest {
@@ -155,9 +156,10 @@ object RegisterCheckRequest {
     (__ \ "KPP").writeNullable[String] and
     (__ \ "CheckStrings").write[List[CheckString]] and
     (__ \ "Cash").write[Double] and
-    (__ \ "CashLessType1").write[Double] and
-    (__ \ "CashLessType2").write[Double] and
-    (__ \ "CashLessType3").write[Double]
+    (__ \ "ElectronicPayment").write[Double] and
+    (__ \ "AdvancePayment").write[Double] and
+    (__ \ "Credit").write[Double] and
+    (__ \ "CashProvision").write[Double]
     )(unlift(RegisterCheckRequest.unapply))
 
 }
