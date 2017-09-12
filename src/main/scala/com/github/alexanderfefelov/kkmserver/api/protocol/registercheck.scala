@@ -17,7 +17,7 @@ case class PrintImageCheckStringData (
   Image: String
 ) extends CheckStringData
 
-case class PrintIamgeCheckString (
+case class PrintImageCheckString (
   PrintImage: PrintImageCheckStringData
 ) extends CheckString
 
@@ -129,7 +129,7 @@ object RegisterCheckRequest {
 
   implicit object checkStringWrites extends Writes[CheckString] {
     override def writes(obj: CheckString): JsValue = obj match {
-      case pi: PrintIamgeCheckString => Json.obj("PrintImage" -> pi.PrintImage)
+      case pi: PrintImageCheckString => Json.obj("PrintImage" -> pi.PrintImage)
       case pt: PrintTextCheckString => Json.obj("PrintText" -> pt.PrintText)
       case r: RegisterCheckString => Json.obj("Register" -> r.Register)
       case bc: BarCodeCheckString => Json.obj("BarCode" -> bc.BarCode)
