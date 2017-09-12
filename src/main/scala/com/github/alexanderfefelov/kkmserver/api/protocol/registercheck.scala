@@ -74,6 +74,7 @@ case class RegisterCheckRequest (
   NotPrint: Boolean,
   CashierName: String,
   CashierVATIN: String,
+  SenderEmail: Option[String] = None,
   ClientAddress: Option[String] = None,
   TaxVariant: Option[String] = None,
   AdditionalProps: List[AdditionalProp] = List(),
@@ -150,6 +151,7 @@ object RegisterCheckRequest {
     (__ \ "NotPrint").write[Boolean] and
     (__ \ "CashierName").write[String] and
     (__ \ "CashierVATIN").write[String] and
+    (__ \ "SenderEmail").writeNullable[String] and
     (__ \ "ClientAddress").writeNullable[String] and
     (__ \ "TaxVariant").writeNullable[String] and
     (__ \ "AdditionalProps").write[List[AdditionalProp]] and
