@@ -197,11 +197,11 @@ class KkmServerApiSpec extends AsyncFlatSpec {
       CheckStrings = List(
         PrintTextCheckString(PrintTextCheckStringData(TEXT)),
         PrintImageCheckString(PrintImageCheckStringData(IMAGE)),
-        RegisterCheckString(RegisterCheckStringData(GOOD, EAN13 = Option(EAN), Quantity = 1.00, Price = 1.00, Amount = 1.00)),
+        RegisterCheckString(RegisterCheckStringData(GOOD, EAN13 = Option(EAN), Quantity = 5.00, Price = 4000.00, Amount = 19500.00, Tax = VAT_18)),
         BarCodeCheckString(BarCodeCheckStringData("EAN13", EAN))
       ),
-      Cash = 0.60,
-      ElectronicPayment = 0.40
+      Cash = 19000.00,
+      ElectronicPayment = 500.00
     )
   }
 
@@ -220,11 +220,11 @@ class KkmServerApiSpec extends AsyncFlatSpec {
       CheckStrings = List(
         PrintTextCheckString10(PrintTextCheckStringData10(TEXT)),
         PrintImageCheckString10(PrintImageCheckStringData10(IMAGE)),
-        RegisterCheckString10(RegisterCheckStringData10(GOOD, EAN13 = Option(EAN), Quantity = 1.00, Price = 1.00, Amount = 1.00)),
+        RegisterCheckString10(RegisterCheckStringData10(GOOD, EAN13 = Option(EAN), Quantity = 5.00, Price = 4000.00, Amount = 19500.00, Tax = VAT_18)),
         BarCodeCheckString10(BarCodeCheckStringData10("EAN13", EAN))
       ),
-      Cash = 0.60,
-      CashLessType1 = 0.40
+      Cash = 19000.00,
+      CashLessType1 = 500.00
     )
   }
 
