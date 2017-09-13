@@ -173,6 +173,17 @@ class KkmServerApiSpec extends AsyncFlatSpec {
       }
     }
 
+    s"GetChecksJSONRequest device: $device" should "run without error and provide valid metadata" in {
+      val request = GetChecksJSONRequest(NumDevice = device)
+      api.getChecksJSON(request) map { response =>
+        commandId = response.IdCommand
+        assert(response.Status == 0)
+        assert(response.Error.isEmpty)
+        assert(response.Command == request.Command)
+        assert(response.IdCommand == request.IdCommand)
+      }
+    }
+
   }
 
   private def openShift(device: Int): Future[OpenShiftResponse] = {

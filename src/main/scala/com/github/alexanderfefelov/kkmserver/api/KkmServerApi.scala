@@ -70,6 +70,10 @@ class KkmServerApi {
     apiCall[OpenCashDrawerRequest, OpenCashDrawerResponse](request)
   }
 
+  def getChecksJSON(request: GetChecksJSONRequest): Future[GetChecksJSONResponse] = {
+    apiCall[GetChecksJSONRequest, GetChecksJSONResponse](request)
+  }
+
   private def apiCall[A : Writes, B : Reads](request: A): Future[B] = {
     val requestJson = Json.toJson(request)
     logger.debug(s"request: $requestJson")
