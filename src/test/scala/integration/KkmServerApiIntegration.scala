@@ -1,11 +1,13 @@
-import org.scalatest._
-import com.github.alexanderfefelov.kkmserver.api.{KkmServerApi, protocol}
+package integration
+
+import com.github.alexanderfefelov.kkmserver.api.KkmServerApi
 import com.github.alexanderfefelov.kkmserver.api.protocol._
+import org.scalatest._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class KkmServerApiSpec extends AsyncFlatSpec {
+class KkmServerApiIntegration extends AsyncFlatSpec {
 
   private val api = new KkmServerApi()
 
