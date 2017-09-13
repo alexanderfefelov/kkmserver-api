@@ -48,6 +48,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
         assert(response.Error.isEmpty)
         assert(response.Command == request.Command)
         assert(response.IdCommand == request.IdCommand)
+        assert(response.NumDevice == request.NumDevice)
       }
     }
 
@@ -58,6 +59,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
         assert(response.Error.isEmpty)
         assert(response.Command == request.Command)
         assert(response.IdCommand == request.IdCommand)
+        assert(response.NumDevice == request.NumDevice)
       }
     }
 
@@ -68,6 +70,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
         assert(response.Error.isEmpty)
         assert(response.Command == request.Command)
         assert(response.IdCommand == request.IdCommand)
+        assert(response.NumDevice == request.NumDevice)
       }
     }
 
@@ -78,6 +81,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
         assert(response.Error.isEmpty)
         assert(response.Command == request.Command)
         assert(response.IdCommand == request.IdCommand)
+        assert(response.NumDevice == request.NumDevice)
       }
     }
 
@@ -88,6 +92,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
         assert(response.Error.isEmpty)
         assert(response.Command == request.Command)
         assert(response.IdCommand == request.IdCommand)
+        assert(response.NumDevice == request.NumDevice)
       }
     }
 
@@ -98,6 +103,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
         assert(response.Error.isEmpty)
         assert(response.Command == request.Command)
         assert(response.IdCommand == request.IdCommand)
+        assert(response.NumDevice == request.NumDevice)
       }
     }
 
@@ -113,6 +119,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
                 assert(response.Error.isEmpty)
                 assert(response.Command == request.Command)
                 assert(response.IdCommand == request.IdCommand)
+                assert(Option(response.NumDevice) == request.NumDevice)
               }
             }
 
@@ -124,6 +131,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
                 assert(response.Error.isEmpty)
                 assert(response.Command == request.Command)
                 assert(response.IdCommand == request.IdCommand)
+                assert(Option(response.NumDevice) == request.NumDevice)
               }
             }
 
@@ -138,6 +146,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
         assert(response.Error.isEmpty)
         assert(response.Command == request.Command)
         assert(response.IdCommand == request.IdCommand)
+        assert(response.NumDevice == request.NumDevice)
       }
     }
 
@@ -148,6 +157,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
         assert(response.Error.isEmpty)
         assert(response.Command == request.Command)
         assert(response.IdCommand == request.IdCommand)
+        assert(response.NumDevice == request.NumDevice)
       }
     }
 
@@ -160,6 +170,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
         assert(response.Error.isEmpty)
         assert(response.Command == request.Command)
         assert(response.IdCommand == request.IdCommand)
+        assert(response.NumDevice == request.NumDevice)
       }
     }
 
@@ -181,6 +192,7 @@ class KkmServerApiSpec extends AsyncFlatSpec {
         assert(response.Error.isEmpty)
         assert(response.Command == request.Command)
         assert(response.IdCommand == request.IdCommand)
+        assert(response.NumDevice == request.NumDevice)
       }
     }
 
