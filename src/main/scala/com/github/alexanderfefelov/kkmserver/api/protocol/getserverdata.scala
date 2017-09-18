@@ -38,7 +38,7 @@ case class ServerData (
   PCUserName: String,
   PCPhysicalMemory: String,
   PCFreePhysicalMemory: String,
-  PCFreeDiskSpace: String,
+  // PCFreeDiskSpace: String,
   PCProcessorName: String,
   PCNumberOfCores: String
 )
@@ -75,7 +75,7 @@ object GetServerDataResponse {
     (__ \ "PCUserName").read[String] and
     (__ \ "PCPhysicalMemory").read[String] and
     (__ \ "PCFreePhysicalMemory").read[String] and
-    (__ \ "PCFreeDiskSpace").read[String] and
+    // (__ \ "PCFreeDiskSpace").read[String] and
     (__ \ "PCProcessorName").read[String] and
     (__ \ "PCNumberOfCores").read[String]
     )(ServerData.apply _)
