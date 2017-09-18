@@ -23,7 +23,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
   "GetServerData" should "run without error and provide valid metadata" in {
     val request = GetServerDataRequest()
     api.getServerData(request) map { response =>
-      assert(response.Status == 0)
+      assert(response.Status == COMMAND_STATUS_OK)
       assert(response.Error.isEmpty)
       assert(response.Command == request.Command)
       assert(response.IdCommand == request.IdCommand)
@@ -33,7 +33,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
   s"List" should "run without error, provide valid metadata, and return exactly 3 devices" in {
     val request = ListRequest()
     api.list(request) map { response =>
-      assert(response.Status == 0)
+      assert(response.Status == COMMAND_STATUS_OK)
       assert(response.Error.isEmpty)
       assert(response.Command == request.Command)
       assert(response.IdCommand == request.IdCommand)
@@ -46,7 +46,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
     s"GetDataKKT device: $device" should "run without error and provide valid metadata" in {
       val request = GetDataKKTRequest(NumDevice = device)
       api.getDataKKT(request) map { response =>
-        assert(response.Status == 0)
+        assert(response.Status == COMMAND_STATUS_OK)
         assert(response.Error.isEmpty)
         assert(response.Command == request.Command)
         assert(response.IdCommand == request.IdCommand)
@@ -57,7 +57,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
     s"OfdReport device: $device" should "run without error and provide valid metadata" in {
       val request = OfdReportRequest(NumDevice = device, CashierName = CASHIER_NAME)
       api.ofdReport(request) map { response =>
-        assert(response.Status == 0)
+        assert(response.Status == COMMAND_STATUS_OK)
         assert(response.Error.isEmpty)
         assert(response.Command == request.Command)
         assert(response.IdCommand == request.IdCommand)
@@ -68,7 +68,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
     s"OpenShift device: $device" should "run without error and provide valid metadata" in {
       val request = OpenShiftRequest(NumDevice = device, CashierName = CASHIER_NAME, CashierVATIN = CASHIER_VATIN)
       api.openShift(request) map { response =>
-        assert(response.Status == 0)
+        assert(response.Status == COMMAND_STATUS_OK)
         assert(response.Error.isEmpty)
         assert(response.Command == request.Command)
         assert(response.IdCommand == request.IdCommand)
@@ -79,7 +79,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
     s"OpenCashDrawer device: $device" should "run without error and provide valid metadata" in {
       val request = OpenCashDrawerRequest(NumDevice = device, CashierName = CASHIER_NAME)
       api.openCashDrawer(request) map { response =>
-        assert(response.Status == 0)
+        assert(response.Status == COMMAND_STATUS_OK)
         assert(response.Error.isEmpty)
         assert(response.Command == request.Command)
         assert(response.IdCommand == request.IdCommand)
@@ -90,7 +90,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
     s"DepositingCash device: $device" should "run without error and provide valid metadata" in {
       val request = DepositingCashRequest(NumDevice = device, CashierName = CASHIER_NAME, CashierVATIN = CASHIER_VATIN, Amount = 1.00)
       api.depositingCash(request) map { response =>
-        assert(response.Status == 0)
+        assert(response.Status == COMMAND_STATUS_OK)
         assert(response.Error.isEmpty)
         assert(response.Command == request.Command)
         assert(response.IdCommand == request.IdCommand)
@@ -101,7 +101,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
     s"PaymentCash device: $device" should "run without error and provide valid metadata" in {
       val request = PaymentCashRequest(NumDevice = device, CashierName = CASHIER_NAME, CashierVATIN = CASHIER_VATIN, Amount = 1.00)
       api.paymentCash(request) map { response =>
-        assert(response.Status == 0)
+        assert(response.Status == COMMAND_STATUS_OK)
         assert(response.Error.isEmpty)
         assert(response.Command == request.Command)
         assert(response.IdCommand == request.IdCommand)
@@ -117,7 +117,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
             s"RegisterCheck10 device: $device checkType: $checkType fiscal: $isFiscal" should "run without error and provide valid metadata" in {
               val request = createRegisterCheckRequest10(device, checkType, isFiscal)
               api.registerCheck10(request) map { response =>
-                assert(response.Status == 0)
+                assert(response.Status == COMMAND_STATUS_OK)
                 assert(response.Error.isEmpty)
                 assert(response.Command == request.Command)
                 assert(response.IdCommand == request.IdCommand)
@@ -129,7 +129,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
             s"RegisterCheck device: $device checkType: $checkType fiscal: $isFiscal" should "run without error and provide valid metadata" in {
               val request = createRegisterCheckRequest(device, checkType, isFiscal)
               api.registerCheck(request) map { response =>
-                assert(response.Status == 0)
+                assert(response.Status == COMMAND_STATUS_OK)
                 assert(response.Error.isEmpty)
                 assert(response.Command == request.Command)
                 assert(response.IdCommand == request.IdCommand)
@@ -144,7 +144,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
     s"XReport device: $device" should "run without error and provide valid metadata" in {
       val request = XReportRequest(NumDevice = device)
       api.xReport(request) map { response =>
-        assert(response.Status == 0)
+        assert(response.Status == COMMAND_STATUS_OK)
         assert(response.Error.isEmpty)
         assert(response.Command == request.Command)
         assert(response.IdCommand == request.IdCommand)
@@ -155,7 +155,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
     s"CloseShift device: $device" should "run without error and provide valid metadata" in {
       val request = CloseShiftRequest(NumDevice = device, CashierName = CASHIER_NAME, CashierVATIN = CASHIER_VATIN)
       api.closeShift(request) map { response =>
-        assert(response.Status == 0)
+        assert(response.Status == COMMAND_STATUS_OK)
         assert(response.Error.isEmpty)
         assert(response.Command == request.Command)
         assert(response.IdCommand == request.IdCommand)
@@ -168,7 +168,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
       val request = ZReportRequest(NumDevice = device, CashierName = CASHIER_NAME, CashierVATIN = CASHIER_VATIN)
       api.zReport(request) map { response =>
         commandId = response.IdCommand
-        assert(response.Status == 0)
+        assert(response.Status == COMMAND_STATUS_OK)
         assert(response.Error.isEmpty)
         assert(response.Command == request.Command)
         assert(response.IdCommand == request.IdCommand)
@@ -179,7 +179,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
     s"GetRezult device: $device" should "run without error and provide valid metadata" in {
       val request = GetRezultRequest(IdCommand = commandId)
       api.getRezult(request) map { response =>
-        assert(response.Status == 0)
+        assert(response.Status == COMMAND_STATUS_OK)
         assert(response.Error.isEmpty)
         assert(response.Command == request.Command)
         assert(response.IdCommand.isEmpty)
