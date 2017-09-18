@@ -151,7 +151,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
         }
 
       } // isFiscal
-    }  // chekType
+    } // checkType
 
     s"XReport device: $device" should "run without error and provide valid metadata" in {
       val request = XReportRequest(NumDevice = device)
