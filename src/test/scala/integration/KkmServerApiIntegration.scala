@@ -138,8 +138,20 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
             }
 
         }
-      }
-    }
+
+        s"GetDataCheck device: $device checkType: $checkType fiscal: $isFiscal" should "run without error and provide valid metadata" in {
+          val request = GetDataCheckRequest(NumDevice = device, FiscalNumber = 0, NumberCopies = 1)
+          api.getDataCheck(request) map { response =>
+            assert(response.Status == COMMAND_STATUS_OK)
+            assert(response.Error.isEmpty)
+            assert(response.Command == request.Command)
+            assert(response.IdCommand == request.IdCommand)
+            assert(response.NumDevice == request.NumDevice)
+          }
+        }
+
+      } // isFiscal
+    }  // chekType
 
     s"XReport device: $device" should "run without error and provide valid metadata" in {
       val request = XReportRequest(NumDevice = device)

@@ -42,6 +42,10 @@ class KkmServerApi {
     apiCall[GetRezultRequest, GetRezultResponse](request)
   }
 
+  def getDataCheck(request: GetDataCheckRequest): Future[GetDataCheckResponse] = {
+    apiCall[GetDataCheckRequest, GetDataCheckResponse](request)
+  }
+
   def getDataKKT(request: GetDataKKTRequest): Future[GetDataKKTResponse] = {
     apiCall[GetDataKKTRequest, GetDataKKTResponse](request)
   }
