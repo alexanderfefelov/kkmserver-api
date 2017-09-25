@@ -122,47 +122,48 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
 
     for (checkType <- List(CHECK_TYPE_SALE, CHECK_TYPE_SALE_RETURN, CHECK_TYPE_PURCHASE_RETURN, CHECK_TYPE_PURCHASE)) {
       for (isFiscal <- List(true, false)) {
-        device match {
+        for (tax <- List(VAT_NO, VAT_0, VAT_10, VAT_18, VAT_110, VAT_118)) {
+          device match {
 
-          case 2 => // ФФД 1.0
-            s"RegisterCheck10 device: $device checkType: $checkType fiscal: $isFiscal" should "run without error and provide valid metadata" in {
-              val request = createRegisterCheckRequest10(device, checkType, isFiscal)
-              api.registerCheck10(request) map { response =>
-                assert(response.Status == COMMAND_STATUS_OK)
-                assert(response.Error.isEmpty)
-                assert(response.Command == request.Command)
-                assert(response.IdCommand == request.IdCommand)
-                assert(Option(response.NumDevice) == request.NumDevice)
+            case 2 => // ФФД 1.0
+              s"RegisterCheck10 device: $device checkType: $checkType fiscal: $isFiscal, tax: $tax" should "run without error and provide valid metadata" in {
+                val request = createRegisterCheckRequest10(device, checkType, isFiscal, tax)
+                api.registerCheck10(request) map { response =>
+                  assert(response.Status == COMMAND_STATUS_OK)
+                  assert(response.Error.isEmpty)
+                  assert(response.Command == request.Command)
+                  assert(response.IdCommand == request.IdCommand)
+                  assert(Option(response.NumDevice) == request.NumDevice)
+                }
               }
-            }
 
-          case 3 => // ФФД 1.05
-            s"RegisterCheck device: $device checkType: $checkType fiscal: $isFiscal" should "run without error and provide valid metadata" in {
-              val request = createRegisterCheckRequest(device, checkType, isFiscal)
-              api.registerCheck(request) map { response =>
-                assert(response.Status == COMMAND_STATUS_OK)
-                assert(response.Error.isEmpty)
-                assert(response.Command == request.Command)
-                assert(response.IdCommand == request.IdCommand)
-                assert(Option(response.NumDevice) == request.NumDevice)
+            case 3 => // ФФД 1.05
+              s"RegisterCheck device: $device checkType: $checkType fiscal: $isFiscal, tax: $tax" should "run without error and provide valid metadata" in {
+                val request = createRegisterCheckRequest(device, checkType, isFiscal, tax)
+                api.registerCheck(request) map { response =>
+                  assert(response.Status == COMMAND_STATUS_OK)
+                  assert(response.Error.isEmpty)
+                  assert(response.Command == request.Command)
+                  assert(response.IdCommand == request.IdCommand)
+                  assert(Option(response.NumDevice) == request.NumDevice)
+                }
               }
-            }
 
-        }
-
-        s"GetDataCheck device: $device checkType: $checkType fiscal: $isFiscal" should "run without error and provide valid metadata" in {
-          val request = GetDataCheckRequest(NumDevice = device, FiscalNumber = 0, NumberCopies = 1)
-          api.getDataCheck(request) map { response =>
-            assert(response.Status == COMMAND_STATUS_OK)
-            assert(response.Error.isEmpty)
-            assert(response.Command == request.Command)
-            assert(response.IdCommand == request.IdCommand)
-            assert(response.NumDevice == request.NumDevice)
           }
-        }
-
+        } // tax
       } // isFiscal
     } // checkType
+
+    s"GetDataCheck device: $device" should "run without error and provide valid metadata" in {
+      val request = GetDataCheckRequest(NumDevice = device, FiscalNumber = 0, NumberCopies = 1)
+      api.getDataCheck(request) map { response =>
+        assert(response.Status == COMMAND_STATUS_OK)
+        assert(response.Error.isEmpty)
+        assert(response.Command == request.Command)
+        assert(response.IdCommand == request.IdCommand)
+        assert(response.NumDevice == request.NumDevice)
+      }
+    }
 
     s"XReport device: $device" should "run without error and provide valid metadata" in {
       val request = XReportRequest(NumDevice = device)
@@ -216,7 +217,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
     api.openShift(request)
   }
 
-  private def createRegisterCheckRequest(device: Int, checkType: Int, isFiscal: Boolean): RegisterCheckRequest = {
+  private def createRegisterCheckRequest(device: Int, checkType: Int, isFiscal: Boolean, tax: Int): RegisterCheckRequest = {
     RegisterCheckRequest(
       NumDevice = Option(device),
       IsFiscalCheck = isFiscal,
@@ -233,7 +234,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
       CheckStrings = List(
         PrintTextCheckString(PrintTextCheckStringData(TEXT)),
         PrintImageCheckString(PrintImageCheckStringData(IMAGE)),
-        RegisterCheckString(RegisterCheckStringData(GOOD, EAN13 = Option(EAN), Quantity = 5.00, Price = 4000.00, Amount = 19500.00, Tax = VAT_18)),
+        RegisterCheckString(RegisterCheckStringData(GOOD, EAN13 = Option(EAN), Quantity = 5.00, Price = 4000.00, Amount = 19500.00, Tax = tax)),
         BarCodeCheckString(BarCodeCheckStringData("EAN13", EAN))
       ),
       Cash = 19000.00,
@@ -241,7 +242,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
     )
   }
 
-  private def createRegisterCheckRequest10(device: Int, checkType: Int, isFiscal: Boolean): RegisterCheckRequest10 = {
+  private def createRegisterCheckRequest10(device: Int, checkType: Int, isFiscal: Boolean, tax: Int): RegisterCheckRequest10 = {
     RegisterCheckRequest10(
       NumDevice = Option(device),
       IsFiscalCheck = isFiscal,
@@ -256,7 +257,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
       CheckStrings = List(
         PrintTextCheckString10(PrintTextCheckStringData10(TEXT)),
         PrintImageCheckString10(PrintImageCheckStringData10(IMAGE)),
-        RegisterCheckString10(RegisterCheckStringData10(GOOD, EAN13 = Option(EAN), Quantity = 5.00, Price = 4000.00, Amount = 19500.00, Tax = VAT_18)),
+        RegisterCheckString10(RegisterCheckStringData10(GOOD, EAN13 = Option(EAN), Quantity = 5.00, Price = 4000.00, Amount = 19500.00, Tax = tax)),
         BarCodeCheckString10(BarCodeCheckStringData10("EAN13", EAN))
       ),
       Cash = 19000.00,
