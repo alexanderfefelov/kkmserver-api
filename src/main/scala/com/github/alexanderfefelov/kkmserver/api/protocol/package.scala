@@ -69,12 +69,12 @@ package object protocol {
 
   // НДС
   //
-  val VAT_NO = -1 // Не облагается
-  val VAT_0 = 0
-  val VAT_10 = 10
-  val VAT_18 = 18
-  val VAT_110 = 110
-  val VAT_118 = 118
+  val VAT_NO: Int = -1 // Не облагается
+  val VAT_0: Int = 0
+  val VAT_10: Int = 10
+  val VAT_18: Int = 18
+  val VAT_110: Int = 110
+  val VAT_118: Int = 118
 
   // Значения по умолчанию для ответов
   //

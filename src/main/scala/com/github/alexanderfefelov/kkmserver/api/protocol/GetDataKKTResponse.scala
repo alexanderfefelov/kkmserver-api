@@ -96,11 +96,11 @@ object GetDataKKTResponse {
     )(SettleData.apply _)
 
   implicit val infoDataReads: Reads[InfoData] = (
-    (__).read[OrganizationData] and
-    (__).read[FFDData] and
-    (__).read[FNData] and
-    (__).read[NumbersData] and
-    (__).read[SettleData] and
+    __.read[OrganizationData] and
+    __.read[FFDData] and
+    __.read[FNData] and
+    __.read[NumbersData] and
+    __.read[SettleData] and
     (__ \ "SessionState").read[Int] and
     (__ \ "BalanceCash").read[Double] and
     (__ \ "OnOff").read[Boolean] and
