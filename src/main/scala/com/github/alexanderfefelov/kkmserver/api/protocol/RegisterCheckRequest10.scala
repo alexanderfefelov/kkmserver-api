@@ -132,7 +132,7 @@ object RegisterCheckRequest10 {
     }
   }
 
-  implicit val registerCheckRequestWrites10: Writes[RegisterCheckRequest10] = (
+  implicit val registerCheckRequest10Writes: Writes[RegisterCheckRequest10] = (
     (__ \ "Command").write[String] and
     (__ \ "IdCommand").write[String] and
     (__ \ "NumDevice").writeNullable[Int] and
