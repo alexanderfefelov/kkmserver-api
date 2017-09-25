@@ -3,6 +3,7 @@ package integration
 import com.github.alexanderfefelov.kkmserver.api.KkmServerApi
 import com.github.alexanderfefelov.kkmserver.api.protocol._
 import org.scalatest._
+import org.scalatest.concurrent.ScalaFutures
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -11,6 +12,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
 
   private val api = new KkmServerApi()
 
+  private val UNKNOWN_COMMAND = "foobarbaz"
   private val CASHIER_NAME = "Швейк Йозеф"
   private val CASHIER_VATIN = "987654321098"
   private val TEXT = "Donec pretium est ac ante tincidunt blandit"
@@ -19,6 +21,15 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
   private val EAN = "8595248136472"
 
   private var commandId = ""
+
+  "Unknown command" should "throw exception with known message string" in {
+    val request = ListRequest(Command = UNKNOWN_COMMAND)
+    val responseFuture = api.list(request)
+    ScalaFutures.whenReady(responseFuture.failed) { e =>
+      assert(e.isInstanceOf[KkmServerApiException])
+      assert(e.getMessage.startsWith(s"Message: Неопознанная команда $UNKNOWN_COMMAND"))
+    }
+  }
 
   "GetServerData" should "run without error and provide valid metadata" in {
     val request = GetServerDataRequest()
