@@ -87,7 +87,12 @@ class KkmServerApi {
           s.value
         case e: JsError =>
           logger.error(s"error: ${e.errors}")
-          throw JsResultException(e.errors)
+          response.json.validate[MinimalResponse] match {
+            case s2: JsSuccess[MinimalResponse] =>
+              throw KkmServerApiException(s2.value.Error)
+            case _: JsError =>
+              throw JsResultException(e.errors)
+          }
       }
     }
   }
@@ -104,5 +109,7 @@ class KkmServerApi {
 }
 
 object KkmServerApi {
+
   val theGitHash: String = gitHashShort
+
 }
