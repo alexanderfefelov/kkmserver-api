@@ -1,13 +1,13 @@
 package integration
 
-import com.github.alexanderfefelov.kkmserver.api.KkmServerApi
+import com.github.alexanderfefelov.kkmserver.api._
 import com.github.alexanderfefelov.kkmserver.api.protocol._
 import org.scalatest._
 import org.scalatest.concurrent._
-import org.scalatest.time._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import scala.concurrent.duration._
 
 class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration {
 
@@ -23,11 +23,10 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
 
   private var commandId = ""
 
-  s"GetDataKKT on unknown device" should "throw exception with known message string" in {
+  s"GetDataKKT, unknown device" should "throw exception with known message string" in {
     val request = GetDataKKTRequest(NumDevice = 9)
     val responseFuture = api.getDataKKT(request)
-    implicit val patience = PatienceConfig(timeout = Span(5, Seconds), interval = Span(500, Millis)) // Fix for "A timeout occurred waiting for a future to complete"
-    ScalaFutures.whenReady(responseFuture.failed) { e =>
+    ScalaFutures.whenReady(responseFuture.failed, timeout(5.seconds), interval(500.millis)) { e =>
       assert(e.isInstanceOf[KkmServerApiException])
       assert(e.getMessage.startsWith("Устройство (с параметрами NumDevice=9) не найдено: не настроено или отключено."))
     }
@@ -44,7 +43,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
 
   for (active <- List(false, true)) {
 
-    s"OnOffUnut active: $active" should "run without error and provide valid metadata" in {
+    s"OnOffUnut, active: $active" should "run without error and provide valid metadata" in {
       val request = OnOffUnutRequest(NumDevice = 1, Active = active)
       api.onOffUnut(request) map { response =>
         assert(response.Status == COMMAND_STATUS_OK)
@@ -55,7 +54,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
     }
 
     if (!active) {
-      s"GetDataKKT on inactive device" should "throw exception with known message string" in {
+      s"GetDataKKT, inactive device" should "throw exception with known message string" in {
         val request = GetDataKKTRequest(NumDevice = 1)
         val responseFuture = api.getDataKKT(request)
         ScalaFutures.whenReady(responseFuture.failed) { e =>
@@ -91,7 +90,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
 
   for (device <- List(2, 3)) { // В виртуальной машине extra/kkmserver/vagrant устройство 2 поддерживает ФФД 1.0, а устройство 3 - ФФД 1.05
 
-    s"GetDataKKT device: $device" should "run without error and provide valid metadata" in {
+    s"GetDataKKT, device: $device" should "run without error and provide valid metadata" in {
       val request = GetDataKKTRequest(NumDevice = device)
       api.getDataKKT(request) map { response =>
         assert(response.Status == COMMAND_STATUS_OK)
@@ -102,7 +101,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
       }
     }
 
-    s"OfdReport device: $device" should "run without error and provide valid metadata" in {
+    s"OfdReport, device: $device" should "run without error and provide valid metadata" in {
       val request = OfdReportRequest(NumDevice = device, CashierName = CASHIER_NAME)
       api.ofdReport(request) map { response =>
         assert(response.Status == COMMAND_STATUS_OK)
@@ -113,7 +112,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
       }
     }
 
-    s"OpenShift device: $device" should "run without error and provide valid metadata" in {
+    s"OpenShift, device: $device" should "run without error and provide valid metadata" in {
       val request = OpenShiftRequest(NumDevice = device, CashierName = CASHIER_NAME, CashierVATIN = CASHIER_VATIN)
       api.openShift(request) map { response =>
         assert(response.Status == COMMAND_STATUS_OK)
@@ -124,7 +123,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
       }
     }
 
-    s"OpenCashDrawer device: $device" should "run without error and provide valid metadata" in {
+    s"OpenCashDrawer, device: $device" should "run without error and provide valid metadata" in {
       val request = OpenCashDrawerRequest(NumDevice = device, CashierName = CASHIER_NAME)
       api.openCashDrawer(request) map { response =>
         assert(response.Status == COMMAND_STATUS_OK)
@@ -135,7 +134,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
       }
     }
 
-    s"DepositingCash device: $device" should "run without error and provide valid metadata" in {
+    s"DepositingCash, device: $device" should "run without error and provide valid metadata" in {
       val request = DepositingCashRequest(NumDevice = device, CashierName = CASHIER_NAME, CashierVATIN = CASHIER_VATIN, Amount = 1.00)
       api.depositingCash(request) map { response =>
         assert(response.Status == COMMAND_STATUS_OK)
@@ -146,7 +145,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
       }
     }
 
-    s"PaymentCash device: $device" should "run without error and provide valid metadata" in {
+    s"PaymentCash, device: $device" should "run without error and provide valid metadata" in {
       val request = PaymentCashRequest(NumDevice = device, CashierName = CASHIER_NAME, CashierVATIN = CASHIER_VATIN, Amount = 1.00)
       api.paymentCash(request) map { response =>
         assert(response.Status == COMMAND_STATUS_OK)
@@ -163,7 +162,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
           device match {
 
             case 2 => // ФФД 1.0
-              s"RegisterCheck10 device: $device checkType: $checkType fiscal: $isFiscal, tax: $tax" should "run without error and provide valid metadata" in {
+              s"RegisterCheck10, device: $device checkType: $checkType fiscal: $isFiscal, tax: $tax" should "run without error and provide valid metadata" in {
                 val request = createRegisterCheckRequest10(device, checkType, isFiscal, tax)
                 api.registerCheck10(request) map { response =>
                   assert(response.Status == COMMAND_STATUS_OK)
@@ -175,7 +174,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
               }
 
             case 3 => // ФФД 1.05
-              s"RegisterCheck device: $device checkType: $checkType fiscal: $isFiscal, tax: $tax" should "run without error and provide valid metadata" in {
+              s"RegisterCheck, device: $device checkType: $checkType fiscal: $isFiscal, tax: $tax" should "run without error and provide valid metadata" in {
                 val request = createRegisterCheckRequest(device, checkType, isFiscal, tax)
                 api.registerCheck(request) map { response =>
                   assert(response.Status == COMMAND_STATUS_OK)
@@ -191,7 +190,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
       } // isFiscal
     } // checkType
 
-    s"GetDataCheck device: $device" should "run without error and provide valid metadata" in {
+    s"GetDataCheck, device: $device" should "run without error and provide valid metadata" in {
       val request = GetDataCheckRequest(NumDevice = device, FiscalNumber = 0, NumberCopies = 1)
       api.getDataCheck(request) map { response =>
         assert(response.Status == COMMAND_STATUS_OK)
@@ -202,7 +201,16 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
       }
     }
 
-    s"XReport device: $device" should "run without error and provide valid metadata" in {
+    s"GetDataCheck, unknown check, device: $device" should "throw exception with known message string" in {
+      val request = GetDataCheckRequest(NumDevice = device, FiscalNumber = -1, NumberCopies = 1)
+      val responseFuture = api.getDataCheck(request)
+      ScalaFutures.whenReady(responseFuture.failed, timeout(5.seconds), interval(500.millis)) { e =>
+        assert(e.isInstanceOf[KkmServerApiException])
+        assert(e.getMessage.startsWith("Не удалось получить данные чека"))
+      }
+    }
+
+    s"XReport, device: $device" should "run without error and provide valid metadata" in {
       val request = XReportRequest(NumDevice = device)
       api.xReport(request) map { response =>
         assert(response.Status == COMMAND_STATUS_OK)
@@ -213,7 +221,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
       }
     }
 
-    s"CloseShift device: $device" should "run without error and provide valid metadata" in {
+    s"CloseShift, device: $device" should "run without error and provide valid metadata" in {
       val request = CloseShiftRequest(NumDevice = device, CashierName = CASHIER_NAME, CashierVATIN = CASHIER_VATIN)
       api.closeShift(request) map { response =>
         assert(response.Status == COMMAND_STATUS_OK)
@@ -224,7 +232,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
       }
     }
 
-    s"ZReport device: $device" should "run without error and provide valid metadata" in {
+    s"ZReport, device: $device" should "run without error and provide valid metadata" in {
       openShift(device)
       val request = ZReportRequest(NumDevice = device, CashierName = CASHIER_NAME, CashierVATIN = CASHIER_VATIN)
       api.zReport(request) map { response =>
@@ -237,7 +245,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
       }
     }
 
-    s"GetRezult device: $device" should "run without error and provide valid metadata" in {
+    s"GetRezult, device: $device" should "run without error and provide valid metadata" in {
       val request = GetRezultRequest(IdCommand = commandId)
       api.getRezult(request) map { response =>
         assert(response.Status == COMMAND_STATUS_OK)
