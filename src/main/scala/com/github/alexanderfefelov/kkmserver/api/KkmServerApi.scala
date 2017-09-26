@@ -34,8 +34,8 @@ class KkmServerApi {
     apiCall[RegisterCheckRequest, RegisterCheckResponse](request)
   }
 
-  def registerCheck10(request: RegisterCheckRequest10): Future[RegisterCheckResponse10] = {
-    apiCall[RegisterCheckRequest10, RegisterCheckResponse10](request)
+  def registerCheck10(request: RegisterCheckRequest10): Future[RegisterCheckResponse] = {
+    apiCall[RegisterCheckRequest10, RegisterCheckResponse](request)
   }
 
   def getRezult(request: GetRezultRequest): Future[GetRezultResponse] = {
