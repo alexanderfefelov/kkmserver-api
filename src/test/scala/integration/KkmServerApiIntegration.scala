@@ -3,12 +3,13 @@ package integration
 import com.github.alexanderfefelov.kkmserver.api.KkmServerApi
 import com.github.alexanderfefelov.kkmserver.api.protocol._
 import org.scalatest._
-import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.concurrent._
+import org.scalatest.time._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class KkmServerApiIntegration extends AsyncFlatSpec {
+class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration {
 
   private val api = new KkmServerApi()
 
@@ -21,6 +22,16 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
   private val EAN = "8595248136472"
 
   private var commandId = ""
+
+  s"GetDataKKT on unknown device" should "throw exception with known message string" in {
+    val request = GetDataKKTRequest(NumDevice = 9)
+    val responseFuture = api.getDataKKT(request)
+    implicit val patience = PatienceConfig(timeout = Span(5, Seconds), interval = Span(500, Millis)) // Fix for "A timeout occurred waiting for a future to complete"
+    ScalaFutures.whenReady(responseFuture.failed) { e =>
+      assert(e.isInstanceOf[KkmServerApiException])
+      assert(e.getMessage.startsWith("Устройство (с параметрами NumDevice=9) не найдено: не настроено или отключено."))
+    }
+  }
 
   "Unknown command" should "throw exception with known message string" in {
     val request = ListRequest(Command = UNKNOWN_COMMAND)
@@ -41,6 +52,18 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
         assert(response.Command == request.Command)
         assert(response.IdCommand == request.IdCommand)
       }
+    }
+
+    if (!active) {
+      s"GetDataKKT on inactive device" should "throw exception with known message string" in {
+        val request = GetDataKKTRequest(NumDevice = 1)
+        val responseFuture = api.getDataKKT(request)
+        ScalaFutures.whenReady(responseFuture.failed) { e =>
+          assert(e.isInstanceOf[KkmServerApiException])
+          assert(e.getMessage.startsWith("Устройство (с параметрами NumDevice=1) не найдено: не настроено или отключено."))
+        }
+      }
+
     }
 
   } // active
