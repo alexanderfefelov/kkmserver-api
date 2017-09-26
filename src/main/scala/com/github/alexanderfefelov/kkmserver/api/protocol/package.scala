@@ -32,6 +32,7 @@ package object protocol {
   val COMMAND_OPEN_CASH_DRAWER: String = "OpenCashDrawer" // Открыть денежный ящик
   val COMMAND_GET_SERVER_DATA: String = "GetServerData"   // Получить информацию о сервере
   val COMMAND_GET_DATA_CHECK: String = "GetDataCheck"     // Получить информацию о чеке и, возможно, напечатать его копию
+  val COMMAND_ON_OFF_UNUT: String = "OnOffUnut"           // Включить/выключить устройство
 
   // Статусы команд
   //

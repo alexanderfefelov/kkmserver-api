@@ -31,6 +31,20 @@ class KkmServerApiIntegration extends AsyncFlatSpec {
     }
   }
 
+  for (active <- List(false, true)) {
+
+    s"OnOffUnut active: $active" should "run without error and provide valid metadata" in {
+      val request = OnOffUnutRequest(NumDevice = 1, Active = active)
+      api.onOffUnut(request) map { response =>
+        assert(response.Status == COMMAND_STATUS_OK)
+        assert(response.Error.isEmpty)
+        assert(response.Command == request.Command)
+        assert(response.IdCommand == request.IdCommand)
+      }
+    }
+
+  } // active
+
   "GetServerData" should "run without error and provide valid metadata" in {
     val request = GetServerDataRequest()
     api.getServerData(request) map { response =>

@@ -70,6 +70,10 @@ class KkmServerApi {
     apiCall[CloseShiftRequest, CloseShiftResponse](request)
   }
 
+  def onOffUnut(request: OnOffUnutRequest): Future[OnOffUnutResponse] = {
+    apiCall[OnOffUnutRequest, OnOffUnutResponse](request)
+  }
+
   def openCashDrawer(request: OpenCashDrawerRequest): Future[OpenCashDrawerResponse] = {
     apiCall[OpenCashDrawerRequest, OpenCashDrawerResponse](request)
   }
