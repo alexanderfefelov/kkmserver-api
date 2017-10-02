@@ -1,17 +1,21 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-if ! File.exists?("resources/Setup_KkmServer.exe")
-  puts "KkmServer installer not found"
-  exit 1
-end
-
-if ! File.exists?("resources/SettingsServ.ini")
-  puts "KkmServer settings file not found"
-  exit 1
-end
-
 Vagrant.configure("2") do |config|
+
+  config.trigger.before :up do
+
+    unless File.exists?("resources/Setup_KkmServer.exe")
+      puts "KkmServer installer not found"
+      exit 1
+    end
+
+    unless File.exists?("resources/SettingsServ.ini")
+      puts "KkmServer settings file not found"
+      exit 1
+    end
+
+  end
 
   config.vm.box = "mwrock/Windows2012R2"
 
