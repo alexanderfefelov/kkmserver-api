@@ -47,7 +47,7 @@ class KkmServerApi extends Instrumented {
   }
 
   def list(request: ListRequest): Future[ListResponse] = {
-    timeFuture[ListResponse](s"${request.Command}.${request.NumDevice}") {
+    timeFuture[ListResponse](s"${request.Command}.0") {
       apiCall[ListRequest, ListResponse](request)
     }
   }
@@ -65,13 +65,13 @@ class KkmServerApi extends Instrumented {
   }
 
   def registerCheck(request: RegisterCheckRequest): Future[RegisterCheckResponse] = {
-    timeFuture[RegisterCheckResponse](s"${request.Command}.${request.NumDevice}") {
+    timeFuture[RegisterCheckResponse](s"${request.Command}.${request.NumDevice.getOrElse(0)}") {
       apiCall[RegisterCheckRequest, RegisterCheckResponse](request)
     }
   }
 
   def registerCheck10(request: RegisterCheckRequest10): Future[RegisterCheckResponse] = {
-    timeFuture[RegisterCheckResponse](s"${request.Command}10.${request.NumDevice}") {
+    timeFuture[RegisterCheckResponse](s"${request.Command}10.${request.NumDevice.getOrElse(0)}") {
       apiCall[RegisterCheckRequest10, RegisterCheckResponse](request)
     }
   }
