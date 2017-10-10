@@ -21,21 +21,14 @@
  *
  */
 
-package com.github.alexanderfefelov.kkmserver.api
+package com.github.alexanderfefelov.kkmserver.api.metrics
 
-import com.typesafe.config.ConfigFactory
+import com.codahale.metrics.MetricRegistry
+import nl.grons.metrics.scala.{HdrMetricBuilder, InstrumentedBuilder}
 
-object KkmServerApiConfig {
+trait Instrumented extends InstrumentedBuilder {
 
-  private val config = ConfigFactory.load()
-
-  val kkmServerUrl: String = config.getString("kkmserver.url")
-  val kkmServerUsername: String = config.getString("kkmserver.username")
-  val kkmServerPassword: String = config.getString("kkmserver.password")
-
-  val graphiteEnabled: Boolean = if (config.hasPath("graphite.enabled")) { config.getBoolean("graphite.enabled") } else { false }
-  val graphiteHost: String = if (config.hasPath("graphite.host")) { config.getString("graphite.host") } else { "localhost" }
-  val graphitePort: Int = if (config.hasPath("graphite.port")) { config.getInt("graphite.port") } else { 2003 }
-  val graphitePrefix: String = if (config.hasPath("graphite.prefix")) { config.getString("graphite.prefix") } else { "test" }
+  override lazy protected val metricBuilder = new HdrMetricBuilder(metricBaseName, metricRegistry, resetAtSnapshot = true)
+  override val metricRegistry: MetricRegistry = MetricsManager.metricRegistry
 
 }

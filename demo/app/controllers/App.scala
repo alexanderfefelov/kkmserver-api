@@ -17,7 +17,7 @@ object App extends Controller {
 
   def index = Action { implicit request =>
     val title = "Настройки"
-    val data = s"URL: ${KkmServerApiConfig.url}\nUsername: ${KkmServerApiConfig.username}\nPassword: ${KkmServerApiConfig.password}"
+    val data = s"URL: ${KkmServerApiConfig.kkmServerUrl}\nUsername: ${KkmServerApiConfig.kkmServerUsername}\nPassword: ${KkmServerApiConfig.kkmServerPassword}"
     Ok(views.html.data(title, data))
   }
 

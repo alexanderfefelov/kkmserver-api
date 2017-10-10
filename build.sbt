@@ -6,6 +6,9 @@ scalaVersion := "2.11.11"
 libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-ws" % "2.4.11",
   "joda-time" % "joda-time" % "2.9.9",
+  "nl.grons" %% "metrics-scala" % "3.5.9",
+  "io.dropwizard" % "dropwizard-metrics-graphite" % "1.2.0",
+  "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.2",
   "ca.aaronlevin" %% "scala-gitrev" % "0.1.1",
   "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 )

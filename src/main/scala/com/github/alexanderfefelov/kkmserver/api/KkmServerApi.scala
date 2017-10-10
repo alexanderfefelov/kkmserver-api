@@ -24,81 +24,116 @@
 package com.github.alexanderfefelov.kkmserver.api
 
 import ca.aaronlevin.gitrev.gitHashShort
+import nl.grons.metrics.scala.Timer
+import com.github.alexanderfefelov.kkmserver.api.metrics.Instrumented
+import com.github.alexanderfefelov.kkmserver.api.protocol._
 import play.api.Logger
 import play.api.libs.json._
-import play.api.libs.ws.{WSAuthScheme, WSResponse}
 import play.api.libs.ws.ning.NingWSClient
-import com.github.alexanderfefelov.kkmserver.api.protocol._
+import play.api.libs.ws.{WSAuthScheme, WSResponse}
 
+import scala.collection.mutable
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class KkmServerApi {
+class KkmServerApi extends Instrumented {
 
   val wsClient: NingWSClient = NingWSClient()
 
   def getServerData(request: GetServerDataRequest): Future[GetServerDataResponse] = {
-    apiCall[GetServerDataRequest, GetServerDataResponse](request)
+    timeFuture[GetServerDataResponse](s"${request.Command}.0") {
+      apiCall[GetServerDataRequest, GetServerDataResponse](request)
+    }
   }
 
   def list(request: ListRequest): Future[ListResponse] = {
-    apiCall[ListRequest, ListResponse](request)
+    timeFuture[ListResponse](s"${request.Command}.${request.NumDevice}") {
+      apiCall[ListRequest, ListResponse](request)
+    }
   }
 
   def xReport(request: XReportRequest): Future[XReportResponse] = {
-    apiCall[XReportRequest, XReportResponse](request)
+    timeFuture[XReportResponse](s"${request.Command}.${request.NumDevice}") {
+      apiCall[XReportRequest, XReportResponse](request)
+    }
   }
 
   def zReport(request: ZReportRequest): Future[ZReportResponse] = {
-    apiCall[ZReportRequest, ZReportResponse](request)
+    timeFuture[ZReportResponse](s"${request.Command}.${request.NumDevice}") {
+      apiCall[ZReportRequest, ZReportResponse](request)
+    }
   }
 
   def registerCheck(request: RegisterCheckRequest): Future[RegisterCheckResponse] = {
-    apiCall[RegisterCheckRequest, RegisterCheckResponse](request)
+    timeFuture[RegisterCheckResponse](s"${request.Command}.${request.NumDevice}") {
+      apiCall[RegisterCheckRequest, RegisterCheckResponse](request)
+    }
   }
 
   def registerCheck10(request: RegisterCheckRequest10): Future[RegisterCheckResponse] = {
-    apiCall[RegisterCheckRequest10, RegisterCheckResponse](request)
+    timeFuture[RegisterCheckResponse](s"${request.Command}10.${request.NumDevice}") {
+      apiCall[RegisterCheckRequest10, RegisterCheckResponse](request)
+    }
   }
 
   def getRezult(request: GetRezultRequest): Future[GetRezultResponse] = {
-    apiCall[GetRezultRequest, GetRezultResponse](request)
+    timeFuture[GetRezultResponse](s"${request.Command}.0") {
+      apiCall[GetRezultRequest, GetRezultResponse](request)
+    }
   }
 
   def getDataCheck(request: GetDataCheckRequest): Future[GetDataCheckResponse] = {
-    apiCall[GetDataCheckRequest, GetDataCheckResponse](request)
+    timeFuture[GetDataCheckResponse](s"${request.Command}.${request.NumDevice}") {
+      apiCall[GetDataCheckRequest, GetDataCheckResponse](request)
+    }
   }
 
   def getDataKKT(request: GetDataKKTRequest): Future[GetDataKKTResponse] = {
-    apiCall[GetDataKKTRequest, GetDataKKTResponse](request)
+    timeFuture[GetDataKKTResponse](s"${request.Command}.${request.NumDevice}") {
+      apiCall[GetDataKKTRequest, GetDataKKTResponse](request)
+    }
   }
 
   def ofdReport(request: OfdReportRequest): Future[OfdReportResponse] = {
-    apiCall[OfdReportRequest, OfdReportResponse](request)
+    timeFuture[OfdReportResponse](s"${request.Command}.${request.NumDevice}") {
+      apiCall[OfdReportRequest, OfdReportResponse](request)
+    }
   }
 
   def paymentCash(request: PaymentCashRequest): Future[PaymentCashResponse] = {
-    apiCall[PaymentCashRequest, PaymentCashResponse](request)
+    timeFuture[PaymentCashResponse](s"${request.Command}.${request.NumDevice}") {
+      apiCall[PaymentCashRequest, PaymentCashResponse](request)
+    }
   }
 
   def depositingCash(request: DepositingCashRequest): Future[DepositingCashResponse] = {
-    apiCall[DepositingCashRequest, DepositingCashResponse](request)
+    timeFuture[DepositingCashResponse](s"${request.Command}.${request.NumDevice}") {
+      apiCall[DepositingCashRequest, DepositingCashResponse](request)
+    }
   }
 
   def openShift(request: OpenShiftRequest): Future[OpenShiftResponse] = {
-    apiCall[OpenShiftRequest, OpenShiftResponse](request)
+    timeFuture[OpenShiftResponse](s"${request.Command}.${request.NumDevice}") {
+      apiCall[OpenShiftRequest, OpenShiftResponse](request)
+    }
   }
 
   def closeShift(request: CloseShiftRequest): Future[CloseShiftResponse] = {
-    apiCall[CloseShiftRequest, CloseShiftResponse](request)
+    timeFuture[CloseShiftResponse](s"${request.Command}.${request.NumDevice}") {
+      apiCall[CloseShiftRequest, CloseShiftResponse](request)
+    }
   }
 
   def onOffUnut(request: OnOffUnutRequest): Future[OnOffUnutResponse] = {
-    apiCall[OnOffUnutRequest, OnOffUnutResponse](request)
+    timeFuture[OnOffUnutResponse](s"${request.Command}.${request.NumDevice}") {
+      apiCall[OnOffUnutRequest, OnOffUnutResponse](request)
+    }
   }
 
   def openCashDrawer(request: OpenCashDrawerRequest): Future[OpenCashDrawerResponse] = {
-    apiCall[OpenCashDrawerRequest, OpenCashDrawerResponse](request)
+    timeFuture[OpenCashDrawerResponse](s"${request.Command}.${request.NumDevice}") {
+      apiCall[OpenCashDrawerRequest, OpenCashDrawerResponse](request)
+    }
   }
 
   private def apiCall[A : Writes, B : Reads](request: A): Future[B] = {
@@ -125,13 +160,21 @@ class KkmServerApi {
   }
 
   private def wsCall(json: JsValue): Future[WSResponse] = {
-    wsClient.url(KkmServerApiConfig.url)
-      .withAuth(KkmServerApiConfig.username, KkmServerApiConfig.password, WSAuthScheme.BASIC)
+    wsClient.url(KkmServerApiConfig.kkmServerUrl)
+      .withAuth(KkmServerApiConfig.kkmServerUsername, KkmServerApiConfig.kkmServerPassword, WSAuthScheme.BASIC)
       .withHeaders("Accept" -> "application/json")
       .post(json)
   }
 
+  private def timeFuture[T](prefix: String)(block: (Future[T])): Future[T] = {
+    val metric = s"$prefix.time"
+    val timer = timers.getOrElseUpdate(metric, metrics.timer(metric))
+    timer.timeFuture(block)
+  }
+
   private val logger = Logger("kkmserver-api")
+
+  private val timers: mutable.Map[String, Timer] = scala.collection.mutable.Map[String, Timer]()
 
 }
 

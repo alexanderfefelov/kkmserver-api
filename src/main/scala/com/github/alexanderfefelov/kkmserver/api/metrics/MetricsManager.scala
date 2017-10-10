@@ -21,21 +21,27 @@
  *
  */
 
-package com.github.alexanderfefelov.kkmserver.api
+package com.github.alexanderfefelov.kkmserver.api.metrics
 
-import com.typesafe.config.ConfigFactory
+import java.net.{InetAddress, InetSocketAddress}
+import java.util.concurrent.TimeUnit
 
-object KkmServerApiConfig {
+import com.codahale.metrics.graphite.{GraphiteReporter, GraphiteUDP}
+import com.codahale.metrics.{MetricFilter, MetricRegistry}
+import com.github.alexanderfefelov.kkmserver.api.KkmServerApiConfig
 
-  private val config = ConfigFactory.load()
+object MetricsManager {
 
-  val kkmServerUrl: String = config.getString("kkmserver.url")
-  val kkmServerUsername: String = config.getString("kkmserver.username")
-  val kkmServerPassword: String = config.getString("kkmserver.password")
-
-  val graphiteEnabled: Boolean = if (config.hasPath("graphite.enabled")) { config.getBoolean("graphite.enabled") } else { false }
-  val graphiteHost: String = if (config.hasPath("graphite.host")) { config.getString("graphite.host") } else { "localhost" }
-  val graphitePort: Int = if (config.hasPath("graphite.port")) { config.getInt("graphite.port") } else { 2003 }
-  val graphitePrefix: String = if (config.hasPath("graphite.prefix")) { config.getString("graphite.prefix") } else { "test" }
+  val metricRegistry: MetricRegistry = new MetricRegistry()
+  if (KkmServerApiConfig.graphiteEnabled) {
+    val graphite: GraphiteUDP = new GraphiteUDP(new InetSocketAddress(KkmServerApiConfig.graphiteHost, KkmServerApiConfig.graphitePort))
+    val graphiteReporter = GraphiteReporter.forRegistry(metricRegistry)
+      .prefixedWith(s"${KkmServerApiConfig.graphitePrefix}.${InetAddress.getLocalHost.getHostName}")
+      .convertRatesTo(TimeUnit.SECONDS)
+      .convertDurationsTo(TimeUnit.MILLISECONDS)
+      .filter(MetricFilter.ALL)
+      .build(graphite)
+    graphiteReporter.start(1, TimeUnit.MINUTES)
+  }
 
 }
