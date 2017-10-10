@@ -104,6 +104,7 @@ package object protocol {
   //
   val DEFAULT_URL: String = ""
   val DEFAULT_QRCODE: String = ""
+  val DEFAULT_UNITNAME: String = ""
   val DEFAULT_SESSION_NUMBER: Int = -1
   val DEFAULT_CHECK_NUMBER: Int = -1
 

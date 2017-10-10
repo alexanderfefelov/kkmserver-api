@@ -45,7 +45,7 @@ object OfdReportResponse {
     (__ \ "Status").read[Int] and
     (__ \ "Error").read[String] and
     (__ \ "NumDevice").read[Int] and
-    (__ \ "UnitName").read[String]
+    ((__ \ "UnitName").read[String] or Reads.pure(DEFAULT_UNITNAME))
     )(OfdReportResponse.apply _)
 
 }
