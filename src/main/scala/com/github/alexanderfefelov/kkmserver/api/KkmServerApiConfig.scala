@@ -27,7 +27,7 @@ import com.typesafe.config.ConfigFactory
 
 object KkmServerApiConfig {
 
-  val CONFIG_PREFIX_API = "kkmserver-api"
+  val CONFIG_PREFIX_API: String = "kkmserver-api"
   val CONFIG_PREFIX_KKMSERVER: String = s"$CONFIG_PREFIX_API.kkmserver"
   val CONFIG_PREFIX_GRAPHITE: String = s"$CONFIG_PREFIX_API.graphite"
 
