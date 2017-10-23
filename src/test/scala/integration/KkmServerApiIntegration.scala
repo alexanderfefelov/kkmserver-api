@@ -46,6 +46,17 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
 
   private var commandId = ""
 
+  s"KkmServerApiConfig" should "load correct values" in {
+    val config = KkmServerApiConfig
+    assert(config.kkmServerUrl == "http://localhost:5893/Execute/sync")
+    assert(config.kkmServerUsername == "User")
+    assert(config.kkmServerPassword == "user")
+    assert(config.graphiteEnabled == false)
+    assert(config.graphiteHost == "localhost")
+    assert(config.graphitePort == 2003)
+    assert(config.graphitePrefix == "test")
+  }
+
   s"GetDataKKT, unknown device" should "throw exception with known message string" in {
     val request = GetDataKKTRequest(NumDevice = 9)
     val responseFuture = api.getDataKKT(request)
