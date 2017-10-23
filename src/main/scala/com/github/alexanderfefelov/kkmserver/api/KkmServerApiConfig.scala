@@ -27,15 +27,19 @@ import com.typesafe.config.ConfigFactory
 
 object KkmServerApiConfig {
 
+  val CONFIG_PREFIX_API = "kkmserver-api"
+  val CONFIG_PREFIX_KKMSERVER: String = s"$CONFIG_PREFIX_API.kkmserver"
+  val CONFIG_PREFIX_GRAPHITE: String = s"$CONFIG_PREFIX_API.graphite"
+
   private val config = ConfigFactory.load()
 
-  val kkmServerUrl: String = config.getString("kkmserver.url")
-  val kkmServerUsername: String = config.getString("kkmserver.username")
-  val kkmServerPassword: String = config.getString("kkmserver.password")
+  val kkmServerUrl: String = config.getString(s"$CONFIG_PREFIX_KKMSERVER.url")
+  val kkmServerUsername: String = config.getString(s"$CONFIG_PREFIX_KKMSERVER.username")
+  val kkmServerPassword: String = config.getString(s"$CONFIG_PREFIX_KKMSERVER.password")
 
-  val graphiteEnabled: Boolean = if (config.hasPath("graphite.enabled")) { config.getBoolean("graphite.enabled") } else { false }
-  val graphiteHost: String = if (config.hasPath("graphite.host")) { config.getString("graphite.host") } else { "localhost" }
-  val graphitePort: Int = if (config.hasPath("graphite.port")) { config.getInt("graphite.port") } else { 2003 }
-  val graphitePrefix: String = if (config.hasPath("graphite.prefix")) { config.getString("graphite.prefix") } else { "test" }
+  val graphiteEnabled: Boolean = if (config.hasPath(s"$CONFIG_PREFIX_GRAPHITE.enabled")) { config.getBoolean(s"$CONFIG_PREFIX_GRAPHITE.enabled") } else { false }
+  val graphiteHost: String = if (config.hasPath(s"$CONFIG_PREFIX_GRAPHITE.host")) { config.getString(s"$CONFIG_PREFIX_GRAPHITE.host") } else { "localhost" }
+  val graphitePort: Int = if (config.hasPath(s"$CONFIG_PREFIX_GRAPHITE.port")) { config.getInt(s"$CONFIG_PREFIX_GRAPHITE.port") } else { 2003 }
+  val graphitePrefix: String = if (config.hasPath(s"$CONFIG_PREFIX_GRAPHITE.prefix")) { config.getString(s"$CONFIG_PREFIX_GRAPHITE.prefix") } else { "test" }
 
 }
