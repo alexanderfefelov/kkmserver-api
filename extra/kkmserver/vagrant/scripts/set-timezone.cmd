@@ -1,5 +1,5 @@
 @echo off
 
-echo Set timezone...
+echo Setting timezone...
 tzutil /s "Russian Standard Time"
 echo ...done
