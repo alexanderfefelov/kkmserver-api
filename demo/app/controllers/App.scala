@@ -134,7 +134,6 @@ object App extends Controller {
       IsFiscalCheck = true,
       TypeCheck = typeCheck,
       CancelOpenedCheck = true,
-      NotPrint = false,
       CashierName = CASHIER_NAME,
       CashierVATIN = CASHIER_VATIN,
       CheckStrings = List(

@@ -94,7 +94,7 @@ case class RegisterCheckRequest (
   IsFiscalCheck: Boolean,
   TypeCheck: Int,
   CancelOpenedCheck: Boolean,
-  NotPrint: Boolean,
+  NotPrint: Boolean = false,
   CashierName: String,
   CashierVATIN: String,
   SenderEmail: Option[String] = None,

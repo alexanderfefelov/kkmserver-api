@@ -256,7 +256,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
     }
 
     s"CloseShift, device: $device" should "run without error and provide valid metadata" in {
-      val request = CloseShiftRequest(NumDevice = device, CashierName = CASHIER_NAME, CashierVATIN = CASHIER_VATIN, NotPrint = true)
+      val request = CloseShiftRequest(NumDevice = device, CashierName = CASHIER_NAME, CashierVATIN = CASHIER_VATIN)
       api.closeShift(request) map { response =>
         assert(response.Status == COMMAND_STATUS_OK)
         assert(response.Error.isEmpty)
@@ -302,7 +302,6 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
       IsFiscalCheck = isFiscal,
       TypeCheck = checkType,
       CancelOpenedCheck = true,
-      NotPrint = false,
       CashierName = CASHIER_NAME,
       CashierVATIN = CASHIER_VATIN,
       SenderEmail = Option("none@inter.net"),
@@ -327,7 +326,6 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
       IsFiscalCheck = isFiscal,
       TypeCheck = checkType,
       CancelOpenedCheck = true,
-      NotPrint = false,
       CashierName = CASHIER_NAME,
       AdditionalProps = List(
         AdditionalProp10(Print = true, PrintInHeader = true, NameProp = "Название1", Prop = "Значение1"),

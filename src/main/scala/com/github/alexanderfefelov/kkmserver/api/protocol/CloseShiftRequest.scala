@@ -38,7 +38,7 @@ case class CloseShiftRequest (
   //
   CashierName: String,
   CashierVATIN: String,
-  NotPrint: Boolean
+  NotPrint: Boolean = false
 )
 
 object CloseShiftRequest {

@@ -92,7 +92,7 @@ case class RegisterCheckRequest10 (
   IsFiscalCheck: Boolean,
   TypeCheck: Int,
   CancelOpenedCheck: Boolean,
-  NotPrint: Boolean,
+  NotPrint: Boolean = false,
   CashierName: String,
   ClientAddress: Option[String] = None,
   TaxVariant: Option[String] = None,
