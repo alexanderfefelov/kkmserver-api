@@ -176,6 +176,11 @@ class KkmServerApi extends Instrumented {
 
   private val timers: mutable.Map[String, Timer] = scala.collection.mutable.Map[String, Timer]()
 
+  logger.info(s"KkmServer API URL: ${KkmServerApiConfig.kkmServerUrl} Username: ${KkmServerApiConfig.kkmServerUsername}")
+  if (KkmServerApiConfig.graphiteEnabled) {
+    logger.info(s"KkmServer API Graphite: ${KkmServerApiConfig.graphiteHost}:${KkmServerApiConfig.graphitePort} Prefix: ${KkmServerApiConfig.graphitePrefix}")
+  }
+
 }
 
 object KkmServerApi {
