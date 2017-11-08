@@ -62,7 +62,7 @@ case class RegisterCheckStringData (
   Department: Int = 0,
   Tax: Int = VAT_NO,
   SignMethodCalculation: Int = PAYMENT_METHOD_FULL,
-  SignCalculationObject: Int = PAYMENT_SUBJECT_GOOD,
+  SignCalculationObject: Int = PAYMENT_SUBJECT_GOODS,
   EAN13: Option[String] = None
 ) extends CheckStringData
 

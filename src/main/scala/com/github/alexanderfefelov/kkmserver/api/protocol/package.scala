@@ -88,8 +88,19 @@ package object protocol {
 
   // Предмет расчета
   //
-  val PAYMENT_SUBJECT_GOOD = 1    // Товар
-  val PAYMENT_SUBJECT_SERVICE = 4 // Услуга
+  val PAYMENT_SUBJECT_GOODS = 1                 // Товар
+  val PAYMENT_SUBJECT_EXCISE_GOODS = 2          // Акцизный товар
+  val PAYMENT_SUBJECT_WORK = 3                  // Работа
+  val PAYMENT_SUBJECT_SERVICE = 4               // Услуга
+  val PAYMENT_SUBJECT_GAMBLING_BET = 5          // Ставка в азартной игре
+  val PAYMENT_SUBJECT_GAMBLING_GAIN = 6         // Выигрыш в азартной игре
+  val PAYMENT_SUBJECT_LOTTERY_BET = 7           // Ставка в лотерею
+  val PAYMENT_SUBJECT_LOTTERY_GAIN = 8          // Выигрыш в лотерею
+  val PAYMENT_SUBJECT_INTELLECTUAL_PROPERTY = 9 // Права на использование результатов интеллектуальной деятельности
+  val PAYMENT_SUBJECT_PAYMENT = 10              // Платёж
+  val PAYMENT_SUBJECT_AGENT_COMMISSION = 11     // Агентское вознаграждение
+  val PAYMENT_SUBJECT_COMPOSITE = 12            // Составной
+  val PAYMENT_SUBJECT_OTHER = 13                // Прочее
 
   // НДС
   //
