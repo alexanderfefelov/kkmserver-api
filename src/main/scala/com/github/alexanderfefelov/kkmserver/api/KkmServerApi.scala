@@ -166,9 +166,8 @@ class KkmServerApi extends Instrumented {
       .post(json)
   }
 
-  private def timeFuture[T](prefix: String)(block: (Future[T])): Future[T] = {
-    val metric = s"$prefix.time"
-    val timer = timers.getOrElseUpdate(metric, metrics.timer(metric))
+  private def timeFuture[T](metricName: String)(block: (Future[T])): Future[T] = {
+    val timer = timers.getOrElseUpdate(metricName, metrics.timer(metricName))
     timer.timeFuture(block)
   }
 
