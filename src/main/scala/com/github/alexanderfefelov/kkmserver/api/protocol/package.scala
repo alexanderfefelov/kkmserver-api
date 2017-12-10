@@ -84,7 +84,10 @@ package object protocol {
 
   // Способ расчета
   //
-  val PAYMENT_METHOD_FULL = 4 // Полная оплата
+  val PAYMENT_METHOD_PREPAYMENT = 1   // Полная предоплата
+  val PAYMENT_METHOD_DOWN_PAYMENT = 2 // Частичная предоплата
+  val PAYMENT_METHOD_ADVANCE = 3      // Аванс
+  val PAYMENT_METHOD_FULL = 4         // Полная оплата
 
   // Предмет расчета
   //
