@@ -11,7 +11,7 @@ Scala API для сервера печати чеков/этикеток [KkmSer
     cd kkmserver-api
     sbt test
 
-Если тесты завершилилсь успешно, опубликуйте API
+Если тесты завершились успешно, опубликуйте API
 
     cd kkmserver-api
     sbt publishLocal
