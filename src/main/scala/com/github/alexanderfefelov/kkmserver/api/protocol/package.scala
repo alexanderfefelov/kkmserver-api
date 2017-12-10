@@ -25,7 +25,6 @@ package com.github.alexanderfefelov.kkmserver.api
 
 import org.joda.time.DateTime
 import org.joda.time.format.{DateTimeFormat, DateTimeFormatterBuilder}
-import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 package object protocol {
