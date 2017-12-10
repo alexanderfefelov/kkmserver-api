@@ -68,18 +68,29 @@ package object protocol {
 
   // Типы чеков
   //
-  val CHECK_TYPE_SALE: Int = 0              // Продажа
-  val CHECK_TYPE_SALE_RETURN: Int = 1       // Возврат продажи
-  val CHECK_TYPE_EGAIS_SALE: Int = 8        // Продажа ЕГАИС
-  val CHECK_TYPE_EGAIS_SALE_RETURN: Int = 9 // Возврат продажи ЕГАИС
-  val CHECK_TYPE_PURCHASE: Int = 10         // Покупка
-  val CHECK_TYPE_PURCHASE_RETURN: Int = 11  // Возврат покупки
+  val CHECK_TYPE_SALE: Int = 0                  // Продажа
+  val CHECK_TYPE_SALE_RETURN: Int = 1           // Возврат продажи
+  val CHECK_TYPE_SALE_ADJUSTMENT: Int = 2       // Корректировка продажи
+  val CHECK_TYPE_EGAIS_SALE: Int = 8            // Продажа ЕГАИС
+  val CHECK_TYPE_EGAIS_SALE_RETURN: Int = 9     // Возврат продажи ЕГАИС
+  val CHECK_TYPE_PURCHASE: Int = 10             // Покупка
+  val CHECK_TYPE_PURCHASE_RETURN: Int = 11      // Возврат покупки
+  val CHECK_TYPE_PURCHASE_ADJUSTMENT: Int = 12  // Корректировка покупки
 
   // Состояния сессий
   //
   val SESSION_STATE_CLOSED: Int = 1  // Закрыта
   val SESSION_STATE_OPEN: Int = 2    // Открыта
   val SESSION_STATE_EXPIRED: Int = 3 // Закончилась
+
+  // Системы налогообложения
+  //
+  val SYSTEM_OF_TAXATION_0: Int = 0 // Общая ОСН
+  val SYSTEM_OF_TAXATION_1: Int = 1 // Упрощенная УСН (Доход)
+  val SYSTEM_OF_TAXATION_2: Int = 2 // Упрощенная УСН (Доход минус Расход)
+  val SYSTEM_OF_TAXATION_3: Int = 3 // Единый налог на вмененный доход ЕНВД
+  val SYSTEM_OF_TAXATION_4: Int = 4 // Единый сельскохозяйственный налог ЕСН
+  val SYSTEM_OF_TAXATION_5: Int = 5 // Патентная система налогообложения
 
   // Способ расчета
   //
