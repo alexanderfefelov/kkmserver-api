@@ -190,39 +190,41 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
       }
     }
 
-    for (checkType <- List(CHECK_TYPE_SALE, CHECK_TYPE_SALE_RETURN, CHECK_TYPE_PURCHASE_RETURN, CHECK_TYPE_PURCHASE)) {
-      for (isFiscal <- List(true, false)) {
-        for (tax <- List(VAT_NO, VAT_0, VAT_10, VAT_18, VAT_110, VAT_118)) {
-          device match {
+    for (taxVariant <- List(None, SYSTEM_OF_TAXATION_0, SYSTEM_OF_TAXATION_1, SYSTEM_OF_TAXATION_2, SYSTEM_OF_TAXATION_3, SYSTEM_OF_TAXATION_4, SYSTEM_OF_TAXATION_5)) {
+      for (checkType <- List(CHECK_TYPE_SALE, CHECK_TYPE_SALE_RETURN, CHECK_TYPE_PURCHASE_RETURN, CHECK_TYPE_PURCHASE)) {
+        for (isFiscal <- List(true, false)) {
+          for (tax <- List(VAT_NO, VAT_0, VAT_10, VAT_18, VAT_110, VAT_118)) {
+            device match {
 
-            case 2 => // ФФД 1.0
-              s"RegisterCheck10, device: $device checkType: $checkType fiscal: $isFiscal, tax: $tax" should "run without error and provide valid metadata" in {
-                val request = createRegisterCheckRequest10(device, checkType, isFiscal, tax)
-                api.registerCheck10(request) map { response =>
-                  assert(response.Status == COMMAND_STATUS_OK)
-                  assert(response.Error.isEmpty)
-                  assert(response.Command == request.Command)
-                  assert(response.IdCommand == request.IdCommand)
-                  assert(Option(response.NumDevice) == request.NumDevice)
+              case 2 => // ФФД 1.0
+                s"RegisterCheck10, device: $device taxVariant: $taxVariant checkType: $checkType fiscal: $isFiscal, tax: $tax" should "run without error and provide valid metadata" in {
+                  val request = createRegisterCheckRequest10(device, checkType, isFiscal, tax)
+                  api.registerCheck10(request) map { response =>
+                    assert(response.Status == COMMAND_STATUS_OK)
+                    assert(response.Error.isEmpty)
+                    assert(response.Command == request.Command)
+                    assert(response.IdCommand == request.IdCommand)
+                    assert(Option(response.NumDevice) == request.NumDevice)
+                  }
                 }
-              }
 
-            case 3 => // ФФД 1.05
-              s"RegisterCheck, device: $device checkType: $checkType fiscal: $isFiscal, tax: $tax" should "run without error and provide valid metadata" in {
-                val request = createRegisterCheckRequest(device, checkType, isFiscal, tax)
-                api.registerCheck(request) map { response =>
-                  assert(response.Status == COMMAND_STATUS_OK)
-                  assert(response.Error.isEmpty)
-                  assert(response.Command == request.Command)
-                  assert(response.IdCommand == request.IdCommand)
-                  assert(Option(response.NumDevice) == request.NumDevice)
+              case 3 => // ФФД 1.05
+                s"RegisterCheck, device: $device taxVariant: $taxVariant checkType: $checkType fiscal: $isFiscal, tax: $tax" should "run without error and provide valid metadata" in {
+                  val request = createRegisterCheckRequest(device, checkType, isFiscal, tax)
+                  api.registerCheck(request) map { response =>
+                    assert(response.Status == COMMAND_STATUS_OK)
+                    assert(response.Error.isEmpty)
+                    assert(response.Command == request.Command)
+                    assert(response.IdCommand == request.IdCommand)
+                    assert(Option(response.NumDevice) == request.NumDevice)
+                  }
                 }
-              }
 
-          }
-        } // tax
-      } // isFiscal
-    } // checkType
+            }
+          } // tax
+        } // isFiscal
+      } // checkType
+    }  // taxVariant
 
     s"GetDataCheck, device: $device" should "run without error and provide valid metadata" in {
       val request = GetDataCheckRequest(NumDevice = device, FiscalNumber = 0, NumberCopies = 1)
