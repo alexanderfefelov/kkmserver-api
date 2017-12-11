@@ -190,37 +190,39 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
       }
     }
 
-    for (taxVariant <- List(None, SYSTEM_OF_TAXATION_0, SYSTEM_OF_TAXATION_1, SYSTEM_OF_TAXATION_2, SYSTEM_OF_TAXATION_3, SYSTEM_OF_TAXATION_4, SYSTEM_OF_TAXATION_5)) {
+    for (taxVariant <- List(None, Some(SYSTEM_OF_TAXATION_0), Some(SYSTEM_OF_TAXATION_1), Some(SYSTEM_OF_TAXATION_2), Some(SYSTEM_OF_TAXATION_3), Some(SYSTEM_OF_TAXATION_4), Some(SYSTEM_OF_TAXATION_5))) {
       for (checkType <- List(CHECK_TYPE_SALE, CHECK_TYPE_SALE_RETURN, CHECK_TYPE_PURCHASE_RETURN, CHECK_TYPE_PURCHASE)) {
         for (isFiscal <- List(true, false)) {
           for (tax <- List(VAT_NO, VAT_0, VAT_10, VAT_18, VAT_110, VAT_118)) {
-            device match {
+            for (department <- 0 to 4) {
+              device match {
 
-              case 2 => // ФФД 1.0
-                s"RegisterCheck10, device: $device taxVariant: $taxVariant checkType: $checkType fiscal: $isFiscal, tax: $tax" should "run without error and provide valid metadata" in {
-                  val request = createRegisterCheckRequest10(device, checkType, isFiscal, tax)
-                  api.registerCheck10(request) map { response =>
-                    assert(response.Status == COMMAND_STATUS_OK)
-                    assert(response.Error.isEmpty)
-                    assert(response.Command == request.Command)
-                    assert(response.IdCommand == request.IdCommand)
-                    assert(Option(response.NumDevice) == request.NumDevice)
+                case 2 => // ФФД 1.0
+                  s"RegisterCheck10, device: $device taxVariant: $taxVariant checkType: $checkType fiscal: $isFiscal tax: $tax department: $department" should "run without error and provide valid metadata" in {
+                    val request = createRegisterCheckRequest10(device, taxVariant, checkType, isFiscal, tax, department)
+                    api.registerCheck10(request) map { response =>
+                      assert(response.Status == COMMAND_STATUS_OK)
+                      assert(response.Error.isEmpty)
+                      assert(response.Command == request.Command)
+                      assert(response.IdCommand == request.IdCommand)
+                      assert(Option(response.NumDevice) == request.NumDevice)
+                    }
                   }
-                }
 
-              case 3 => // ФФД 1.05
-                s"RegisterCheck, device: $device taxVariant: $taxVariant checkType: $checkType fiscal: $isFiscal, tax: $tax" should "run without error and provide valid metadata" in {
-                  val request = createRegisterCheckRequest(device, checkType, isFiscal, tax)
-                  api.registerCheck(request) map { response =>
-                    assert(response.Status == COMMAND_STATUS_OK)
-                    assert(response.Error.isEmpty)
-                    assert(response.Command == request.Command)
-                    assert(response.IdCommand == request.IdCommand)
-                    assert(Option(response.NumDevice) == request.NumDevice)
+                case 3 => // ФФД 1.05
+                  s"RegisterCheck, device: $device taxVariant: $taxVariant checkType: $checkType fiscal: $isFiscal tax: $tax department: $department" should "run without error and provide valid metadata" in {
+                    val request = createRegisterCheckRequest(device, taxVariant, checkType, isFiscal, tax, department)
+                    api.registerCheck(request) map { response =>
+                      assert(response.Status == COMMAND_STATUS_OK)
+                      assert(response.Error.isEmpty)
+                      assert(response.Command == request.Command)
+                      assert(response.IdCommand == request.IdCommand)
+                      assert(Option(response.NumDevice) == request.NumDevice)
+                    }
                   }
-                }
 
-            }
+              }
+            } // department
           } // tax
         } // isFiscal
       } // checkType
@@ -298,11 +300,12 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
     api.openShift(request)
   }
 
-  private def createRegisterCheckRequest(device: Int, checkType: Int, isFiscal: Boolean, tax: Int): RegisterCheckRequest = {
+  private def createRegisterCheckRequest(device: Int, taxVariant: Option[String], checkType: Int, isFiscal: Boolean, tax: Int, department: Int): RegisterCheckRequest = {
     RegisterCheckRequest(
       NumDevice = Option(device),
       IsFiscalCheck = isFiscal,
       TypeCheck = checkType,
+      TaxVariant = taxVariant,
       CancelOpenedCheck = true,
       CashierName = CASHIER_NAME,
       CashierVATIN = CASHIER_VATIN,
@@ -314,7 +317,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
       CheckStrings = List(
         PrintTextCheckString(PrintTextCheckStringData(TEXT)),
         PrintImageCheckString(PrintImageCheckStringData(IMAGE)),
-        RegisterCheckString(RegisterCheckStringData(GOOD, EAN13 = Option(EAN), Quantity = 5.00, Price = 4000.00, Amount = 19500.00, Tax = tax)),
+        RegisterCheckString(RegisterCheckStringData(GOOD, EAN13 = Option(EAN), Quantity = 5.00, Price = 4000.00, Amount = 19500.00, Tax = tax, Department = department)),
         BarCodeCheckString(BarCodeCheckStringData("EAN13", EAN))
       ),
       Cash = 19000.00,
@@ -322,11 +325,12 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
     )
   }
 
-  private def createRegisterCheckRequest10(device: Int, checkType: Int, isFiscal: Boolean, tax: Int): RegisterCheckRequest10 = {
+  private def createRegisterCheckRequest10(device: Int, taxVariant: Option[String], checkType: Int, isFiscal: Boolean, tax: Int, department: Int): RegisterCheckRequest10 = {
     RegisterCheckRequest10(
       NumDevice = Option(device),
       IsFiscalCheck = isFiscal,
       TypeCheck = checkType,
+      TaxVariant = taxVariant,
       CancelOpenedCheck = true,
       CashierName = CASHIER_NAME,
       AdditionalProps = List(
@@ -336,7 +340,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
       CheckStrings = List(
         PrintTextCheckString10(PrintTextCheckStringData10(TEXT)),
         PrintImageCheckString10(PrintImageCheckStringData10(IMAGE)),
-        RegisterCheckString10(RegisterCheckStringData10(GOOD, EAN13 = Option(EAN), Quantity = 5.00, Price = 4000.00, Amount = 19500.00, Tax = tax)),
+        RegisterCheckString10(RegisterCheckStringData10(GOOD, EAN13 = Option(EAN), Quantity = 5.00, Price = 4000.00, Amount = 19500.00, Tax = tax, Department = department)),
         BarCodeCheckString10(BarCodeCheckStringData10("EAN13", EAN))
       ),
       Cash = 19000.00,
