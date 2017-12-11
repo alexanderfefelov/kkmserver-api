@@ -85,12 +85,12 @@ package object protocol {
 
   // Системы налогообложения
   //
-  val SYSTEM_OF_TAXATION_0: Int = 0 // Общая ОСН
-  val SYSTEM_OF_TAXATION_1: Int = 1 // Упрощенная УСН (Доход)
-  val SYSTEM_OF_TAXATION_2: Int = 2 // Упрощенная УСН (Доход минус Расход)
-  val SYSTEM_OF_TAXATION_3: Int = 3 // Единый налог на вмененный доход ЕНВД
-  val SYSTEM_OF_TAXATION_4: Int = 4 // Единый сельскохозяйственный налог ЕСН
-  val SYSTEM_OF_TAXATION_5: Int = 5 // Патентная система налогообложения
+  val SYSTEM_OF_TAXATION_0: String = "0" // Общая ОСН
+  val SYSTEM_OF_TAXATION_1: String = "1" // Упрощенная УСН (Доход)
+  val SYSTEM_OF_TAXATION_2: String = "2" // Упрощенная УСН (Доход минус Расход)
+  val SYSTEM_OF_TAXATION_3: String = "3" // Единый налог на вмененный доход ЕНВД
+  val SYSTEM_OF_TAXATION_4: String = "4" // Единый сельскохозяйственный налог ЕСН
+  val SYSTEM_OF_TAXATION_5: String = "5" // Патентная система налогообложения
 
   // Способ расчета
   //
