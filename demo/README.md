@@ -2,7 +2,7 @@
 
 Демонстрационный проект для [kkmserver-api](https://github.com/alexanderfefelov/kkmserver-api]) на основе Play Framework (Scala).
 
-![Скриншот](https://raw.githubusercontent.com/alexanderfefelov/kkmserver-api/master/demo/doc/screenshot.png)
+![Скриншот](doc/screenshot.png)
 
 Для запуска выполните команды
 
