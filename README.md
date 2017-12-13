@@ -5,6 +5,7 @@ Scala API для сервера печати чеков/этикеток [KkmSer
 Для установки выполните команды
 
     git clone https://github.com/alexanderfefelov/kkmserver-api.git
+    git checkout tags/v0.2.0
     
 Разверните [тестовую операционную систему](extra/kkmserver/vagrant/README.md) и запустите тесты 
 
