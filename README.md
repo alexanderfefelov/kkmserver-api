@@ -18,6 +18,6 @@ Scala API для сервера печати чеков/этикеток [KkmSer
 
 и добавьте в файл `build.sbt` вашего проекта строку
 
-    libraryDependencies += "alexanderfefelov.github.com" %% "kkmserver-api" % "0.1.1-SNAPSHOT"
+    libraryDependencies += "alexanderfefelov.github.com" %% "kkmserver-api" % "0.2.0"
 
 ![Кассовый чек](doc/sales-check.png)
