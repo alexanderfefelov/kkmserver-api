@@ -4,7 +4,7 @@ organization := "alexanderfefelov.github.com"
 scalaVersion := "2.11.11"
 
 libraryDependencies ++= Seq(
-  "alexanderfefelov.github.com" %% "kkmserver-api" % "0.2.0",
+  "alexanderfefelov.github.com" %% "kkmserver-api" % "0.2.1-SNAPSHOT",
   "com.github.nikita-volkov" % "sext" % "0.2.4",
   "org.webjars" % "jquery" % "3.2.1",
   "org.webjars" % "bootstrap" % "3.3.7"
