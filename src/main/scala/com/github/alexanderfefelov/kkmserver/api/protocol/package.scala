@@ -42,7 +42,7 @@ package object protocol {
   //
   val COMMAND_GET_REZULT: String = "GetRezult"            // Проверить статус команды
   val COMMAND_LIST: String = "List"                       // Получить список устройств
-  val COMMAND_REGISTER_CHECK: String = "RegisterCheck"    // Напечатать чек
+  val COMMAND_REGISTER_CHECK: String = "RegisterCheck"    // Зарегистрировать чек
   val COMMAND_X_REPORT: String = "XReport"                // Напечатать X-отчет
   val COMMAND_Z_REPORT: String = "ZReport"                // Напечатать Z-отчет
   val COMMAND_GET_DATA_KKT: String = "GetDataKKT"         // Получить состояние ККТ
@@ -50,7 +50,7 @@ package object protocol {
   val COMMAND_PAYMENT_CASH: String = "PaymentCash"        // Изъять наличные
   val COMMAND_DEPOSITING_CASH: String = "DepositingCash"  // Внести наличные
   val COMMAND_OPEN_SHIFT: String = "OpenShift"            // Открыть смену
-  val COMMAND_CLOSE_SHIFT: String = "CloseShift"          // Открыть смену
+  val COMMAND_CLOSE_SHIFT: String = "CloseShift"          // Закрыть смену
   val COMMAND_OPEN_CASH_DRAWER: String = "OpenCashDrawer" // Открыть денежный ящик
   val COMMAND_GET_SERVER_DATA: String = "GetServerData"   // Получить информацию о сервере
   val COMMAND_GET_DATA_CHECK: String = "GetDataCheck"     // Получить информацию о чеке и, возможно, напечатать его копию
