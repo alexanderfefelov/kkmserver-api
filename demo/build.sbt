@@ -1,10 +1,10 @@
 name := "kkmserver-api-demo"
-organization := "alexanderfefelov.github.com"
+organization := "com.github.alexanderfefelov"
 
 scalaVersion := "2.11.11"
 
 libraryDependencies ++= Seq(
-  "alexanderfefelov.github.com" %% "kkmserver-api" % "0.2.1-SNAPSHOT",
+  "com.github.alexanderfefelov" %% "kkmserver-api" % "0.2.1-SNAPSHOT",
   "com.github.nikita-volkov" % "sext" % "0.2.4",
   "org.webjars" % "jquery" % "3.2.1",
   "org.webjars" % "bootstrap" % "3.3.7"

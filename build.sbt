@@ -1,5 +1,5 @@
 name := "kkmserver-api"
-organization := "alexanderfefelov.github.com"
+organization := "com.github.alexanderfefelov"
 
 scalaVersion := "2.11.11"
 
