@@ -3,6 +3,8 @@ organization := "com.github.alexanderfefelov"
 
 scalaVersion := "2.11.11"
 
+resolvers += Resolver.jcenterRepo
+
 libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-ws" % "2.4.11",
   "joda-time" % "joda-time" % "2.9.9",
