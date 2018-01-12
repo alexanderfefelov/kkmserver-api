@@ -3,7 +3,7 @@
 ## Что это?
 
 Это набор файлов, позволяющий с помощью Vagrant в автоматическом режиме создать виртуальную машину
-VirtualBox на основе Windows Server 2012 R2 Standard Evaluation 64-bit, в которой
+VirtualBox на основе Windows Server 2016 Standard Evaluation 64-bit, в которой
 KkmServer будет установлен и запущен в режиме "служба Windows". Кроме того, в KkmServer будут настроены три эмулятора ККТ:
 
 1. [незарегистрированный](doc/foo.png)
