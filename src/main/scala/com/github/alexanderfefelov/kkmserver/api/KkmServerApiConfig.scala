@@ -25,6 +25,8 @@ package com.github.alexanderfefelov.kkmserver.api
 
 import com.typesafe.config.ConfigFactory
 
+// Default values comes from reference.com as recommended by official documentation.
+
 object KkmServerApiConfig {
 
   val CONFIG_PREFIX_API: String = "kkmserver-api"
@@ -37,9 +39,9 @@ object KkmServerApiConfig {
   val kkmServerUsername: String = config.getString(s"$CONFIG_PREFIX_KKMSERVER.username")
   val kkmServerPassword: String = config.getString(s"$CONFIG_PREFIX_KKMSERVER.password")
 
-  val graphiteEnabled: Boolean = if (config.hasPath(s"$CONFIG_PREFIX_GRAPHITE.enabled")) { config.getBoolean(s"$CONFIG_PREFIX_GRAPHITE.enabled") } else { false }
-  val graphiteHost: String = if (config.hasPath(s"$CONFIG_PREFIX_GRAPHITE.host")) { config.getString(s"$CONFIG_PREFIX_GRAPHITE.host") } else { "localhost" }
-  val graphitePort: Int = if (config.hasPath(s"$CONFIG_PREFIX_GRAPHITE.port")) { config.getInt(s"$CONFIG_PREFIX_GRAPHITE.port") } else { 2003 }
-  val graphitePrefix: String = if (config.hasPath(s"$CONFIG_PREFIX_GRAPHITE.prefix")) { config.getString(s"$CONFIG_PREFIX_GRAPHITE.prefix") } else { "test" }
+  val graphiteEnabled: Boolean = config.getBoolean(s"$CONFIG_PREFIX_GRAPHITE.enabled")
+  val graphiteHost: String = config.getString(s"$CONFIG_PREFIX_GRAPHITE.host")
+  val graphitePort: Int = config.getInt(s"$CONFIG_PREFIX_GRAPHITE.port")
+  val graphitePrefix: String = config.getString(s"$CONFIG_PREFIX_GRAPHITE.prefix")
 
 }

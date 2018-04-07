@@ -226,7 +226,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
           } // tax
         } // isFiscal
       } // checkType
-    }  // taxVariant
+    } // taxVariant
 
     s"GetDataCheck, device: $device" should "run without error and provide valid metadata" in {
       val request = GetDataCheckRequest(NumDevice = device, FiscalNumber = 0, NumberCopies = 1)
