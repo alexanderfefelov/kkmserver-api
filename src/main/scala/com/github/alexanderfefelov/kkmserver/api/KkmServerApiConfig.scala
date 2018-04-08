@@ -25,7 +25,7 @@ package com.github.alexanderfefelov.kkmserver.api
 
 import com.typesafe.config.ConfigFactory
 
-// Default values comes from reference.com as recommended by official documentation.
+// Default values comes from reference.conf as recommended by official documentation.
 
 object KkmServerApiConfig {
 
