@@ -83,7 +83,7 @@ package object protocol {
   val SESSION_STATE_OPEN: Int = 2    // Открыта
   val SESSION_STATE_EXPIRED: Int = 3 // Закончилась
 
-  // Системы налогообложения
+  // Системы налогообложения (тег 1055)
   //
   val SYSTEM_OF_TAXATION_0: String = "0" // Общая ОСН
   val SYSTEM_OF_TAXATION_1: String = "1" // Упрощенная УСН (Доход)
@@ -92,14 +92,14 @@ package object protocol {
   val SYSTEM_OF_TAXATION_4: String = "4" // Единый сельскохозяйственный налог ЕСН
   val SYSTEM_OF_TAXATION_5: String = "5" // Патентная система налогообложения
 
-  // Способ расчета
+  // Признаки способа расчета (тег 1214)
   //
   val PAYMENT_METHOD_PREPAYMENT = 1   // Полная предоплата
   val PAYMENT_METHOD_DOWN_PAYMENT = 2 // Частичная предоплата
   val PAYMENT_METHOD_ADVANCE = 3      // Аванс
   val PAYMENT_METHOD_FULL = 4         // Полная оплата
 
-  // Предмет расчета
+  // Признаки предмета расчета (тег 1212)
   //
   val PAYMENT_SUBJECT_GOODS = 1                 // Товар
   val PAYMENT_SUBJECT_EXCISE_GOODS = 2          // Акцизный товар
