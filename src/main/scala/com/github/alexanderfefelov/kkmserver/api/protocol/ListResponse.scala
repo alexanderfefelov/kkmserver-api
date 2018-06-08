@@ -69,8 +69,8 @@ object ListResponse {
     (__ \ "Active").read[Boolean] and
     (__ \ "TypeDevice").read[String] and
     (__ \ "IdTypeDevice").read[String] and
-    (__ \ "IP").read[String] and
     (__ \ "Firmware_Version").read[String] and
+    (__ \ "IP").read[String] and
     (__ \ "NameDevice").read[String] and
     (__ \ "UnitName").read[String] and
     __.read[NumbersData] and
