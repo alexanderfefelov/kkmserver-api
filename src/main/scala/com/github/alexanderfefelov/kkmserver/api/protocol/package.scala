@@ -25,6 +25,7 @@ package com.github.alexanderfefelov.kkmserver.api
 
 import org.joda.time.DateTime
 import org.joda.time.format.{DateTimeFormat, DateTimeFormatterBuilder}
+import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 package object protocol {
@@ -131,5 +132,41 @@ package object protocol {
   val DEFAULT_UNITNAME: String = ""
   val DEFAULT_SESSION_NUMBER: Int = -1
   val DEFAULT_CHECK_NUMBER: Int = -1
+
+  case class FNData (
+    FN_IsFiscal: Boolean,
+    FN_MemOverflowl: Boolean,
+    FN_DateEnd: DateTime
+  )
+
+  implicit val fnDataReads: Reads[FNData] = (
+    (__ \ "FN_IsFiscal").read[Boolean] and
+    (__ \ "FN_MemOverflowl").read[Boolean] and
+    (__ \ "FN_DateEnd").read[DateTime](jodaReads)
+    )(FNData.apply _)
+
+  case class NumbersData (
+    KktNumber: String,
+    FnNumber: String,
+    RegNumber: String
+  )
+
+  implicit val numbersDataReads: Reads[NumbersData] = (
+    (__ \ "KktNumber").read[String] and
+    (__ \ "FnNumber").read[String] and
+    (__ \ "RegNumber").read[String]
+    )(NumbersData.apply _)
+
+  case class OFDErrorData (
+    OFD_Error: String,
+    OFD_NumErrorDoc: Int,
+    OFD_DateErrorDoc: DateTime
+  )
+
+  implicit val ofdErrorDataReads: Reads[OFDErrorData] = (
+    (__ \ "OFD_Error").read[String] and
+    (__ \ "OFD_NumErrorDoc").read[Int] and
+    (__ \ "OFD_DateErrorDoc").read[DateTime](jodaReads)
+    )(OFDErrorData.apply _)
 
 }

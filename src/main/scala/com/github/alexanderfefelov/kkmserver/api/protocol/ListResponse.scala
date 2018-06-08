@@ -34,20 +34,17 @@ case class ListUnit (
   Active: Boolean,
   TypeDevice: String,
   IdTypeDevice: String,
+  Firmware_Version: String,
   IP: String,
   NameDevice: String,
   UnitName: String,
-  KktNumber: String,
+  Numbers: NumbersData,
   INN: String,
   NameOrganization: String,
   TaxVariant: String,
   AddDate: DateTime,
-  OFD_Error: String,
-  OFD_NumErrorDoc: Int,
-  OFD_DateErrorDoc: DateTime,
-  FN_DateEnd: DateTime,
-  FN_MemOverflowl: Boolean,
-  FN_IsFiscal: Boolean,
+  OFDError: OFDErrorData,
+  FN: FNData,
   PaperOver: Boolean
 )
 
@@ -73,19 +70,16 @@ object ListResponse {
     (__ \ "TypeDevice").read[String] and
     (__ \ "IdTypeDevice").read[String] and
     (__ \ "IP").read[String] and
+    (__ \ "Firmware_Version").read[String] and
     (__ \ "NameDevice").read[String] and
     (__ \ "UnitName").read[String] and
-    (__ \ "KktNumber").read[String] and
+    __.read[NumbersData] and
     (__ \ "INN").read[String] and
     (__ \ "NameOrganization").read[String] and
     (__ \ "TaxVariant").read[String] and
     (__ \ "AddDate").read[DateTime](jodaReads) and
-    (__ \ "OFD_Error").read[String] and
-    (__ \ "OFD_NumErrorDoc").read[Int] and
-    (__ \ "OFD_DateErrorDoc").read[DateTime](jodaReads) and
-    (__ \ "FN_DateEnd").read[DateTime](jodaReads) and
-    (__ \ "FN_MemOverflowl").read[Boolean] and
-    (__ \ "FN_IsFiscal").read[Boolean] and
+    __.read[OFDErrorData] and
+    __.read[FNData] and
     (__ \ "PaperOver").read[Boolean]
     )(ListUnit.apply _)
 
