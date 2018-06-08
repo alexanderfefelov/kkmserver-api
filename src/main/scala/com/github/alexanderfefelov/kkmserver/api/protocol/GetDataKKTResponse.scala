@@ -34,6 +34,17 @@ case class OrganizationData (
   SenderEmail: String
 )
 
+case class OFDData (
+  UrlServerOfd: String,
+  PortServerOfd: String,
+  NameOFD: String,
+  UrlOFD: String,
+  InnOFD: String,
+  OFD_Error: String,
+  OFD_NumErrorDoc: Int,
+  OFD_DateErrorDoc: DateTime
+)
+
 case class FFDData (
   FFDVersion: String,
   FFDVersionFN: String,
@@ -44,6 +55,11 @@ case class FNData (
   FN_IsFiscal: Boolean,
   FN_MemOverflowl: Boolean,
   FN_DateEnd: DateTime
+)
+
+case class FirmwareData (
+  Firmware_Version: String,
+  Firmware_Status: Int
 )
 
 case class NumbersData (
@@ -59,10 +75,13 @@ case class SettleData (
 
 case class InfoData (
   Organization: OrganizationData,
+  OFD: OFDData,
   FFD: FFDData,
   FN: FNData,
+  Firmware: FirmwareData,
   Numbers: NumbersData,
   Settle: SettleData,
+  DateTimeKKT: DateTime,
   SessionState: Int,
   BalanceCash: Double,
   OnOff: Boolean,
@@ -95,6 +114,17 @@ object GetDataKKTResponse {
     (__ \ "SenderEmail").read[String]
     )(OrganizationData.apply _)
 
+  implicit val ofdDataReads: Reads[OFDData] = (
+    (__ \ "UrlServerOfd").read[String] and
+    (__ \ "PortServerOfd").read[String] and
+    (__ \ "NameOFD").read[String] and
+    (__ \ "UrlOfd").read[String] and
+    (__ \ "InnOfd").read[String] and
+    (__ \ "OFD_Error").read[String] and
+    (__ \ "OFD_NumErrorDoc").read[Int] and
+    (__ \ "OFD_DateErrorDoc").read[DateTime](jodaReads)
+    )(OFDData.apply _)
+
   implicit val ffdDataReads: Reads[FFDData] = (
     (__ \ "FFDVersion").read[String] and
     (__ \ "FFDVersionFN").read[String] and
@@ -106,6 +136,11 @@ object GetDataKKTResponse {
     (__ \ "FN_MemOverflowl").read[Boolean] and
     (__ \ "FN_DateEnd").read[DateTime](jodaReads)
     )(FNData.apply _)
+
+  implicit val firmwareDataReads: Reads[FirmwareData] = (
+    (__ \ "Firmware_Version").read[String] and
+    (__ \ "Firmware_Status").read[Int]
+    )(FirmwareData.apply _)
 
   implicit val numbersDataReads: Reads[NumbersData] = (
     (__ \ "KktNumber").read[String] and
@@ -120,10 +155,13 @@ object GetDataKKTResponse {
 
   implicit val infoDataReads: Reads[InfoData] = (
     __.read[OrganizationData] and
+    __.read[OFDData] and
     __.read[FFDData] and
     __.read[FNData] and
+    __.read[FirmwareData] and
     __.read[NumbersData] and
     __.read[SettleData] and
+    (__ \ "DateTimeKKT").read[DateTime](jodaReads) and
     (__ \ "SessionState").read[Int] and
     (__ \ "BalanceCash").read[Double] and
     (__ \ "OnOff").read[Boolean] and
