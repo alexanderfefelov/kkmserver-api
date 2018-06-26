@@ -1,6 +1,6 @@
 # kkmserver-api demo
 
-Демонстрационный проект для [kkmserver-api](https://github.com/alexanderfefelov/kkmserver-api]) на основе Play Framework (Scala).
+Демонстрационный проект для [kkmserver-api](https://github.com/alexanderfefelov/kkmserver-api) на основе Play Framework (Scala).
 
 ![Скриншот](doc/screenshot.png)
 
