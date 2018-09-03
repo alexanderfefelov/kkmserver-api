@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Alexander Fefelov <alexanderfefelov@yandex.ru>
+ * Copyright (c) 2017-2018 Alexander Fefelov <alexanderfefelov@yandex.ru>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,12 +30,16 @@ import play.api.libs.json._
 
 package object protocol {
 
-  private val jodaFormatShort = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss")
-  private val jodaFormatLong = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZ")
+  val DATETIME_FORMAT_SHORT: String = "yyyy-MM-dd'T'HH:mm:ss"
+  val DATETIME_FORMAT_LONG: String = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZ"
+
+  private val jodaFormatShort = DateTimeFormat.forPattern(DATETIME_FORMAT_SHORT)
+  private val jodaFormatLong = DateTimeFormat.forPattern(DATETIME_FORMAT_LONG)
   private val jodaParsers = Array(jodaFormatShort.getParser, jodaFormatLong.getParser)
   private val jodaFormatter = new DateTimeFormatterBuilder().append(null, jodaParsers).toFormatter
 
   val jodaReads: Reads[DateTime] = Reads.of[String] map (x => jodaFormatter.parseDateTime(x))
+  val jodaWrites: Writes[DateTime] = JodaWrites.jodaDateWrites(DATETIME_FORMAT_SHORT)
 
   def createUuid: String = java.util.UUID.randomUUID().toString
 

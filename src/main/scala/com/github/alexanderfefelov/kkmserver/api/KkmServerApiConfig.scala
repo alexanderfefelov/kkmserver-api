@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Alexander Fefelov <alexanderfefelov@yandex.ru>
+ * Copyright (c) 2017-2018 Alexander Fefelov <alexanderfefelov@yandex.ru>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +38,8 @@ object KkmServerApiConfig {
   val kkmServerUrl: String = config.getString(s"$CONFIG_PREFIX_KKMSERVER.url")
   val kkmServerUsername: String = config.getString(s"$CONFIG_PREFIX_KKMSERVER.username")
   val kkmServerPassword: String = config.getString(s"$CONFIG_PREFIX_KKMSERVER.password")
+  val kkmServerConnectTimeout: Int = config.getInt(s"$CONFIG_PREFIX_KKMSERVER.connect-timeout")
+  val kkmServerReadTimeout: Int = config.getInt(s"$CONFIG_PREFIX_KKMSERVER.read-timeout")
 
   val graphiteEnabled: Boolean = config.getBoolean(s"$CONFIG_PREFIX_GRAPHITE.enabled")
   val graphiteHost: String = config.getString(s"$CONFIG_PREFIX_GRAPHITE.host")

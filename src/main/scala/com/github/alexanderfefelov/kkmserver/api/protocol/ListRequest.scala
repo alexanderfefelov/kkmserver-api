@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Alexander Fefelov <alexanderfefelov@yandex.ru>
+ * Copyright (c) 2017-2018 Alexander Fefelov <alexanderfefelov@yandex.ru>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -57,8 +57,8 @@ object ListRequest {
     (__ \ "Active").writeNullable[Boolean] and
     (__ \ "OnOff").writeNullable[Boolean] and
     (__ \ "OFD_Error").writeNullable[Boolean] and
-    (__ \ "OFD_DateErrorDoc").writeNullable[DateTime] and
-    (__ \ "FN_DateEnd").writeNullable[DateTime] and
+    (__ \ "OFD_DateErrorDoc").writeNullable[DateTime](jodaWrites) and
+    (__ \ "FN_DateEnd").writeNullable[DateTime](jodaWrites) and
     (__ \ "FN_MemOverflowl").writeNullable[Boolean] and
     (__ \ "FN_IsFiscal").writeNullable[Boolean]
     )(unlift(ListRequest.unapply))

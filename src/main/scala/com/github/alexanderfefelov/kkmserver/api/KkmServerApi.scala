@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Alexander Fefelov <alexanderfefelov@yandex.ru>
+ * Copyright (c) 2017-2018 Alexander Fefelov <alexanderfefelov@yandex.ru>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,21 +24,18 @@
 package com.github.alexanderfefelov.kkmserver.api
 
 import ca.aaronlevin.gitrev.gitHashShort
-import nl.grons.metrics.scala.Timer
 import com.github.alexanderfefelov.kkmserver.api.metrics.Instrumented
 import com.github.alexanderfefelov.kkmserver.api.protocol._
-import play.api.Logger
+import com.typesafe.scalalogging._
+import nl.grons.metrics.scala.Timer
 import play.api.libs.json._
-import play.api.libs.ws.ning.NingWSClient
-import play.api.libs.ws.{WSAuthScheme, WSResponse}
+import requests._
 
 import scala.collection.mutable
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class KkmServerApi extends Instrumented {
-
-  val wsClient: NingWSClient = NingWSClient()
 
   def getServerData(request: GetServerDataRequest): Future[GetServerDataResponse] = {
     timeFuture[GetServerDataResponse](s"${request.Command}.0") {
@@ -143,13 +140,14 @@ class KkmServerApi extends Instrumented {
     for {
       response <- responseFuture
     } yield {
-      logger.debug(s"response: ${response.json}")
-      response.json.validate[B] match {
+      logger.debug(s"response: ${response.text()}")
+      val json = Json.parse(response.text())
+      json.validate[B] match {
         case s: JsSuccess[B] =>
           s.value
         case e: JsError =>
           logger.error(s"error: ${e.errors}")
-          response.json.validate[MinimalResponse] match {
+          json.validate[MinimalResponse] match {
             case s2: JsSuccess[MinimalResponse] =>
               throw KkmServerApiException(s2.value.Error)
             case _: JsError =>
@@ -159,11 +157,14 @@ class KkmServerApi extends Instrumented {
     }
   }
 
-  private def wsCall(json: JsValue): Future[WSResponse] = {
-    wsClient.url(KkmServerApiConfig.kkmServerUrl)
-      .withAuth(KkmServerApiConfig.kkmServerUsername, KkmServerApiConfig.kkmServerPassword, WSAuthScheme.BASIC)
-      .withHeaders("Accept" -> "application/json")
-      .post(json)
+  private def wsCall(json: JsValue): Future[Response] = {
+    Future(requests.post(
+      url = KkmServerApiConfig.kkmServerUrl,
+      auth = RequestAuth.implicitBasic((KkmServerApiConfig.kkmServerUsername, KkmServerApiConfig.kkmServerPassword)),
+      data = json.toString(),
+      connectTimeout = KkmServerApiConfig.kkmServerConnectTimeout,
+      readTimeout = KkmServerApiConfig.kkmServerReadTimeout
+    ))
   }
 
   private def timeFuture[T](metricName: String)(block: Future[T]): Future[T] = {

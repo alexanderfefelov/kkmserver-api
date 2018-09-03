@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Alexander Fefelov <alexanderfefelov@yandex.ru>
+ * Copyright (c) 2017-2018 Alexander Fefelov <alexanderfefelov@yandex.ru>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,6 @@ import com.github.alexanderfefelov.kkmserver.api.protocol._
 import org.scalatest._
 import org.scalatest.concurrent._
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.concurrent.duration._
 
@@ -51,6 +50,8 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
     assert(config.kkmServerUrl == "http://localhost:5893/Execute/sync")
     assert(config.kkmServerUsername == "User")
     assert(config.kkmServerPassword == "user")
+    assert(config.kkmServerConnectTimeout == 20000)
+    assert(config.kkmServerReadTimeout == 20000)
     assert(config.graphiteEnabled == false)
     assert(config.graphiteHost == "localhost")
     assert(config.graphitePort == 2003)
