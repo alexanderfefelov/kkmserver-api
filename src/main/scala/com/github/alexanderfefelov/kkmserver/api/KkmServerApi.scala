@@ -23,6 +23,8 @@
 
 package com.github.alexanderfefelov.kkmserver.api
 
+import java.nio.charset.Charset
+
 import ca.aaronlevin.gitrev.gitHashShort
 import com.github.alexanderfefelov.kkmserver.api.metrics.Instrumented
 import com.github.alexanderfefelov.kkmserver.api.protocol._
@@ -140,8 +142,9 @@ class KkmServerApi extends Instrumented {
     for {
       response <- responseFuture
     } yield {
-      logger.debug(s"response: ${response.text()}")
-      val json = Json.parse(response.text())
+      val responseText = response.text(Charset.forName("UTF-8"))
+      logger.debug(s"response: $responseText")
+      val json = Json.parse(responseText)
       json.validate[B] match {
         case s: JsSuccess[B] =>
           s.value
