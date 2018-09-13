@@ -164,7 +164,7 @@ class KkmServerApi extends Instrumented {
     Future(requests.post(
       url = KkmServerApiConfig.kkmServerUrl,
       auth = RequestAuth.implicitBasic((KkmServerApiConfig.kkmServerUsername, KkmServerApiConfig.kkmServerPassword)),
-      data = json.toString(),
+      data = json.toString().getBytes(Charset.forName("UTF-8")),
       connectTimeout = KkmServerApiConfig.kkmServerConnectTimeout,
       readTimeout = KkmServerApiConfig.kkmServerReadTimeout
     ))
