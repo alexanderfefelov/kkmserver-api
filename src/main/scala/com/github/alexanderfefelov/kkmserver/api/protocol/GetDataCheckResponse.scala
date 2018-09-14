@@ -30,6 +30,7 @@ case class GetDataCheckResponse (
   // Payload
   //
   Slip: String,
+  QRCode: Option[String],
   // Meta
   //
   Command: String,
@@ -44,6 +45,7 @@ object GetDataCheckResponse {
 
   implicit val getDataCheckResponseReads: Reads[GetDataCheckResponse] = (
     (__ \ "Slip").read[String] and
+    (__ \ "QRCode").readNullable[String] and
     (__ \ "Command").read[String] and
     (__ \ "IdCommand").read[String] and
     (__ \ "Status").read[Int] and
