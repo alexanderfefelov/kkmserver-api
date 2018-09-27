@@ -41,7 +41,10 @@ package object protocol {
   val jodaReads: Reads[DateTime] = Reads.of[String] map (x => jodaFormatter.parseDateTime(x))
   val jodaWrites: Writes[DateTime] = JodaWrites.jodaDateWrites(DATETIME_FORMAT_SHORT)
 
-  def createUuid: String = java.util.UUID.randomUUID().toString
+  def createUuid: String = {
+    BigInt(java.util.UUID.randomUUID().toString.replaceAll("-", ""), 16)
+      .toString(36).grouped(5).mkString("-")
+  }
 
   // Команды
   //
