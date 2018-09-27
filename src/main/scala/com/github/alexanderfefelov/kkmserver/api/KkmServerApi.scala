@@ -63,15 +63,22 @@ class KkmServerApi extends Instrumented {
     }
   }
 
-  def registerCheck(request: RegisterCheckRequest): Future[RegisterCheckResponse] = {
-    timeFuture[RegisterCheckResponse](s"${request.Command}.${request.NumDevice.getOrElse(0)}") {
-      apiCall[RegisterCheckRequest, RegisterCheckResponse](request)
+  def registerCheck(request: RegisterCheckRequest, printId: Boolean = false): Future[RegisterCheckResponse] = {
+    val modifiedRequest = if (printId)
+      request.copy(AdditionalProps = AdditionalProp(Print = true, PrintInHeader = true, NameProp = "ID", Prop = request.IdCommand) :: request.AdditionalProps)
+    else request
+    timeFuture[RegisterCheckResponse](s"${modifiedRequest.Command}.${modifiedRequest.NumDevice.getOrElse(0)}") {
+      apiCall[RegisterCheckRequest, RegisterCheckResponse](modifiedRequest)
     }
   }
 
-  def registerCheck10(request: RegisterCheckRequest10): Future[RegisterCheckResponse] = {
-    timeFuture[RegisterCheckResponse](s"${request.Command}10.${request.NumDevice.getOrElse(0)}") {
-      apiCall[RegisterCheckRequest10, RegisterCheckResponse](request)
+  def registerCheck10(request: RegisterCheckRequest10, printId: Boolean = false): Future[RegisterCheckResponse] = {
+    val modifiedRequest = if (printId)
+      request.copy(AdditionalProps = AdditionalProp10(Print = true, PrintInHeader = true, NameProp = "ID", Prop = request.IdCommand) :: request.AdditionalProps)
+    else
+      request
+    timeFuture[RegisterCheckResponse](s"${modifiedRequest.Command}10.${modifiedRequest.NumDevice.getOrElse(0)}") {
+      apiCall[RegisterCheckRequest10, RegisterCheckResponse](modifiedRequest)
     }
   }
 
@@ -144,18 +151,24 @@ class KkmServerApi extends Instrumented {
     } yield {
       val responseText = response.text(Charset.forName("UTF-8"))
       logger.debug(s"response: $responseText")
-      val json = Json.parse(responseText)
-      json.validate[B] match {
-        case s: JsSuccess[B] =>
-          s.value
-        case e: JsError =>
-          logger.error(s"error: ${e.errors}")
-          json.validate[MinimalResponse] match {
-            case s2: JsSuccess[MinimalResponse] =>
-              throw KkmServerApiException(s2.value.Error)
-            case _: JsError =>
-              throw JsResultException(e.errors)
-          }
+      try {
+        val json = Json.parse(responseText)
+        json.validate[B] match {
+          case s: JsSuccess[B] =>
+            s.value
+          case e: JsError =>
+            logger.error(s"error: ${e.errors}")
+            json.validate[MinimalResponse] match {
+              case s2: JsSuccess[MinimalResponse] =>
+                throw KkmServerApiException(s2.value.Error)
+              case _: JsError =>
+                throw JsResultException(e.errors)
+            }
+        }
+      } catch {
+        case e: com.fasterxml.jackson.databind.exc.MismatchedInputException =>
+          logger.error(s"error: ${e.getMessage}")
+          throw KkmServerApiException(e.getMessage)
       }
     }
   }
