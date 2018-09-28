@@ -157,11 +157,11 @@ class KkmServerApi extends Instrumented {
           case s: JsSuccess[B] =>
             s.value
           case e: JsError =>
-            logger.error(s"error: ${e.errors}")
             json.validate[MinimalResponse] match {
               case s2: JsSuccess[MinimalResponse] =>
                 throw KkmServerApiException(s2.value.Error)
               case _: JsError =>
+                logger.error(s"error: ${e.errors}")
                 throw JsResultException(e.errors)
             }
         }
