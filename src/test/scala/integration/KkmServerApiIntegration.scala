@@ -23,15 +23,18 @@
 
 package integration
 
+import com.auvik.util.SequentialExecutionContext
 import com.github.alexanderfefelov.kkmserver.api._
 import com.github.alexanderfefelov.kkmserver.api.protocol._
 import org.scalatest._
 import org.scalatest.concurrent._
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.duration._
 
 class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration {
+
+  override implicit val executionContext: ExecutionContext = SequentialExecutionContext(scala.concurrent.ExecutionContext.Implicits.global)
 
   private val api = new KkmServerApi()
 
