@@ -23,6 +23,7 @@
 
 package com.github.alexanderfefelov.kkmserver.api
 
+import io.seruco.encoding.base62.Base62
 import org.joda.time.DateTime
 import org.joda.time.format.{DateTimeFormat, DateTimeFormatterBuilder}
 import play.api.libs.functional.syntax._
@@ -41,9 +42,10 @@ package object protocol {
   val jodaReads: Reads[DateTime] = Reads.of[String] map (x => jodaFormatter.parseDateTime(x))
   val jodaWrites: Writes[DateTime] = JodaWrites.jodaDateWrites(DATETIME_FORMAT_SHORT)
 
+  private val base62 = Base62.createInstance();
   def createUuid: String = {
-    BigInt(java.util.UUID.randomUUID().toString.replaceAll("-", ""), 16)
-      .toString(36).grouped(5).mkString("-")
+    new String(base62.encode(BigInt(java.util.UUID.randomUUID().toString.replaceAll("-", ""), 16).toByteArray))
+      .grouped(6).mkString("-")
   }
 
   // Команды
