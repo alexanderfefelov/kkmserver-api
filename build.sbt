@@ -8,7 +8,7 @@ resolvers += Resolver.jcenterRepo
 libraryDependencies ++= Seq(
   "ca.aaronlevin" %% "scala-gitrev" % "0.1.1",
   "ch.qos.logback" % "logback-classic" % "1.2.3",
-  "com.lihaoyi" %% "requests" % "0.1.4",
+  "com.lihaoyi" %% "requests" % "0.1.5",
   "com.typesafe.play" %% "play-json-joda" % "2.6.10",
   "com.typesafe.play" %% "play-json" % "2.6.10",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.9.0",
