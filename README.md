@@ -1,13 +1,13 @@
 # kkmserver-api
 
-Scala API для сервера печати чеков/этикеток [KkmServer](https://kkmserver.ru/KkmServer).
+Scala API для сервера печати чеков/этикеток KkmServer.
 
 Для установки выполните команды
 
     git clone https://github.com/alexanderfefelov/kkmserver-api.git
     git checkout tags/v0.3.0
     
-Разверните [тестовую операционную систему](extra/kkmserver/vagrant/README.md) и запустите тесты 
+Разверните [тестовый инстанс KkmServer](extra/kkmserver/vagrant/README.md) и запустите тесты 
 
     cd kkmserver-api
     sbt test
