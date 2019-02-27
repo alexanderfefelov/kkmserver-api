@@ -24,7 +24,7 @@
 package com.github.alexanderfefelov.kkmserver.api.metrics
 
 import com.codahale.metrics.MetricRegistry
-import nl.grons.metrics.scala.{HdrMetricBuilder, InstrumentedBuilder}
+import nl.grons.metrics4.scala.{HdrMetricBuilder, InstrumentedBuilder}
 
 trait Instrumented extends InstrumentedBuilder {
 

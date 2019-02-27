@@ -29,7 +29,7 @@ import ca.aaronlevin.gitrev.gitHashShort
 import com.github.alexanderfefelov.kkmserver.api.metrics.Instrumented
 import com.github.alexanderfefelov.kkmserver.api.protocol._
 import com.typesafe.scalalogging._
-import nl.grons.metrics.scala.Timer
+import nl.grons.metrics4.scala.Timer
 import play.api.libs.json._
 import requests._
 
