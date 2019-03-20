@@ -147,8 +147,18 @@ class KkmServerApi extends Instrumented {
     logger.debug(s"request: $requestJson")
     val responseFuture = wsCall(requestJson)
     for {
-      response <- responseFuture
+      response <- responseFuture recoverWith {
+        case e: Exception =>
+          val message = s"${e.getClass.getName}: ${e.getMessage}"
+          logger.error(s"error: $message")
+          throw KkmServerApiException(message)
+      }
     } yield {
+      if (response.statusCode != 200) {
+        val message = s"KkmServer response: ${response.statusCode} ${response.statusMessage}"
+        logger.error(s"error: $message")
+        throw KkmServerApiException(message)
+      }
       val responseText = response.text(Charset.forName("UTF-8"))
       logger.debug(s"response: $responseText")
       try {
