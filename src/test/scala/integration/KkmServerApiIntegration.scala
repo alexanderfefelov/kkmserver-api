@@ -75,7 +75,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
     val responseFuture = api.list(request)
     ScalaFutures.whenReady(responseFuture.failed) { e =>
       assert(e.isInstanceOf[KkmServerApiException])
-      assert(e.getMessage.startsWith(s"Ошибка разбора (парсинга) команды: Message: Неопознанная команда $UNKNOWN_COMMAND"))
+      assert(e.getMessage.startsWith(s"501 Not Implemented"))
     }
   }
 

@@ -155,7 +155,7 @@ class KkmServerApi extends Instrumented {
       }
     } yield {
       if (response.statusCode != 200) {
-        val message = s"KkmServer response: ${response.statusCode} ${response.statusMessage}"
+        val message = s"${response.statusCode} ${response.statusMessage}"
         logger.error(s"error: $message")
         throw KkmServerApiException(message)
       }
