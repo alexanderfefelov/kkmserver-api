@@ -8,16 +8,16 @@ resolvers += Resolver.jcenterRepo
 libraryDependencies ++= Seq(
   "ca.aaronlevin" %% "scala-gitrev" % "0.1.1",
   "ch.qos.logback" % "logback-classic" % "1.2.3",
-  "com.lihaoyi" %% "requests" % "0.1.7",
-  "com.typesafe.play" %% "play-json-joda" % "2.7.2",
-  "com.typesafe.play" %% "play-json" % "2.7.2",
-  "com.typesafe.scala-logging" %% "scala-logging" % "3.9.0",
-  "com.typesafe" % "config" % "1.3.3",
-  "io.dropwizard" % "dropwizard-metrics-graphite" % "1.3.9",
+  "com.lihaoyi" %% "requests" % "0.1.8",
+  "com.typesafe.play" %% "play-json-joda" % "2.7.3",
+  "com.typesafe.play" %% "play-json" % "2.7.3",
+  "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",
+  "com.typesafe" % "config" % "1.3.4",
+  "io.dropwizard" % "dropwizard-metrics-graphite" % "1.3.11",
   "io.seruco.encoding" % "base62" % "0.1.2",
-  "joda-time" % "joda-time" % "2.10.1",
-  "nl.grons" %% "metrics4-scala" % "4.0.4",
-  "nl.grons" %% "metrics4-scala-hdr" % "4.0.4",
+  "joda-time" % "joda-time" % "2.10.2",
+  "nl.grons" %% "metrics4-scala" % "4.0.5",
+  "nl.grons" %% "metrics4-scala-hdr" % "4.0.5",
   "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 )
 
