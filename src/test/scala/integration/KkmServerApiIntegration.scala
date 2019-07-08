@@ -313,6 +313,8 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
       CancelOpenedCheck = true,
       CashierName = CASHIER_NAME,
       CashierVATIN = CASHIER_VATIN,
+      ClientInfo = Option("ООО \"Рога и копыта\""),
+      ClientINN = Option("1234567890"),
       SenderEmail = Option("none@inter.net"),
       AdditionalProps = List(
         AdditionalProp(Print = true, PrintInHeader = true, NameProp = "Название1", Prop = "Значение1"),
@@ -324,8 +326,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
         RegisterCheckString(RegisterCheckStringData(GOOD, EAN13 = Option(EAN), Quantity = 5.00, Price = 4000.00, Amount = 19500.00, Tax = tax, Department = department)),
         BarCodeCheckString(BarCodeCheckStringData("EAN13", EAN))
       ),
-      Cash = 19000.00,
-      ElectronicPayment = 500.00
+      Payment = PaymentData(Cash = 19000.00, ElectronicPayment = 500.00)
     )
   }
 

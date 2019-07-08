@@ -79,6 +79,14 @@ case class BarCodeCheckString (
   BarCode: BarCodeCheckStringData
 ) extends CheckString
 
+case class PaymentData (
+  Cash: Double = 0.0,
+  ElectronicPayment: Double = 0.0,
+  AdvancePayment: Double = 0.0,
+  Credit: Double = 0.0,
+  CashProvision: Double = 0.0
+)
+
 case class RegisterCheckRequest (
   // Meta
   //
@@ -97,17 +105,15 @@ case class RegisterCheckRequest (
   NotPrint: Boolean = false,
   CashierName: String,
   CashierVATIN: String,
+  ClientInfo: Option[String] = None,
+  ClientINN: Option[String] = None,
   SenderEmail: Option[String] = None,
   ClientAddress: Option[String] = None,
   TaxVariant: Option[String] = None,
   AdditionalProps: List[AdditionalProp] = List(),
   KPP: Option[String] = None,
   CheckStrings: List[CheckString],
-  Cash: Double = 0.0,
-  ElectronicPayment: Double = 0.0,
-  AdvancePayment: Double = 0.0,
-  Credit: Double = 0.0,
-  CashProvision: Double = 0.0
+  Payment: PaymentData
 )
 
 object RegisterCheckRequest {
@@ -162,6 +168,14 @@ object RegisterCheckRequest {
     }
   }
 
+  implicit val paymentDataWrites: Writes[PaymentData] = (
+    (__ \ "Cash").write[Double] and
+    (__ \ "ElectronicPayment").write[Double] and
+    (__ \ "AdvancePayment").write[Double] and
+    (__ \ "Credit").write[Double] and
+    (__ \ "CashProvision").write[Double]
+    )(unlift(PaymentData.unapply))
+
   implicit val registerCheckRequestWrites: Writes[RegisterCheckRequest] = (
     (__ \ "Command").write[String] and
     (__ \ "IdCommand").write[String] and
@@ -174,17 +188,15 @@ object RegisterCheckRequest {
     (__ \ "NotPrint").write[Boolean] and
     (__ \ "CashierName").write[String] and
     (__ \ "CashierVATIN").write[String] and
+    (__ \ "ClientInfo").writeNullable[String] and
+    (__ \ "ClientINN").writeNullable[String] and
     (__ \ "SenderEmail").writeNullable[String] and
     (__ \ "ClientAddress").writeNullable[String] and
     (__ \ "TaxVariant").writeNullable[String] and
     (__ \ "AdditionalProps").write[List[AdditionalProp]] and
     (__ \ "KPP").writeNullable[String] and
     (__ \ "CheckStrings").write[List[CheckString]] and
-    (__ \ "Cash").write[Double] and
-    (__ \ "ElectronicPayment").write[Double] and
-    (__ \ "AdvancePayment").write[Double] and
-    (__ \ "Credit").write[Double] and
-    (__ \ "CashProvision").write[Double]
+    __.write[PaymentData]
     )(unlift(RegisterCheckRequest.unapply))
 
 }
