@@ -48,7 +48,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
 
   private var commandId = ""
 
-  s"KkmServerApiConfig" should "load correct values" in {
+  "KkmServerApiConfig" should "load correct values" in {
     val config = KkmServerApiConfig
     assert(config.kkmServerUrl == "http://localhost:5893/Execute/sync")
     assert(config.kkmServerUsername == "User")
@@ -61,7 +61,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
     assert(config.graphitePrefix == "test")
   }
 
-  s"GetDataKKT, unknown device" should "throw exception with known message string" in {
+  "GetDataKKT, unknown device" should "throw exception with known message string" in {
     val request = GetDataKKTRequest(NumDevice = 9)
     val responseFuture = api.getDataKKT(request)
     ScalaFutures.whenReady(responseFuture.failed, timeout(5.seconds), interval(500.millis)) { e =>
@@ -75,7 +75,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
     val responseFuture = api.list(request)
     ScalaFutures.whenReady(responseFuture.failed) { e =>
       assert(e.isInstanceOf[KkmServerApiException])
-      assert(e.getMessage.startsWith(s"501 Not Implemented"))
+      assert(e.getMessage.startsWith("501 Not Implemented"))
     }
   }
 
@@ -92,7 +92,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
     }
 
     if (!active) {
-      s"GetDataKKT, inactive device" should "throw exception with known message string" in {
+      "GetDataKKT, inactive device" should "throw exception with known message string" in {
         val request = GetDataKKTRequest(NumDevice = 1)
         val responseFuture = api.getDataKKT(request)
         ScalaFutures.whenReady(responseFuture.failed) { e =>
@@ -115,7 +115,7 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
     }
   }
 
-  s"List" should "run without error, provide valid metadata, and return exactly 3 devices" in {
+  "List" should "run without error, provide valid metadata, and return exactly 3 devices" in {
     val request = ListRequest()
     api.list(request) map { response =>
       assert(response.Status == COMMAND_STATUS_OK)
@@ -310,7 +310,6 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
       IsFiscalCheck = isFiscal,
       TypeCheck = checkType,
       TaxVariant = taxVariant,
-      CancelOpenedCheck = true,
       CashierName = CASHIER_NAME,
       CashierVATIN = CASHIER_VATIN,
       ClientInfo = Option("ООО \"Рога и копыта\""),
@@ -336,7 +335,6 @@ class KkmServerApiIntegration extends AsyncFlatSpec  with PatienceConfiguration 
       IsFiscalCheck = isFiscal,
       TypeCheck = checkType,
       TaxVariant = taxVariant,
-      CancelOpenedCheck = true,
       CashierName = CASHIER_NAME,
       AdditionalProps = List(
         AdditionalProp10(Print = true, PrintInHeader = true, NameProp = "Название1", Prop = "Значение1"),

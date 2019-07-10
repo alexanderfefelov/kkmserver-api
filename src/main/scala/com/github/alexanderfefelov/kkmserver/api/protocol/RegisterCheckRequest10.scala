@@ -91,7 +91,6 @@ case class RegisterCheckRequest10 (
   //
   IsFiscalCheck: Boolean,
   TypeCheck: Int,
-  CancelOpenedCheck: Boolean,
   NotPrint: Boolean = false,
   CashierName: String,
   ClientAddress: Option[String] = None,
@@ -163,7 +162,6 @@ object RegisterCheckRequest10 {
     (__ \ "KktNumber").writeNullable[String] and
     (__ \ "IsFiscalCheck").write[Boolean] and
     (__ \ "TypeCheck").write[Int] and
-    (__ \ "CancelOpenedCheck").write[Boolean] and
     (__ \ "NotPrint").write[Boolean] and
     (__ \ "CashierName").write[String] and
     (__ \ "ClientAddress").writeNullable[String] and
