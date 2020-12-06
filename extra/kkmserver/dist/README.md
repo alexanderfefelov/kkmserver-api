@@ -1,3 +1,1 @@
-Этот каталог содержит набор дистрибутивов KkmServer.
-
-Все файлы проверены сервисом VirusTotal.
+Moved to https://github.com/alexanderfefelov/kkmserver-dist
